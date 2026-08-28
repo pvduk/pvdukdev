@@ -81,6 +81,9 @@
   <link rel="stylesheet" href="css/pages/home.css">
 </head>
 <body>
+  <!-- Skip Link (Acessibilidade WCAG 2.1 AA · 2.4.1 Bypass Blocks) -->
+  <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
+
   <!-- Progressive Enhancement Fallback Banner (No-JS) -->
   <noscript>
     <div class="noscript-banner" role="status">
@@ -154,15 +157,15 @@
           Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.
         </p>
 
-        <!-- Disciplinas Técnicas -->
-        <div class="disciplines-pills" aria-label="Especialidades Técnicas">
-          <span class="discipline-pill" data-i18n="disc.system_design">System Design</span>
-          <span class="discipline-pill" data-i18n="disc.clean_arch">Clean Architecture</span>
-          <span class="discipline-pill" data-i18n="disc.web_perf">Web Performance (CWV)</span>
-          <span class="discipline-pill" data-i18n="disc.avalonia_ui">Avalonia UI</span>
-          <span class="discipline-pill" data-i18n="disc.sql_nosql">SQL e NoSQL</span>
-          <span class="discipline-pill" data-i18n="disc.iac_docker">IaC e Docker</span>
-        </div>
+        <!-- Disciplinas Técnicas (Lista Semântica WCAG) -->
+        <ul class="disciplines-pills" aria-label="Especialidades Técnicas">
+          <li class="discipline-pill" data-i18n="disc.system_design">System Design</li>
+          <li class="discipline-pill" data-i18n="disc.clean_arch">Clean Architecture</li>
+          <li class="discipline-pill" data-i18n="disc.web_perf">Web Performance (CWV)</li>
+          <li class="discipline-pill" data-i18n="disc.avalonia_ui">Avalonia UI</li>
+          <li class="discipline-pill" data-i18n="disc.sql_nosql">SQL e NoSQL</li>
+          <li class="discipline-pill" data-i18n="disc.iac_docker">IaC e Docker</li>
+        </ul>
 
         <!-- Botões de Ação -->
         <div class="hero-actions">
@@ -440,15 +443,15 @@
             <div class="term-card">
               <div class="term-user-title"><strong data-i18n="terminal.whoami_title">pvduk · Senior Software Engineer e FullStack C#/React</strong></div>
               <p data-i18n="terminal.whoami_desc">Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.</p>
-              <div class="term-tags">
-                <span class="term-tag" data-i18n="terminal.whoami_tag_ts">TypeScript / Vanilla ES2026</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_clean">Clean Architecture e DDD</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_perf">Web Standards e CWV</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_docker">IaC e Docker</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_avalonia">Avalonia UI</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_db">SQL e NoSQL</span>
-                <span class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</span>
-              </div>
+              <ul class="term-tags" aria-label="Especialidades">
+                <li class="term-tag" data-i18n="terminal.whoami_tag_ts">TypeScript / Vanilla ES2026</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_clean">Clean Architecture e DDD</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_perf">Web Standards e CWV</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_docker">IaC e Docker</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_avalonia">Avalonia UI</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_db">SQL e NoSQL</li>
+                <li class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</li>
+              </ul>
               <div class="term-status-available" data-i18n="terminal.whoami_status">
                 ● Status: Disponível para projetos e consultoria técnica
               </div>
@@ -471,7 +474,7 @@
   <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
-      <span data-i18n="footer.author">Feito à mão com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+      <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
       <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
     </div>
   </footer>

@@ -13,6 +13,7 @@
   // ═════════════════════════════════════════════════════════════════
   const dictionaries = {
     pt: {
+      'nav.skip_to_content': 'Pular para o conteúdo principal',
       'nav.home': 'Início',
       'nav.roadmap': 'Roadmap',
       'nav.brand': 'pvduk · dev',
@@ -21,7 +22,7 @@
       'btn.theme_toggle': 'Alternar Tema',
       'btn.dev_mode': 'Modo Dev',
       'btn.std_mode': 'Modo Padrão',
-      'footer.author': 'Feito à mão com Vanilla Web Standards e Clean Architecture.',
+      'footer.author': 'Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site',
 
       'hub.badge_status': 'Disponível para projetos e consultoria',
       'hub.hero_title': 'Engenheiro de Software e<br><em>FullStack C#/React</em>',
@@ -239,6 +240,7 @@
       '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!'
     },
     en: {
+      'nav.skip_to_content': 'Skip to main content',
       'nav.home': 'Home',
       'nav.roadmap': 'Roadmap',
       'nav.brand': 'pvduk · dev',
@@ -247,7 +249,7 @@
       'btn.theme_toggle': 'Toggle Theme',
       'btn.dev_mode': 'Dev Mode',
       'btn.std_mode': 'Standard Mode',
-      'footer.author': 'Handcrafted with Vanilla Web Standards and Clean Architecture.',
+      'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.',
 
       'hub.badge_status': 'Available for projects and consulting',
       'hub.hero_title': 'Software Engineer and<br><em>FullStack C#/React</em>',
@@ -728,15 +730,15 @@
 <div class="term-card">
   <div class="term-user-title"><strong data-i18n="terminal.whoami_title">${isPt ? 'pvduk · Senior Software Engineer e FullStack C#/React' : 'pvduk · Senior Software Engineer and FullStack C#/React'}</strong></div>
   <p data-i18n="terminal.whoami_desc">${isPt ? 'Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.' : 'Specialized in clean architecture, distributed systems, web performance, and pure frontend engineering.'}</p>
-  <div class="term-tags">
-    <span class="term-tag" data-i18n="terminal.whoami_tag_ts">TypeScript / Vanilla ES2026</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_clean">${isPt ? 'Clean Architecture e DDD' : 'Clean Architecture and DDD'}</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_perf">${isPt ? 'Web Standards e CWV' : 'Web Standards and CWV'}</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_docker">${isPt ? 'IaC e Docker' : 'IaC and Docker'}</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_avalonia">Avalonia UI</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_db">${isPt ? 'SQL e NoSQL' : 'SQL and NoSQL'}</span>
-    <span class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</span>
-  </div>
+  <ul class="term-tags" aria-label="Especialidades">
+    <li class="term-tag" data-i18n="terminal.whoami_tag_ts">TypeScript / Vanilla ES2026</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_clean">${isPt ? 'Clean Architecture e DDD' : 'Clean Architecture and DDD'}</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_perf">${isPt ? 'Web Standards e CWV' : 'Web Standards and CWV'}</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_docker">${isPt ? 'IaC e Docker' : 'IaC and Docker'}</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_avalonia">Avalonia UI</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_db">${isPt ? 'SQL e NoSQL' : 'SQL and NoSQL'}</li>
+    <li class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</li>
+  </ul>
   <div class="term-status-available" data-i18n="terminal.whoami_status">
     ${isPt ? '● Status: Disponível para projetos e consultoria técnica' : '● Status: Available for projects and technical consulting'}
   </div>

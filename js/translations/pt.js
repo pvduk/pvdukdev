@@ -4,6 +4,7 @@
  */
 export const pt = {
   // ─── Topbar e Navegação ───
+  'nav.skip_to_content': 'Pular para o conteúdo principal',
   'nav.home': 'Início',
   'nav.roadmap': 'Roadmap',
   'nav.system_design': '02 · System Design',
@@ -13,7 +14,7 @@ export const pt = {
   'btn.theme_toggle': 'Alternar Tema',
   'btn.dev_mode': 'Modo Dev',
   'btn.std_mode': 'Modo Padrão',
-  'footer.author': 'Feito à mão com Vanilla Web Standards e Clean Architecture.',
+  'footer.author': 'Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site',
 
   // ─── Home Hub: Modo Padrão (Opção 1 · The Architectural Engineer) ───
   'hub.badge_status': 'Disponível para projetos e consultoria',

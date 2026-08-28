@@ -1159,6 +1159,57 @@ console.log('\n📦 Scenario 30: Content Security Policy (CSP) & Defesa contra X
   });
 }
 
+console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas (<ul>/<li>) & Microcopy do Footer');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+  const ptTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+  const enTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+
+  it('Todas as páginas devem possuir Skip Link acessível apontando para #main-content com i18n', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html) => {
+      assert.ok(html.includes('<a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">'), 'Skip link presente');
+      assert.ok(html.includes('id="main-content"'), 'Alvo #main-content presente');
+    });
+  });
+
+  it('css/components.css deve estilizar .skip-link com foco visível acessível', () => {
+    assert.ok(cssComponents.includes('.skip-link {'), '.skip-link definida');
+    assert.ok(cssComponents.includes('.skip-link:focus') || cssComponents.includes('.skip-link:focus-visible'), 'foco visível do skip-link');
+  });
+
+  it('Coleções de tags e pills devem ser listas semânticas <ul> contendo <li> com list-style none', () => {
+    assert.ok(indexHtml.includes('<ul class="disciplines-pills"'), 'disciplines-pills é ul');
+    assert.ok(indexHtml.includes('<li class="discipline-pill"'), 'discipline-pill é li');
+    assert.ok(indexHtml.includes('<ul class="term-tags"'), 'term-tags em index.html é ul');
+    assert.ok(indexHtml.includes('<li class="term-tag"'), 'term-tag em index.html é li');
+    assert.ok(roadmapHtml.includes('<ul class="phase-tags"'), 'phase-tags em roadmap é ul');
+    assert.ok(roadmapHtml.includes('<li class="tag'), 'tag em roadmap é li');
+    assert.ok(cssHome.includes('.disciplines-pills') && cssHome.includes('list-style: none;'), 'disciplines-pills list-style none');
+    assert.ok(cssHome.includes('.term-tags') && cssHome.includes('list-style: none;'), 'term-tags list-style none');
+    assert.ok(cssRoadmap.includes('.phase-tags') && cssRoadmap.includes('list-style: none;'), 'phase-tags list-style none');
+  });
+
+  it('Frase em português do rodapé deve ser atualizada para "Feito com Vanilla Web Standards..."', () => {
+    const expectedPt = 'Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site';
+    assert.ok(indexHtml.includes(expectedPt), 'footer em index.html atualizado');
+    assert.ok(roadmapHtml.includes(expectedPt), 'footer em roadmap-requisitos.html atualizado');
+    assert.ok(errorHtml.includes(expectedPt), 'footer em 404.html atualizado');
+    assert.ok(ptTranslations.includes(expectedPt), 'footer.author em pt.js atualizado');
+    assert.ok(!indexHtml.includes('Feito à mão com Vanilla Web Standards. Nenhum framework de 50MB'), 'Sem "à mão" no index');
+  });
+
+  it('Traduções devem incluir nav.skip_to_content em PT/EN e footer.author atualizado em EN', () => {
+    assert.ok(ptTranslations.includes("'nav.skip_to_content': 'Pular para o conteúdo principal'"), 'skip_to_content em pt.js');
+    assert.ok(enTranslations.includes("'nav.skip_to_content': 'Skip to main content'"), 'skip_to_content em en.js');
+    assert.ok(enTranslations.includes("'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.'"), 'footer.author em en.js com Crafted');
+  });
+}
+
 console.log('\n═══════════════════════════════════════════════════════════');
 console.log(`📊 RESULTADO DA SUÍTE DE TESTES: ${passed} / ${total} PASSOU COM SUCESSO! 🚀`);
 console.log('═══════════════════════════════════════════════════════════\n');

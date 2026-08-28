@@ -177,6 +177,8 @@
     justify-content: center;
     max-width: 780px;
     margin-bottom: 36px;
+    list-style: none;
+    padding: 0;
   }
 
   .discipline-pill {
@@ -933,6 +935,8 @@
     gap: 6px;
     flex-wrap: wrap;
     margin-top: 8px;
+    list-style: none;
+    padding: 0;
   }
 
   .term-tag {

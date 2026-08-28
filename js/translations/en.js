@@ -4,6 +4,7 @@
  */
 export const en = {
   // ─── Topbar and Navigation ───
+  'nav.skip_to_content': 'Skip to main content',
   'nav.home': 'Home',
   'nav.roadmap': 'Roadmap',
   'nav.system_design': '02 · System Design',
@@ -13,7 +14,7 @@ export const en = {
   'btn.theme_toggle': 'Toggle Theme',
   'btn.dev_mode': 'Dev Mode',
   'btn.std_mode': 'Standard Mode',
-  'footer.author': 'Handcrafted with Vanilla Web Standards and Clean Architecture.',
+  'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.',
 
   // ─── Home Hub: Standard Mode (Option 1 · The Architectural Engineer) ───
   'hub.badge_status': 'Available for projects and consulting',
