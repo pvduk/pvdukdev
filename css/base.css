@@ -1,0 +1,210 @@
+/* ═════════════════════════════════════════════════════════════════════
+   COSTAR DESIGN SYSTEM · BASE CSS
+   Reset, Typography, Tokens Universais & Cascade Layers
+   ═════════════════════════════════════════════════════════════════════ */
+
+@layer reset, base, layout, components, utilities;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    interpolate-size: allow-keywords;
+  }
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+  p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer base {
+  :root {
+    /* Brand Accent Colors */
+    --color-blue: #2563eb;
+    --color-blue-d: #1e40af;
+    --color-blue-50: #eff6ff;
+    --color-blue-100: #dbeafe;
+    --color-accent: #5b6fff;
+    --color-accent2: #38bdf8;
+    --color-accent3: #a78bfa;
+    --color-orange: #ea580c;
+    --color-orange-d: #c2410c;
+    --color-orange-50: #fff0e6;
+    --color-amber: #d97706;
+    --color-amber-d: #92400e;
+    --color-amber-50: #fffbeb;
+    --color-amber-100: #fef3c7;
+    --color-green: #059669;
+    --color-green-d: #047857;
+    --color-green-50: #ecfdf5;
+    --color-red: #dc2626;
+    --color-red-d: #b91c1c;
+    --color-red-50: #fef2f2;
+    --color-purple: #7c3aed;
+    --color-purple-50: #f5f3ff;
+
+    /* OS Specific Colors */
+    --mac-color: #15803d;
+    --mac-bg: #f0fdf4;
+    --mac-border: #bbf7d0;
+    --win-color: #1d4ed8;
+    --win-bg: #eff6ff;
+    --win-border: #bfdbfe;
+
+    /* Typography · High-Performance Big Tech & Engineering */
+    --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Spacing System */
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* Border Radii */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* Elevation & Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Transitions */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ─── TEMA ESCURO (Padrão para Hub e Roadmap) ─── */
+  :root, [data-theme="dark"] {
+    --bg-page: #0a0c10;
+    --bg-surface: #111420;
+    --bg-surface-alt: #181c2e;
+    --bg-surface-elevated: #1e2438;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-m: rgba(255, 255, 255, 0.16);
+    --border-hover: rgba(255, 255, 255, 0.28);
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --bg-grid-color: rgba(91, 111, 255, 0.035);
+    --topbar-bg: rgba(10, 12, 16, 0.9);
+    --topbar-border: rgba(255, 255, 255, 0.1);
+    --badge-blue-text: #60a5fa;
+
+    /* Infoboxes Themed Tokens (Dark Mode) */
+    --ib-blue-bg: rgba(37, 99, 235, 0.12);
+    --ib-blue-border: rgba(59, 130, 246, 0.35);
+    --ib-blue-text: #bfdbfe;
+    --ib-blue-title: #93c5fd;
+
+    --ib-green-bg: rgba(5, 150, 105, 0.12);
+    --ib-green-border: rgba(16, 185, 129, 0.35);
+    --ib-green-text: #a7f3d0;
+    --ib-green-title: #6ee7b7;
+
+    --ib-amber-bg: rgba(217, 119, 6, 0.12);
+    --ib-amber-border: rgba(245, 158, 11, 0.35);
+    --ib-amber-text: #fde68a;
+    --ib-amber-title: #fcd34d;
+
+    --ib-red-bg: rgba(220, 38, 38, 0.12);
+    --ib-red-border: rgba(239, 68, 68, 0.35);
+    --ib-red-text: #fecaca;
+    --ib-red-title: #fca5a5;
+  }
+
+  /* ─── TEMA CLARO ─── */
+  [data-theme="light"] {
+    --bg-page: #faf6f0;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #f2ece0;
+    --bg-surface-elevated: #e8dece;
+    --border: #d6cfc5;
+    --border-m: #c2bab0;
+    --border-hover: #1c1917;
+    --text-main: #1c1917;
+    --text-muted: #44403c;
+    --text-dim: #78716c;
+    --bg-grid-color: rgba(37, 99, 235, 0.04);
+    --topbar-bg: rgba(250, 246, 240, 0.92);
+    --topbar-border: #d6cfc5;
+    --badge-blue-text: #1d4ed8;
+
+    /* Infoboxes Themed Tokens (Light Mode) */
+    --ib-blue-bg: #eff6ff;
+    --ib-blue-border: #bfdbfe;
+    --ib-blue-text: #1e3a8a;
+    --ib-blue-title: #1d4ed8;
+
+    --ib-green-bg: #ecfdf5;
+    --ib-green-border: #a7f3d0;
+    --ib-green-text: #065f46;
+    --ib-green-title: #047857;
+
+    --ib-amber-bg: #fffbeb;
+    --ib-amber-border: #fde68a;
+    --ib-amber-text: #92400e;
+    --ib-amber-title: #b45309;
+
+    --ib-red-bg: #fef2f2;
+    --ib-red-border: #fecaca;
+    --ib-red-text: #991b1b;
+    --ib-red-title: #b91c1c;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.65;
+    background-image:
+      linear-gradient(var(--bg-grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+}

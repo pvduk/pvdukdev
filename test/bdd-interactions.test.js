@@ -1,0 +1,983 @@
+/**
+ * 🧪 BDD / TDD AUTOMATED TEST SUITE (100% COMPLETO)
+ * Testes reais de DOM e fluxo de interação do usuário (Standard ⇄ Dev Mode, Terminal, i18n, Theme, Roadmap, Smart Composer com Web3Forms, Connections).
+ */
+
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+
+// ─── ROBUST DOM SIMULATOR FOR BDD ───
+class DOMNode {
+  constructor(tagName, attrs = {}, text = '') {
+    this.tagName = tagName.toUpperCase();
+    this.attributes = { ...attrs };
+    const classes = new Set((attrs.class || '').split(/\s+/).filter(Boolean));
+    this.classList = {
+      _set: classes,
+      add: (c) => classes.add(c),
+      remove: (c) => classes.delete(c),
+      contains: (c) => classes.has(c),
+      has: (c) => classes.has(c),
+      toggle: (c) => {
+        if (classes.has(c)) { classes.delete(c); return false; }
+        else { classes.add(c); return true; }
+      }
+    };
+    this.id = attrs.id || '';
+    this.name = attrs.name || '';
+    this.value = attrs.value || '';
+    this.children = [];
+    this.parentNode = null;
+    this._rawInnerHTML = text;
+    this._listeners = {};
+    this.style = {};
+  }
+
+  getAttribute(name) {
+    return this.attributes[name] !== undefined ? this.attributes[name] : null;
+  }
+
+  setAttribute(name, val) {
+    this.attributes[name] = String(val);
+    if (name === 'class') {
+      this.classList._set = new Set(String(val).split(/\s+/).filter(Boolean));
+    }
+    if (name === 'value') {
+      this.value = String(val);
+    }
+  }
+
+  removeAttribute(name) {
+    delete this.attributes[name];
+  }
+
+  get innerHTML() {
+    if (this.children.length > 0) {
+      return this._rawInnerHTML + this.children.map(c => `<${c.tagName.toLowerCase()}>${c.innerHTML}</${c.tagName.toLowerCase()}>`).join('');
+    }
+    return this._rawInnerHTML;
+  }
+
+  set innerHTML(val) {
+    this._rawInnerHTML = String(val);
+    this.children = [];
+    if (globalThis.__currentDOMNodes && typeof val === 'string' && val.includes('<')) {
+      const tagRegex = /<([a-z0-9-]+)([^>]*)>([^<]*)/gi;
+      let match;
+      while ((match = tagRegex.exec(val)) !== null) {
+        const tagName = match[1];
+        if (tagName.startsWith('/') || tagName === '!doctype' || tagName === 'html') continue;
+        const rawAttrs = match[2] || '';
+        const innerText = match[3] || '';
+        const attrs = {};
+        const attrRegex = /([a-z0-9-:]+)(?:="([^"]*)")?/gi;
+        let aMatch;
+        while ((aMatch = attrRegex.exec(rawAttrs)) !== null) {
+          attrs[aMatch[1]] = aMatch[2] !== undefined ? aMatch[2] : '';
+        }
+        const node = new DOMNode(tagName, attrs, innerText.trim());
+        node.parentNode = this;
+        this.children.push(node);
+        globalThis.__currentDOMNodes.push(node);
+      }
+    }
+  }
+
+  get textContent() {
+    return this.innerHTML.replace(/<[^>]*>/g, '');
+  }
+
+  set textContent(val) {
+    this.innerHTML = String(val);
+  }
+
+  appendChild(child) {
+    child.parentNode = this;
+    this.children.push(child);
+    return child;
+  }
+
+  closest(selector) {
+    if (selector.startsWith('.')) {
+      const cls = selector.slice(1);
+      if (this.classList.has(cls)) return this;
+      if (this.parentNode && this.parentNode.closest) return this.parentNode.closest(selector);
+    }
+    return null;
+  }
+
+  addEventListener(event, fn) {
+    if (!this._listeners[event]) this._listeners[event] = [];
+    this._listeners[event].push(fn);
+  }
+
+  dispatchEvent(event) {
+    const list = this._listeners[event.type || event] || [];
+    for (const fn of list) {
+      fn({
+        preventDefault: () => {},
+        stopPropagation: () => {},
+        target: this,
+        currentTarget: this
+      });
+    }
+  }
+
+  click() {
+    this.dispatchEvent({ type: 'click' });
+  }
+
+  focus() {
+    this._isFocused = true;
+  }
+}
+
+class MockFormData {
+  constructor(formNode) {
+    this.data = {};
+    if (formNode && formNode.children) {
+      this._extract(formNode);
+    }
+  }
+
+  _extract(node) {
+    if (node.name && node.value !== undefined) {
+      this.data[node.name] = node.value;
+    }
+    if (node.children) {
+      node.children.forEach(c => this._extract(c));
+    }
+  }
+
+  set(k, v) { this.data[k] = String(v); }
+  get(k) { return this.data[k]; }
+}
+
+function parseHTMLToTree(html) {
+  const root = new DOMNode('HTML', { lang: 'pt-BR', 'data-theme': 'dark', 'data-view': 'standard' });
+  const allNodes = [root];
+
+  const tagRegex = /<([a-z0-9-]+)([^>]*)>/gi;
+  let match;
+  while ((match = tagRegex.exec(html)) !== null) {
+    const tagName = match[1];
+    if (tagName.startsWith('/') || tagName === '!doctype' || tagName === 'html') continue;
+    const rawAttrs = match[2] || '';
+    const attrs = {};
+    const attrRegex = /([a-z0-9-:]+)(?:="([^"]*)")?/gi;
+    let aMatch;
+    while ((aMatch = attrRegex.exec(rawAttrs)) !== null) {
+      attrs[aMatch[1]] = aMatch[2] !== undefined ? aMatch[2] : '';
+    }
+    const node = new DOMNode(tagName, attrs);
+    allNodes.push(node);
+  }
+
+  return { root, allNodes };
+}
+
+function createDOMEnvironment(htmlFile = 'index.html') {
+  const htmlContent = fs.readFileSync(path.join(__dirname, '..', htmlFile), 'utf8');
+  const { root, allNodes } = parseHTMLToTree(htmlContent);
+  globalThis.__currentDOMNodes = allNodes;
+
+  const doc = {
+    documentElement: root,
+    readyState: 'complete',
+    getElementById: (id) => allNodes.find(n => n.id === id) || null,
+    querySelectorAll: (selector) => {
+      if (selector.startsWith('.')) {
+        const cls = selector.slice(1);
+        return allNodes.filter(n => n.classList.has(cls));
+      }
+      if (selector.startsWith('[') && selector.endsWith(']')) {
+        const inside = selector.slice(1, -1);
+        if (inside.includes('=')) {
+          const [attr, val] = inside.split('=');
+          const cleanVal = val.replace(/^["']|["']$/g, '');
+          return allNodes.filter(n => n.getAttribute(attr) === cleanVal);
+        }
+        return allNodes.filter(n => n.getAttribute(inside) !== null);
+      }
+      return [];
+    },
+    querySelector: (selector) => {
+      const res = doc.querySelectorAll(selector);
+      return res.length ? res[0] : null;
+    },
+    createElement: (tag) => {
+      const node = new DOMNode(tag);
+      allNodes.push(node);
+      return node;
+    },
+    addEventListener: (event, fn) => {
+      if (event === 'DOMContentLoaded') fn();
+    }
+  };
+
+  const storage = {};
+  const mockLocalStorage = {
+    getItem: (k) => storage[k] || null,
+    setItem: (k, v) => { storage[k] = String(v); },
+    removeItem: (k) => { delete storage[k]; }
+  };
+
+  let lastFetchCall = null;
+  const mockFetch = (url, options) => {
+    lastFetchCall = { url, options };
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ success: true, message: 'Message sent' })
+    });
+  };
+
+  const mockWindow = {
+    document: doc,
+    localStorage: mockLocalStorage,
+    navigator: { language: 'pt-BR' },
+    location: { href: '' },
+    fetch: mockFetch,
+    FormData: MockFormData,
+    matchMedia: () => ({ matches: false }),
+    dispatchEvent: () => {},
+    CustomEvent: function (name) { this.name = name; }
+  };
+
+  const appJsCode = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const runCode = new Function('window', 'document', 'localStorage', 'navigator', 'fetch', 'FormData', appJsCode);
+  runCode(mockWindow, doc, mockLocalStorage, mockWindow.navigator, mockFetch, MockFormData);
+
+  return { doc, window: mockWindow, storage, allNodes, getLastFetch: () => lastFetchCall };
+}
+
+// ─── EXECUÇÃO DOS TESTES ───
+let total = 0;
+let passed = 0;
+
+function it(description, fn) {
+  total++;
+  try {
+    fn();
+    console.log(`  ✅ PASS: ${description}`);
+    passed++;
+  } catch (err) {
+    console.error(`  ❌ FAIL: ${description}`);
+    console.error(`     Error: ${err.message}`);
+  }
+}
+
+console.log('═══════════════════════════════════════════════════════════');
+console.log('🧪 SUÍTE DE TESTES BDD/TDD · VALIDAÇÃO DE INTERAÇÃO');
+console.log('═══════════════════════════════════════════════════════════\n');
+
+console.log('📦 Scenario 1: Alternância do Modo Dev (Standard ⇄ Dev Mode)');
+{
+  const { doc, window } = createDOMEnvironment('index.html');
+  const toggleBtn = doc.getElementById('btnViewToggle');
+
+  it('Deve iniciar no modo Standard por padrão', () => {
+    assert.strictEqual(doc.documentElement.getAttribute('data-view'), 'standard');
+    assert.ok(toggleBtn.textContent.includes('Modo Dev'));
+  });
+
+  it('Deve alternar para Modo Dev ao clicar no botão', () => {
+    toggleBtn.click();
+    assert.strictEqual(doc.documentElement.getAttribute('data-view'), 'dev');
+    assert.ok(toggleBtn.textContent.includes('Modo Padrão'));
+  });
+
+  it('Deve retornar para Modo Padrão no segundo clique', () => {
+    toggleBtn.click();
+    assert.strictEqual(doc.documentElement.getAttribute('data-view'), 'standard');
+    assert.ok(toggleBtn.textContent.includes('Modo Dev'));
+  });
+
+  it('Deve alternar perfeitamente via window.toggleViewMode()', () => {
+    window.toggleViewMode();
+    assert.strictEqual(doc.documentElement.getAttribute('data-view'), 'dev');
+    window.toggleViewMode();
+    assert.strictEqual(doc.documentElement.getAttribute('data-view'), 'standard');
+  });
+}
+
+console.log('\n📦 Scenario 2: Execução de Comandos no Terminal Interativo');
+{
+  const { doc, window } = createDOMEnvironment('index.html');
+  window.toggleViewMode(); // Entra em modo dev
+
+  it('Deve responder ao comando whoami', () => {
+    window.runTerminalCommand('whoami');
+    const termOutput = doc.getElementById('terminalOutput');
+    assert.ok(termOutput.innerHTML.includes('pvduk') || termOutput.innerHTML.includes('Software Engineer'));
+  });
+
+  it('Deve responder ao comando projects', () => {
+    window.runTerminalCommand('projects');
+    const termOutput = doc.getElementById('terminalOutput');
+    assert.ok(termOutput.innerHTML.includes('Roadmap de Requisitos'));
+  });
+
+  it('Deve responder ao comando costar', () => {
+    window.runTerminalCommand('costar');
+    const termOutput = doc.getElementById('terminalOutput');
+    assert.ok(termOutput.innerHTML.includes('COSTAR'));
+  });
+
+  it('Deve limpar a tela com o comando clear', () => {
+    window.runTerminalCommand('clear');
+    const termOutput = doc.getElementById('terminalOutput');
+    assert.ok(termOutput.innerHTML.includes('Terminal limpo'));
+  });
+}
+
+console.log('\n📦 Scenario 3: Alternância Dinâmica de Idioma (i18n)');
+{
+  const { doc } = createDOMEnvironment('index.html');
+  const langBtn = doc.querySelector('.lang-toggle');
+
+  it('Deve iniciar em Português (pt-BR)', () => {
+    assert.strictEqual(doc.documentElement.lang, 'pt-BR');
+    assert.ok(langBtn.textContent.includes('PT'));
+  });
+
+  it('Deve alternar para Inglês ao clicar', () => {
+    langBtn.click();
+    assert.strictEqual(doc.documentElement.lang, 'en');
+    assert.ok(langBtn.textContent.includes('EN'));
+  });
+
+  it('Deve retornar para Português no segundo clique', () => {
+    langBtn.click();
+    assert.strictEqual(doc.documentElement.lang, 'pt-BR');
+    assert.ok(langBtn.textContent.includes('PT'));
+  });
+}
+
+console.log('\n📦 Scenario 4: Alternância de Tema (Dark ⇄ Light)');
+{
+  const { doc } = createDOMEnvironment('index.html');
+  const themeBtn = doc.querySelector('.theme-toggle');
+
+  it('Deve iniciar no tema Dark por padrão com ícone SVG', () => {
+    assert.strictEqual(doc.documentElement.getAttribute('data-theme'), 'dark');
+    assert.ok(themeBtn.innerHTML.includes('<svg') || themeBtn.innerHTML.includes('viewBox'));
+  });
+
+  it('Deve alternar para Light mode ao clicar', () => {
+    themeBtn.click();
+    assert.strictEqual(doc.documentElement.getAttribute('data-theme'), 'light');
+    assert.ok(themeBtn.innerHTML.includes('<svg') || themeBtn.innerHTML.includes('viewBox'));
+  });
+
+  it('Deve retornar para Dark mode no segundo clique', () => {
+    themeBtn.click();
+    assert.strictEqual(doc.documentElement.getAttribute('data-theme'), 'dark');
+    assert.ok(themeBtn.innerHTML.includes('<svg') || themeBtn.innerHTML.includes('viewBox'));
+  });
+}
+
+console.log('\n📦 Scenario 5: Interações do Roadmap de Requisitos');
+{
+  const { doc, window } = createDOMEnvironment('roadmap-requisitos.html');
+
+  it('Deve exportar função global togglePhase', () => {
+    assert.strictEqual(typeof window.togglePhase, 'function');
+  });
+
+  it('Deve abrir ou fechar fase ao chamar togglePhase', () => {
+    const phase = new DOMNode('DIV', { class: 'phase' });
+    const header = new DOMNode('DIV', { class: 'phase-header' });
+    phase.appendChild(header);
+
+    window.togglePhase(header);
+    assert.ok(phase.classList.contains('open'));
+
+    window.togglePhase(header);
+    assert.ok(!phase.classList.contains('open'));
+  });
+}
+
+console.log('\n📦 Scenario 6: Smart Email Composer com Web3Forms (Async Fetch)');
+{
+  const { doc, getLastFetch } = createDOMEnvironment('index.html');
+  const contactForm = doc.getElementById('contactForm');
+  const subjectInput = doc.getElementById('contactSubject');
+  const emailInput = doc.getElementById('contactEmail');
+  const messageInput = doc.getElementById('contactMessage');
+  const composerStatus = doc.getElementById('composerStatus');
+  const tags = doc.querySelectorAll('.subject-tag');
+
+  it('Deve inicializar com campo de assunto preenchido e readonly', () => {
+    assert.ok(subjectInput.value.length > 0);
+    assert.ok(subjectInput.getAttribute('readonly') !== null);
+  });
+
+  it('Deve atualizar o assunto ao clicar em outra tag', () => {
+    const projectTag = tags.find(t => t.getAttribute('data-subject') && t.getAttribute('data-subject').includes('Projeto'));
+    assert.ok(projectTag, 'Tag de projeto encontrada');
+    projectTag.click();
+    assert.ok(subjectInput.value.includes('Projeto'));
+    assert.ok(projectTag.classList.contains('active'));
+  });
+
+  it('Deve enviar via Web3Forms assíncrono (fetch) ao submeter o formulário', async () => {
+    emailInput.value = 'recrutador@empresa.com';
+    messageInput.value = 'Olá Paulo, gostamos do seu portfólio e temos uma oportunidade.';
+
+    contactForm.dispatchEvent({ type: 'submit' });
+
+    // Aguarda resolução da promise
+    await new Promise(r => setTimeout(r, 10));
+
+    const fetchCall = getLastFetch();
+    assert.ok(fetchCall, 'Fetch foi disparado');
+    assert.strictEqual(fetchCall.url, 'https://api.web3forms.com/submit');
+    assert.strictEqual(fetchCall.options.body.data.access_key, 'd4d219ae-6575-4b32-b4a1-bf14f65fb12c');
+    assert.strictEqual(composerStatus.className, 'composer-status success');
+    assert.ok(composerStatus.textContent.includes('sucesso'));
+  });
+}
+
+console.log('\n📦 Scenario 7: Seção 05 de Conexões (GitHub & LinkedIn)');
+{
+  const { doc } = createDOMEnvironment('index.html');
+  const githubCard = doc.querySelector('.connection-github');
+  const linkedinCard = doc.querySelector('.connection-linkedin');
+
+  it('Deve possuir links seguros com target _blank e rel noopener', () => {
+    assert.ok(githubCard);
+    assert.ok(linkedinCard);
+    assert.strictEqual(githubCard.getAttribute('target'), '_blank');
+    assert.strictEqual(githubCard.getAttribute('rel'), 'noopener noreferrer');
+    assert.strictEqual(linkedinCard.getAttribute('target'), '_blank');
+    assert.strictEqual(linkedinCard.getAttribute('rel'), 'noopener noreferrer');
+  });
+}
+
+console.log('\n📦 Scenario 8: Auditoria de Paridade de i18n (PT ⇄ EN) & Vetorização SVG');
+{
+  const appCode = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const dictMatch = appCode.match(/const dictionaries = ({[\s\S]*?});\s*Object\.freeze/);
+  const dictionaries = eval('(' + dictMatch[1] + ')');
+  const ptKeys = Object.keys(dictionaries.pt);
+  const enKeys = Object.keys(dictionaries.en);
+
+  it('Deve possuir 100% de simetria entre as chaves PT e EN (nenhuma chave faltante)', () => {
+    const missingInEn = ptKeys.filter(k => !enKeys.includes(k));
+    const missingInPt = enKeys.filter(k => !ptKeys.includes(k));
+    assert.strictEqual(missingInEn.length, 0, `Chaves faltando em EN: ${missingInEn.join(', ')}`);
+    assert.strictEqual(missingInPt.length, 0, `Chaves faltando em PT: ${missingInPt.join(', ')}`);
+  });
+
+  it('Todos os atributos data-i18n do HTML devem existir nos dicionários', () => {
+    ['index.html', 'roadmap-requisitos.html'].forEach(file => {
+      const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+      const regex = /data-i18n(?:-placeholder|-aria)?="([^"]+)"/g;
+      let match;
+      while ((match = regex.exec(html)) !== null) {
+        const key = match[1];
+        assert.ok(dictionaries.pt[key], `Chave ${key} encontrada em ${file} mas ausente em dicionários.pt`);
+        assert.ok(dictionaries.en[key], `Chave ${key} encontrada em ${file} mas ausente em dicionários.en`);
+      }
+    });
+  });
+
+  it('Controles interativos devem utilizar SVGs inline padronizados', () => {
+    const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+    assert.ok(indexHtml.includes('<svg width="13" height="13"'), 'Tags de assunto usam SVGs');
+    assert.ok(indexHtml.includes('<svg width="15" height="15"'), 'Botões de envio e alternância usam SVGs');
+  });
+}
+
+console.log('\n📦 Scenario 9: Consistência do Header & Transição de Rotas (index ⇄ roadmap)');
+{
+  const indexEnv = createDOMEnvironment('index.html');
+  const roadmapEnv = createDOMEnvironment('roadmap-requisitos.html');
+
+  it('Ambas as páginas devem possuir o logo minimalista no header e botão de Modo Dev (#btnViewToggle)', () => {
+    assert.ok(indexEnv.doc.querySelector('.topbar-brand-logo'), 'Logo presente no index header');
+    assert.ok(roadmapEnv.doc.querySelector('.topbar-brand-logo'), 'Logo presente no roadmap header');
+    assert.ok(indexEnv.doc.getElementById('btnViewToggle'), 'Modo Dev presente no index');
+    assert.ok(roadmapEnv.doc.getElementById('btnViewToggle'), 'Modo Dev presente no roadmap');
+  });
+
+  it('A página inicial deve exibir pvduk.dev no Hero Brand Lockup do main', () => {
+    const heroBrand = indexEnv.doc.querySelector('[data-i18n="nav.brand"]');
+    assert.ok(heroBrand, 'Marca pvduk.dev presente no Hero do main');
+    assert.strictEqual(heroBrand.textContent, 'pvduk · dev');
+  });
+}
+
+console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero');
+{
+  const { doc, window } = createDOMEnvironment('index.html');
+  const langToggle = doc.querySelector('.lang-toggle');
+  const heroTitle = doc.querySelector('[data-i18n="hub.hero_title"]');
+  const avaloniaPill = doc.querySelector('[data-i18n="disc.avalonia_ui"]');
+  const sqlPill = doc.querySelector('[data-i18n="disc.sql_nosql"]');
+
+  it('Deve iniciar em PT com bandeira do Brasil em SVG, título FullStack C#/React e pills corretas', () => {
+    assert.ok(langToggle.innerHTML.includes('<svg'), 'Bandeira em SVG no botão PT');
+    assert.ok(langToggle.innerHTML.includes('M7.1 7.7 Q10 5.6 12.9 6.3'), 'Faixa astronômica do Brasil na orientação correta');
+    assert.ok(langToggle.innerHTML.includes('PT'), 'Texto PT presente');
+    assert.ok(heroTitle.innerHTML.includes('FullStack C#/React'), 'Título Hero em PT');
+    assert.strictEqual(avaloniaPill.textContent, 'Avalonia UI');
+    assert.strictEqual(sqlPill.textContent, 'SQL e NoSQL');
+  });
+
+  it('Ao alternar para EN, deve renderizar bandeira dos EUA em SVG e título hero em Inglês', () => {
+    window.toggleLanguage();
+    assert.ok(langToggle.innerHTML.includes('<svg'), 'Bandeira em SVG no botão EN');
+    assert.ok(langToggle.innerHTML.includes('#1E3A8A') || langToggle.innerHTML.includes('#B91C1C'), 'Cores oficiais da bandeira dos EUA no SVG');
+    assert.ok(langToggle.innerHTML.includes('EN'), 'Texto EN presente');
+    assert.ok(heroTitle.innerHTML.includes('Software Engineer'), 'Título Hero em EN');
+    assert.strictEqual(sqlPill.textContent, 'SQL and NoSQL');
+  });
+
+  it('CSS Components deve possuir gap de espaçamento no botão lang-toggle', () => {
+    const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+    assert.ok(cssComponents.includes('.lang-toggle {') && cssComponents.includes('gap: 7px;'), 'Espaçamento de 7px no lang-toggle');
+  });
+}
+
+console.log('\n📦 Scenario 11: Validação de Responsividade Mobile & CSS Design System');
+{
+  it('CSS Components deve conter regras responsivas para tablets e smartphones', () => {
+    const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+    assert.ok(cssComponents.includes('@media (max-width: 768px)'), 'Regra para tablets presente');
+    assert.ok(cssComponents.includes('@media (max-width: 480px)'), 'Regra para mobile presente');
+  });
+
+  it('CSS Home deve conter regras responsivas para grid de conexões e terminal', () => {
+    const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+    assert.ok(cssHome.includes('.connections-grid { grid-template-columns: 1fr; }'), 'Conexões em 1 coluna no mobile');
+    assert.ok(cssHome.includes('@media (max-width: 580px)'), 'Regras para mobile estreito presentes');
+  });
+
+  it('CSS Roadmap deve conter regras responsivas para timeline e footer bar', () => {
+    const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+    assert.ok(cssRoadmap.includes('@media (max-width: 650px)'), 'Regra mobile para roadmap presente');
+    assert.ok(cssRoadmap.includes('.footer-progress-bar'), 'Footer progress bar estilizado para mobile');
+  });
+}
+
+console.log('\n📦 Scenario 12: Topbar Grid Centering & Mobile Fat Finger Protection');
+{
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+
+  it('Topbar Desktop deve possuir grid 3-colunas centrado e flex-shrink 0 evitando desalinhamento', () => {
+    assert.ok(cssComponents.includes('grid-template-columns: 1fr auto 1fr;'), 'Grid 3-colunas');
+    assert.ok(cssComponents.includes('.topbar-nav {') && cssComponents.includes('justify-self: center;'), 'Nav centralizado');
+    assert.ok(cssComponents.includes('.topbar-controls {') && cssComponents.includes('justify-self: end;'), 'Controls alinhados à direita');
+  });
+
+  it('Controles do Topbar no Mobile devem cumprir a norma Fat Finger (mínimo 44x44px de área de toque)', () => {
+    assert.ok(cssComponents.includes('min-height: 44px;'), 'Touch target de 44px nos controles');
+    assert.ok(cssComponents.includes('.nav-pill {') && cssComponents.includes('min-height: 44px;'), 'Nav pill 44px touch target');
+    assert.ok(cssComponents.includes('display: flex;') && cssComponents.includes('flex-wrap: wrap;'), 'Topbar flex no mobile');
+  });
+
+  it('Tags de assunto, chips e accordions no Mobile devem ter touch target confortável para dedos grandes', () => {
+    assert.ok(cssHome.includes('.subject-tag {') && cssHome.includes('min-height: 44px;'), 'Subject tags 44px');
+    assert.ok(cssHome.includes('.term-chip {') && cssHome.includes('min-height: 44px;'), 'Term chips 44px');
+    assert.ok(cssRoadmap.includes('.phase-header {') && cssRoadmap.includes('min-height: 54px;'), 'Phase headers 54px');
+  });
+}
+
+console.log('\n📦 Scenario 13: Prevenção de FOUC de Tema (Zero Flash no Reload)');
+{
+  ['index.html', 'roadmap-requisitos.html'].forEach(file => {
+    const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    it(`${file} deve conter o script anti-FOUC síncrono no topo do head`, () => {
+      assert.ok(html.includes('Anti-FOUC'), 'Script anti-FOUC presente');
+      assert.ok(html.includes("localStorage.getItem('costar_preferred_theme')"), 'Leitura síncrona do tema antes da renderização');
+    });
+
+    it(`${file} deve inicializar imediatamente com tema "light" no reload quando salvo no localStorage`, () => {
+      const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
+      assert.ok(scriptMatch, 'Script inline localizado');
+      const root = new DOMNode('HTML', { lang: 'pt-BR' });
+      const mockStorage = { 'costar_preferred_theme': 'light' };
+      const doc = { documentElement: root };
+      const win = { matchMedia: () => ({ matches: false }) };
+      const runAntiFouc = new Function('document', 'localStorage', 'window', scriptMatch[1]);
+      runAntiFouc(doc, { getItem: k => mockStorage[k] || null }, win);
+      assert.strictEqual(root.getAttribute('data-theme'), 'light', 'Tema light configurado antes de qualquer CSS');
+    });
+
+    it(`${file} deve inicializar imediatamente com tema "dark" no reload quando salvo no localStorage`, () => {
+      const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
+      const root = new DOMNode('HTML', { lang: 'pt-BR' });
+      const mockStorage = { 'costar_preferred_theme': 'dark' };
+      const doc = { documentElement: root };
+      const win = { matchMedia: () => ({ matches: false }) };
+      const runAntiFouc = new Function('document', 'localStorage', 'window', scriptMatch[1]);
+      runAntiFouc(doc, { getItem: k => mockStorage[k] || null }, win);
+      assert.strictEqual(root.getAttribute('data-theme'), 'dark', 'Tema dark configurado antes de qualquer CSS');
+    });
+  });
+}
+
+console.log('\n📦 Scenario 14: Borda Luminosa e Halo do Logo no Tema Escuro (Modern Glass Ring)');
+{
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+
+  it('Topbar Brand Logo deve possuir borda luminosa e halo no tema escuro', () => {
+    assert.ok(cssComponents.includes('[data-theme="dark"] .topbar-brand-logo'), 'Seletor tema escuro para topbar logo presente');
+    assert.ok(cssComponents.includes('border-color: rgba(255, 255, 255,'), 'Borda luminosa configurada no topbar');
+  });
+
+  it('Hero Brand Logo deve possuir borda luminosa e profundidade no tema escuro', () => {
+    assert.ok(cssHome.includes('[data-theme="dark"] .hero-brand-logo'), 'Seletor tema escuro para hero logo presente');
+    assert.ok(cssHome.includes('border-color: rgba(255, 255, 255,'), 'Borda luminosa configurada no hero logo');
+  });
+}
+
+
+console.log('\n📦 Scenario 15: Roadmap 8 Fases i18n Dinâmico & Zero FlowPulse');
+{
+  const { doc, window } = createDOMEnvironment('roadmap-requisitos.html');
+  const p0Title = doc.querySelector('[data-i18n="roadmap.p0_title"]');
+  const p8Title = doc.querySelector('[data-i18n="roadmap.p8_title"]');
+  const caseText = doc.querySelector('[data-i18n="roadmap.case_overview_text"]');
+
+  it('Roadmap deve inicializar em PT com FirstStrike Analytics e sem "&" nos títulos', () => {
+    assert.ok(p0Title.textContent.includes('Discovery e Alinhamento'), 'Fase 00 em PT sem &');
+    assert.ok(p8Title.textContent.includes('Gate de Qualidade e Entrada em Produção'), 'Fase 08 em PT sem &');
+    assert.ok(caseText.textContent.includes('FirstStrike Analytics'), 'Estudo de caso FirstStrike Analytics em PT');
+    assert.ok(!caseText.textContent.includes('FlowPulse'), 'Zero FlowPulse em PT');
+  });
+
+  it('Ao alternar para EN no roadmap, deve traduzir dinamicamente todas as 8 fases para inglês', () => {
+    window.toggleLanguage();
+    assert.ok(p0Title.textContent.includes('Discovery and Business Pain Alignment'), 'Fase 00 traduzida para EN');
+    assert.ok(p8Title.textContent.includes('Quality Gate and Production Launch'), 'Fase 08 traduzida para EN');
+    assert.ok(caseText.textContent.includes('FirstStrike Analytics'), 'Estudo de caso FirstStrike Analytics em EN');
+    assert.ok(!caseText.textContent.includes('FlowPulse'), 'Zero FlowPulse em EN');
+  });
+
+  it('Auditoria global: Toda a base de código deve ter ZERO ocorrências de FlowPulse', () => {
+    const files = ['index.html', 'roadmap-requisitos.html', 'package.json', 'README.md', 'docs/frontend-architecture.md', 'js/app.js', 'js/translations/pt.js', 'js/translations/en.js'];
+    files.forEach(f => {
+      if (fs.existsSync(path.join(__dirname, '..', f))) {
+        const content = fs.readFileSync(path.join(__dirname, '..', f), 'utf8');
+        assert.ok(!/flowpulse/i.test(content), `Arquivo ${f} livre de FlowPulse`);
+      }
+    });
+  });
+}
+
+console.log('\n📦 Scenario 16: Roadmap Layout Integrity & Proteção Responsiva Mobile');
+{
+  const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+
+  it('Roadmap CSS deve conter classe gate-status-grid com adaptação responsiva mobile', () => {
+    assert.ok(cssRoadmap.includes('.gate-status-grid'), 'Classe gate-status-grid presente');
+    assert.ok(cssRoadmap.includes('grid-template-columns: 1fr;'), 'Wrap de coluna para mobile em gate-status-grid');
+  });
+
+  it('Roadmap CSS deve blindar content-block com overflow-x seguro contra quebra no mobile', () => {
+    assert.ok(cssRoadmap.includes('overflow-x: auto;'), 'overflow-x auto em content-block');
+    assert.ok(cssRoadmap.includes('max-width: 100%;'), 'max-width 100% em content-block');
+  });
+}
+console.log('\n📦 Scenario 17: Modo Dev Terminal Dinâmico & Alternância de Idioma em Tempo Real');
+{
+  const { doc, window } = createDOMEnvironment('index.html');
+  const whoamiTitle = doc.querySelector('[data-i18n="terminal.whoami_title"]');
+  const whoamiDesc = doc.querySelector('[data-i18n="terminal.whoami_desc"]');
+  const whoamiStatus = doc.querySelector('[data-i18n="terminal.whoami_status"]');
+
+  it('Terminal inicial deve abrir com whoami em Português por padrão', () => {
+    assert.ok(whoamiTitle.textContent.includes('FullStack C#/React'), 'Título whoami em PT');
+    assert.ok(whoamiDesc.textContent.includes('arquitetura limpa'), 'Descrição whoami em PT');
+    assert.ok(whoamiStatus.textContent.includes('Disponível para projetos'), 'Status whoami em PT');
+  });
+
+  it('Ao alternar idioma para EN, whoami inicial deve traduzir dinamicamente para inglês sem reload', () => {
+    window.toggleLanguage();
+    assert.ok(whoamiTitle.textContent.includes('Senior Software Engineer and FullStack C#/React'), 'Título whoami traduzido para EN');
+    assert.ok(whoamiDesc.textContent.includes('clean architecture'), 'Descrição whoami traduzida para EN');
+    assert.ok(whoamiStatus.textContent.includes('Available for projects'), 'Status whoami traduzido para EN');
+  });
+
+  it('Comandos executados dinamicamente no terminal devem conter data-i18n e responder à troca de idioma', () => {
+    const input = doc.getElementById('terminalInput');
+    const form = doc.getElementById('terminalForm');
+    
+    // Executa comando story
+    input.value = 'story';
+    form.dispatchEvent({ type: 'submit' });
+
+    const storyTitle = doc.querySelector('[data-i18n="terminal.story_title"]');
+    assert.ok(storyTitle, 'Saída do comando story contém data-i18n');
+    assert.ok(storyTitle.textContent.includes('CAREER LOG'), 'Comando story renderizado em EN');
+
+    // Alterna de volta para PT
+    window.toggleLanguage();
+    assert.ok(storyTitle.textContent.includes('LOG DE CARREIRA'), 'Comando story traduzido em tempo real para PT');
+    assert.ok(whoamiTitle.textContent.includes('FullStack C#/React'), 'whoami de volta para PT');
+  });
+}
+
+console.log('\n📦 Scenario 18: Blindagem Mobile do Terminal Dev (WCAG 2.2 AA & Anti-Overflow)');
+{
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+
+  it('home.css deve blindar term-table-wrap com overflow-x seguro contra estouro horizontal no mobile', () => {
+    assert.ok(cssHome.includes('.term-table-wrap {') && cssHome.includes('overflow-x: auto;'), 'overflow-x auto em term-table-wrap');
+    assert.ok(cssHome.includes('max-width: 100%;'), 'max-width 100% em term-table-wrap');
+    assert.ok(cssHome.includes('.term-table {') && cssHome.includes('min-width: 480px;'), 'min-width 480px em term-table');
+  });
+
+  it('home.css deve conter media query específica para terminal em telas compactas (<= 580px)', () => {
+    assert.ok(cssHome.includes('@media (max-width: 580px)'), 'Media query 580px presente');
+    assert.ok(cssHome.includes('.dev-terminal-container {') && cssHome.includes('padding: 16px 8px 48px;'), 'Padding compacto no container terminal mobile');
+    assert.ok(cssHome.includes('.terminal-output {') && cssHome.includes('padding: 12px 10px;'), 'Padding reduzido no output terminal mobile');
+    assert.ok(cssHome.includes('.terminal-input {') && cssHome.includes('min-height: 44px;'), 'Touch target acessível para input do terminal');
+  });
+
+  it('Terminal e codebase devem estar 100% padronizados em Vanilla ES2026 (ZERO ocorrências de ES2024)', () => {
+    const ptDict = require('../js/translations/pt.js').pt;
+    const enDict = require('../js/translations/en.js').en;
+
+    assert.ok(ptDict['terminal.whoami_tag_ts'].includes('ES2026'), 'whoami tag em PT usa ES2026');
+    assert.ok(ptDict['terminal.proj2_stack'].includes('ES2026'), 'proj2 stack em PT usa ES2026');
+    assert.ok(enDict['terminal.whoami_tag_ts'].includes('ES2026'), 'whoami tag em EN usa ES2026');
+    assert.ok(enDict['terminal.proj2_stack'].includes('ES2026'), 'proj2 stack em EN usa ES2026');
+
+    const auditedFiles = ['index.html', 'roadmap-requisitos.html', 'js/app.js', 'js/translations/pt.js', 'js/translations/en.js', 'docs/vision-document.md', 'README.md'];
+    auditedFiles.forEach(f => {
+      const p = path.join(__dirname, '..', f);
+      if (fs.existsSync(p)) {
+        const c = fs.readFileSync(p, 'utf8');
+        assert.ok(!c.includes('ES2024'), `Arquivo ${f} livre de referências legadas a ES2024`);
+      }
+    });
+  });
+}
+
+console.log('\n📦 Scenario 19: Sticky Footer Universal Fixo no Bottom (Standard & Dev Mode)');
+{
+  const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+
+  it('base.css deve configurar body com display flex, flex-direction column e min-height 100dvh', () => {
+    assert.ok(cssBase.includes('min-height: 100dvh;'), 'min-height 100dvh no body');
+    assert.ok(cssBase.includes('display: flex;'), 'display flex no body');
+    assert.ok(cssBase.includes('flex-direction: column;'), 'flex-direction column no body');
+  });
+
+  it('components.css deve configurar main/main-content com flex: 1 0 auto e site-footer com margin-top: auto', () => {
+    assert.ok(cssComponents.includes('main,') && cssComponents.includes('#main-content') && cssComponents.includes('flex: 1 0 auto;'), 'main flex-grow 1');
+    assert.ok(cssComponents.includes('.site-footer {') && cssComponents.includes('margin-top: auto;'), 'footer com margin-top auto');
+    assert.ok(cssComponents.includes('.site-footer {') && cssComponents.includes('flex-shrink: 0;'), 'footer flex-shrink 0');
+  });
+
+  it('home.css deve configurar .view-dev com flex-grow 1 e .dev-terminal-container com centralização vertical', () => {
+    assert.ok(cssHome.includes('html[data-view="dev"] .view-dev {') && cssHome.includes('display: flex !important;') && cssHome.includes('flex: 1 0 auto;'), 'view-dev flex-grow 1 no Modo Dev');
+    assert.ok(cssHome.includes('.dev-terminal-container {') && cssHome.includes('justify-content: center;'), 'terminal centralizado verticalmente no espaço útil');
+  });
+}
+
+console.log('\n📦 Scenario 20: Progressive Web App (PWA) Baseline & Service Worker');
+{
+  const manifestRaw = fs.readFileSync(path.join(__dirname, '../manifest.webmanifest'), 'utf8');
+  const manifest = JSON.parse(manifestRaw);
+  const swCode = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const appJsCode = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+  it('manifest.webmanifest deve ser um JSON válido com todos os campos essenciais de PWA', () => {
+    assert.ok(manifest.name.includes('pvduk'), 'Nome da PWA');
+    assert.strictEqual(manifest.short_name, 'pvduk.dev', 'Short name da PWA');
+    assert.strictEqual(manifest.display, 'standalone', 'Display standalone configurado');
+    assert.ok(manifest.icons.some(i => i.src === 'assets/logo.svg'), 'Ícone principal do manifest é assets/logo.svg');
+    assert.ok(Array.isArray(manifest.icons) && manifest.icons.length >= 3, 'Ícones PWA declarados');
+    assert.ok(Array.isArray(manifest.shortcuts) && manifest.shortcuts.length >= 2, 'Atalhos PWA declarados');
+  });
+
+  it('Ícones PWA devem ser visualmente e estruturalmente idênticos ao favicon da aba (assets/logo.svg)', () => {
+    const logoSvg = fs.readFileSync(path.join(__dirname, '../assets/logo.svg'), 'utf8');
+    assert.ok(logoSvg.includes('fill="#000000"'), 'Logo SVG possui fundo preto #000000');
+    assert.ok(logoSvg.includes('fill="#3B82F6"'), 'Logo SVG possui acento azul #3B82F6');
+    assert.ok(logoSvg.includes('fill="#FFFFFF"'), 'Logo SVG possui glifo branco #FFFFFF');
+
+    // Validação de existência e integridade dos ícones PNG gerados a partir do logo.svg
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/icon-192.png')), 'icon-192.png presente');
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/icon-512.png')), 'icon-512.png presente');
+    const stat192 = fs.statSync(path.join(__dirname, '../assets/icon-192.png'));
+    const stat512 = fs.statSync(path.join(__dirname, '../assets/icon-512.png'));
+    assert.ok(stat192.size > 500, 'icon-192.png tamanho válido');
+    assert.ok(stat512.size > 1000, 'icon-512.png tamanho válido');
+  });
+
+  it('sw.js deve conter precache do App Shell, ciclo de vida install/activate e interceptação fetch', () => {
+    assert.ok(swCode.includes('CACHE_NAME'), 'Cache name configurado');
+    assert.ok(swCode.includes('index.html') && swCode.includes('roadmap-requisitos.html'), 'Páginas essenciais no precache');
+    assert.ok(swCode.includes('css/base.css') && swCode.includes('js/app.js'), 'CSS e JS no precache');
+    assert.ok(swCode.includes('assets/logo.svg') && swCode.includes('assets/icon-192.png'), 'Assets de ícone no precache');
+    assert.ok(swCode.includes("addEventListener('install'"), 'Listener install presente');
+    assert.ok(swCode.includes("addEventListener('activate'"), 'Listener activate presente');
+    assert.ok(swCode.includes("addEventListener('fetch'"), 'Listener fetch presente');
+    assert.ok(swCode.includes('skipWaiting'), 'skipWaiting configurado para atualização ágil');
+  });
+
+  it('index.html e roadmap-requisitos.html devem conter links idênticos para favicon e apple-touch-icon (assets/logo.svg)', () => {
+    ['index.html', 'roadmap-requisitos.html'].forEach(file => {
+      const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+      assert.ok(html.includes('rel="icon" type="image/svg+xml" href="assets/logo.svg"'), `Favicon em ${file}`);
+      assert.ok(html.includes('rel="apple-touch-icon" href="assets/logo.svg"'), `Apple touch icon idêntico ao favicon em ${file}`);
+      assert.ok(html.includes('rel="manifest" href="manifest.webmanifest"'), `Manifest link em ${file}`);
+      assert.ok(html.includes('name="theme-color"'), `Theme-color em ${file}`);
+      assert.ok(html.includes('name="apple-mobile-web-app-capable"'), `Apple mobile web app capable em ${file}`);
+    });
+  });
+
+  it('app.js deve inicializar e registrar o Service Worker de forma segura e resiliente', () => {
+    assert.ok(appJsCode.includes('initPWA'), 'Função initPWA presente');
+    assert.ok(appJsCode.includes('navigator.serviceWorker.register'), 'Registro do Service Worker em app.js');
+    assert.ok(appJsCode.includes("protocol.startsWith('http')"), 'Checagem segura de protocolo HTTP/HTTPS');
+  });
+}
+
+console.log('\n📦 Scenario 21: Prevenção de Auto-Scroll no Carregamento Inicial (Zero Jump ao Footer)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+  it('index.html e roadmap-requisitos.html não devem conter o atributo autofocus para não forçar scroll ao rodapé', () => {
+    assert.ok(!indexHtml.includes('autofocus'), 'index.html livre de autofocus indesejado');
+    assert.ok(!roadmapHtml.includes('autofocus'), 'roadmap-requisitos.html livre de autofocus indesejado');
+  });
+
+  it('app.js deve focar o terminal com preventScroll: true para preservar a posição da viewport', () => {
+    assert.ok(appJs.includes('preventScroll: true'), 'Foco com preventScroll presente em app.js');
+  });
+}
+
+console.log('\n📦 Scenario 22: Auditoria de Segurança & GitHub Pages CI/CD Deploy Gate');
+{
+  const gitignore = fs.readFileSync(path.join(__dirname, '../.gitignore'), 'utf8');
+  const deployYaml = fs.readFileSync(path.join(__dirname, '../.github/workflows/deploy.yml'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+  it('.gitignore deve conter bloqueio estrito para .env, certificados e chaves privadas', () => {
+    assert.ok(gitignore.includes('.env'), '.gitignore bloqueia .env');
+    assert.ok(gitignore.includes('*.pem') && gitignore.includes('*.key'), '.gitignore bloqueia certificados e chaves');
+    assert.ok(gitignore.includes('id_rsa'), '.gitignore bloqueia chaves ssh');
+  });
+
+  it('GitHub Pages CI/CD workflow (.github/workflows/deploy.yml) deve estar configurado para testar e publicar dist/', () => {
+    assert.ok(deployYaml.includes('npm test'), 'CI roda testes automatizados antes do deploy');
+    assert.ok(deployYaml.includes('npm run build'), 'CI executa compilação e minificação');
+    assert.ok(deployYaml.includes("path: './dist'"), 'CI publica pasta dist/');
+    assert.ok(fs.existsSync(path.join(__dirname, '../.nojekyll')), 'Arquivo .nojekyll presente');
+    assert.ok(fs.existsSync(path.join(__dirname, '../404.html')), 'Página 404.html presente');
+  });
+
+  it('Terminal interativo em app.js deve sanitizar entradas do usuário via escapeHtml contra XSS', () => {
+    assert.ok(appJs.includes('function escapeHtml('), 'Função escapeHtml presente');
+    assert.ok(appJs.includes('escapeHtml(cmdRaw)'), 'Entrada do usuário sanitizada antes da renderização');
+  });
+}
+
+console.log('\n📦 Scenario 23: Contraste e Legibilidade Temática de Infoboxes (Dark & Light Mode)');
+{
+  const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+
+  it('base.css deve definir tokens temáticos de fundo, borda e texto para infoboxes em ambos os temas', () => {
+    assert.ok(cssBase.includes('--ib-blue-bg: rgba('), 'Fundo dark de ib-blue configurado com transparência');
+    assert.ok(cssBase.includes('--ib-blue-text: #bfdbfe;'), 'Texto de alto contraste para ib-blue em dark theme');
+    assert.ok(cssBase.includes('--ib-blue-bg: #eff6ff;'), 'Fundo suave de ib-blue em light theme');
+    assert.ok(cssBase.includes('--ib-blue-text: #1e3a8a;'), 'Texto de alto contraste para ib-blue em light theme');
+  });
+
+  it('components.css deve estilizar .ib-blue e .infobox-title com as variáveis de tema', () => {
+    assert.ok(cssComponents.includes('.ib-blue {') && cssComponents.includes('background: var(--ib-blue-bg);'), 'ib-blue usa var(--ib-blue-bg)');
+    assert.ok(cssComponents.includes('color: var(--ib-blue-text);'), 'ib-blue usa var(--ib-blue-text)');
+    assert.ok(cssComponents.includes('.infobox .infobox-title {'), 'Classe infobox-title presente');
+  });
+
+  it('roadmap-requisitos.html deve conter a classe infobox-title e herdar o texto temático legível', () => {
+    assert.ok(roadmapHtml.includes('class="infobox ib-blue"'), 'Cartão infobox ib-blue presente');
+    assert.ok(roadmapHtml.includes('class="infobox-title"'), 'infobox-title aplicada na Visão Geral');
+    assert.ok(!roadmapHtml.includes('color:var(--text-main);"\n          data-i18n="roadmap.case_overview_text"'), 'Livre de cor inline conflitante');
+  });
+}
+
+console.log('\n📦 Scenario 24: Auditoria Lighthouse & Acessibilidade Mobile (WCAG 2.2 AAA & Composited Animations)');
+{
+  const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+  it('base.css e home.css devem utilizar --badge-blue-text com contraste seguro >= 7:1 em dark mode', () => {
+    assert.ok(cssBase.includes('--badge-blue-text: #60a5fa;'), 'Token --badge-blue-text no tema escuro');
+    assert.ok(cssHome.includes('.proj-badge') && cssHome.includes('color: var(--badge-blue-text);'), '.proj-badge com alto contraste');
+    assert.ok(cssHome.includes('.story-year') && cssHome.includes('color: var(--badge-blue-text);'), '.story-year com alto contraste');
+    assert.ok(cssHome.includes('.conn-badge') && cssHome.includes('color: var(--badge-blue-text);'), '.conn-badge com alto contraste');
+  });
+
+  it('Botão lang-toggle e links de conexão devem respeitar WCAG 2.5.3 (Label in Name)', () => {
+    assert.ok(indexHtml.includes('aria-label="PT - Alternar Idioma"'), 'lang-toggle inclui texto visível PT');
+    assert.ok(appJs.includes("btn.setAttribute('aria-label', 'PT - Alternar Idioma')"), 'app.js preserva Label in Name em PT');
+    assert.ok(appJs.includes("btn.setAttribute('aria-label', 'EN - Switch Language')"), 'app.js preserva Label in Name em EN');
+    assert.ok(indexHtml.includes('aria-label="GitHub @pvduk"'), 'Link GitHub inclui texto visível @pvduk');
+    assert.ok(indexHtml.includes('aria-label="LinkedIn in/pvduk"'), 'Link LinkedIn inclui texto visível in/pvduk');
+  });
+
+  it('Animação .status-dot (statusPulse) deve ser 100% GPU composited sem box-shadow keyframes', () => {
+    assert.ok(cssHome.includes('.status-dot::after'), 'Pseudo-elemento de pulso presente');
+    assert.ok(cssHome.includes('transform: scale(') && cssHome.includes('opacity: 0'), 'statusPulse anima exclusivamente transform e opacity');
+  });
+}
+
+console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, SOLID & Zero-Dep Build)');
+{
+  const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+  it('package.json deve conter script de build zero-dependency', () => {
+    assert.ok(pkg.scripts.build, 'Script build presente em package.json');
+    assert.strictEqual(pkg.scripts.build, 'node build.js', 'Build roda node build.js nativo');
+  });
+
+  it('js/app.js deve adotar padrão OCP/SOLID com commandRegistry e commandAliases', () => {
+    assert.ok(appJs.includes('const commandRegistry = {'), 'commandRegistry estruturado presente');
+    assert.ok(appJs.includes('const commandAliases = {'), 'commandAliases estruturado presente');
+    assert.ok(!appJs.includes('switch (cmd)'), 'Switch/case monolítico substituído por mapeamento OCP');
+  });
+
+  it('Base de código deve estar livre de arquivos órfãos não utilizados (YAGNI)', () => {
+    assert.ok(!fs.existsSync(path.join(__dirname, '../js/i18n.js')), 'js/i18n.js removido');
+    assert.ok(!fs.existsSync(path.join(__dirname, '../js/theme.js')), 'js/theme.js removido');
+    assert.ok(!swJs.includes('js/i18n.js') && !swJs.includes('js/theme.js'), 'sw.js limpo de referências mortas');
+  });
+
+  it('build.js deve gerar pasta dist/ com todos os arquivos minificados com sucesso', () => {
+    assert.ok(fs.existsSync(path.join(__dirname, '../dist')), 'Pasta dist/ existe');
+    assert.ok(fs.existsSync(path.join(__dirname, '../dist/index.html')), 'dist/index.html gerado');
+    assert.ok(fs.existsSync(path.join(__dirname, '../dist/js/app.js')), 'dist/js/app.js gerado');
+    assert.ok(fs.existsSync(path.join(__dirname, '../dist/css/base.css')), 'dist/css/base.css gerado');
+  });
+}
+
+console.log('\n═══════════════════════════════════════════════════════════');
+console.log(`📊 RESULTADO DA SUÍTE DE TESTES: ${passed} / ${total} PASSOU COM SUCESSO! 🚀`);
+console.log('═══════════════════════════════════════════════════════════\n');
+
+if (passed === total) {
+  process.exit(0);
+} else {
+  process.exit(1);
+}

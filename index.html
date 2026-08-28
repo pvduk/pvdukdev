@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('costar_preferred_lang');
+        if (l === 'pt' || l === 'en') {
+          document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+        }
+        var v = localStorage.getItem('costar_view_mode');
+        if (v === 'dev' || v === 'standard') {
+          document.documentElement.setAttribute('data-view', v);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="pvduk · Engenheiro de Software e FullStack C#/React. Portfólio técnico, trajetória e projetos de engenharia.">
+  <meta name="author" content="pvdukdev">
+  <title>pvduk · Engenheiro de Software e FullStack C#/React</title>
+
+  <!-- Favicon com a Marca Visual SVG -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
+  <!-- PWA & Mobile Web App Capabilities -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="pvduk.dev">
+  <link rel="apple-touch-icon" href="assets/logo.svg">
+
+  <!-- Google Fonts Otimizadas: Plus Jakarta Sans, Inter, JetBrains Mono, Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+</head>
+<body>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <!-- ÍCONE MARCA VISUAL -->
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill active" href="index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill" href="roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- MODO DEV TOGGLE -->
+      <button type="button" class="view-toggle" id="btnViewToggle" aria-label="Alternar Modo Dev / Terminal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <span data-i18n="btn.dev_mode">Modo Dev</span>
+      </button>
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MODO PADRÃO (OPÇÃO 1 · THE ARCHITECTURAL ENGINEER)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="view-standard">
+    <main id="main-content">
+
+      <!-- ─── HERO SECTION ─── -->
+      <section class="hero-engineer" aria-labelledby="hero-title">
+        <!-- Emblema de Marca e Nome no Hero -->
+        <div class="hero-brand-lockup" aria-label="pvduk.dev">
+          <div class="hero-brand-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="pvduk logo">
+              <rect width="100" height="100" rx="16" fill="#000000"/>
+              <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+              <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+              <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+            </svg>
+          </div>
+          <span class="hero-brand-name" data-i18n="nav.brand">pvduk · dev</span>
+        </div>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span data-i18n="hub.badge_status">Disponível para projetos e consultoria</span>
+        </div>
+        <h1 class="hero-engineer-title" id="hero-title" data-i18n="hub.hero_title">Engenheiro de Software e<br><em>FullStack C#/React</em></h1>
+        <p class="hero-engineer-tagline" data-i18n="hub.hero_tagline">
+          Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.
+        </p>
+
+        <!-- Disciplinas Técnicas -->
+        <div class="disciplines-pills" aria-label="Especialidades Técnicas">
+          <span class="discipline-pill" data-i18n="disc.system_design">System Design</span>
+          <span class="discipline-pill" data-i18n="disc.clean_arch">Clean Architecture</span>
+          <span class="discipline-pill" data-i18n="disc.web_perf">Web Performance (CWV)</span>
+          <span class="discipline-pill" data-i18n="disc.avalonia_ui">Avalonia UI</span>
+          <span class="discipline-pill" data-i18n="disc.sql_nosql">SQL e NoSQL</span>
+          <span class="discipline-pill" data-i18n="disc.iac_docker">IaC e Docker</span>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn btn-primary" data-i18n="hub.btn_explore">Explorar Portfólio ↓</a>
+          <a href="#contato" class="btn btn-outline" data-i18n="hub.btn_contact">Fale Conosco ⟶</a>
+        </div>
+      </section>
+
+      <!-- ─── SHOWCASE FLAGSHIP: PROJETO EM DESTAQUE ─── -->
+      <section class="home-section" id="portfolio" aria-labelledby="flagship-title">
+        <h2 class="home-section-title" id="flagship-title" data-i18n="hub.section_flagship">Projeto em Destaque</h2>
+
+        <div class="volumes-grid" style="grid-template-columns: 1fr;">
+          <!-- VOLUME 01 - ROADMAP FIRSTSTRIKE ANALYTICS (FEATURED CARD) -->
+          <article class="volume-card" style="--card-accent: var(--color-accent); padding: 32px; border: 1px solid rgba(91,111,255,0.3); background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(91,111,255,0.03) 100%);">
+            <div>
+              <div class="vol-header" style="margin-bottom: 16px;">
+                <div class="vol-tag" style="font-size: 11px; padding: 4px 10px;" data-i18n="vol1.tag">Projeto Principal · Processo e Estudo de Caso</div>
+                <h3 class="vol-title" style="font-size: 24px; margin-top: 8px;" data-i18n="vol1.title">Roadmap de Engenharia e Requisitos</h3>
+              </div>
+              <p class="vol-desc" style="font-size: 15px; max-width: 800px; margin-bottom: 20px;" data-i18n="vol1.desc">
+                Guia estruturado em 8 fases com o estudo de caso real do projeto FirstStrike Analytics: do discovery de negócio ao Gate de Entrada no Sprint 0.
+              </p>
+              <ul class="vol-features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 24px;">
+                <li data-i18n="vol1.feat1">Exemplo prático, simples e intuitivo para qualquer usuário</li>
+                <li data-i18n="vol1.feat2">Diagramas C4 Nível 1, DDD e tabelas NoSQL</li>
+                <li data-i18n="vol1.feat3">Contrato OpenAPI 3.0 e ambiente Docker Compose real</li>
+              </ul>
+            </div>
+            <a href="roadmap-requisitos.html" class="btn btn-primary vol-btn" style="max-width: 280px; justify-content: center;" data-i18n="vol1.btn">Acessar Roadmap Interativo ⟶</a>
+          </article>
+        </div>
+
+        <!-- Especialidades Técnicas -->
+        <h3 class="home-section-title" style="font-size:18px; margin-top:32px;" data-i18n="hub.section_projects">Especialidades Técnicas</h3>
+        <div class="projects-subgrid">
+          <div class="project-item-card">
+            <div>
+              <div class="proj-badge" data-i18n="proj1.tag">Frontend Puro · Zero Runtime</div>
+              <h4 class="proj-title" data-i18n="proj1.title">Arquitetura Web de Alta Performance</h4>
+              <p class="proj-desc" data-i18n="proj1.desc">
+                Aplicações web sem frameworks pesados, com Core Web Vitals no percentil 99, CSS com Cascade Layers e renderização ultra-rápida.
+              </p>
+            </div>
+          </div>
+
+          <div class="project-item-card">
+            <div>
+              <div class="proj-badge" data-i18n="proj2.tag">Arquitetura · DDD · Microservices</div>
+              <h4 class="proj-title" data-i18n="proj2.title">Design de Sistemas e Microsserviços</h4>
+              <p class="proj-desc" data-i18n="proj2.desc">
+                Modelagem orientada a domínio (DDD), isolamento por bounded contexts, estratégias de mensageria assíncrona e resiliência.
+              </p>
+            </div>
+          </div>
+
+          <div class="project-item-card">
+            <div>
+              <div class="proj-badge" data-i18n="proj3.tag">Docker · CI/CD · IaC</div>
+              <h4 class="proj-title" data-i18n="proj3.title">DevOps e Infraestrutura Local Imutável</h4>
+              <p class="proj-desc" data-i18n="proj3.desc">
+                Provisionamento com OpenTofu/Terraform, pipelines CI/CD automatizados no GitHub Actions e ambientes locais via Docker Compose.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── ÁPICES NOS PROJETOS (TRAJETÓRIA) ─── -->
+      <section class="home-section" id="historia" aria-labelledby="story-title">
+        <h2 class="home-section-title" id="story-title" data-i18n="hub.section_story">Ápices nos Projetos</h2>
+
+        <div class="story-timeline">
+          <!-- Marco 1 -->
+          <article class="story-node">
+            <div class="story-year" data-i18n="story.step1_year">Fundação e Excelência Web</div>
+            <h3 class="story-title" data-i18n="story.step1_title">Domínio de Padrões e Algoritmos</h3>
+            <p class="story-desc" data-i18n="story.step1_desc">
+              Início focado em algoritmos, estruturas de dados e domínio profundo das especificações do W3C/ECMA. Construção de aplicações leves, acessíveis e centradas na experiência do usuário.
+            </p>
+          </article>
+
+          <!-- Marco 2 -->
+          <article class="story-node">
+            <div class="story-year" data-i18n="story.step2_year">Engenharia de Escala e Arquitetura</div>
+            <h3 class="story-title" data-i18n="story.step2_title">Sistemas Distribuídos e Resiliência</h3>
+            <p class="story-desc" data-i18n="story.step2_desc">
+              Atuação em cenários de alta volumetria, desacoplamento de monolitos, modelagem DDD, pipelines de dados assíncronos e governança técnica orientada a ADRs.
+            </p>
+          </article>
+
+          <!-- Marco 3 -->
+          <article class="story-node">
+            <div class="story-year" data-i18n="story.step3_year">Presente e Suíte COSTAR</div>
+            <h3 class="story-title" data-i18n="story.step3_title">Liderança Técnica e Ferramentas Decisórias</h3>
+            <p class="story-desc" data-i18n="story.step3_desc">
+              Criação de ecossistemas e frameworks conceituais que reduzem o custo de decisão arquitetural, promovendo excelência de Clean Code e alinhamento entre produto e engenharia.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ─── FALE CONOSCO (SMART EMAIL COMPOSER) ─── -->
+      <section class="home-section" id="contato" aria-labelledby="contact-heading">
+        <h2 class="home-section-title" id="contact-heading" data-i18n="hub.section_contact">Fale Conosco</h2>
+
+        <div class="composer-card">
+          <div class="composer-header">
+            <h3 class="composer-title" data-i18n="contact.title">Vamos Construir Software de Alto Impacto?</h3>
+            <p class="composer-desc" data-i18n="contact.desc">
+              Seja para propor uma oportunidade, debater arquitetura de sistemas ou colaborar em projetos práticos, monte sua mensagem abaixo:
+            </p>
+          </div>
+
+          <form class="composer-form" id="contactForm">
+            <!-- Web3Forms Config -->
+            <input type="hidden" name="access_key" value="d4d219ae-6575-4b32-b4a1-bf14f65fb12c">
+            <input type="hidden" name="from_name" value="Portfólio pvduk.dev">
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+            <!-- 1. Tags Rápidas de Assunto -->
+            <div class="composer-field-group">
+              <label class="composer-label" data-i18n="contact.label_tags">Selecione o Assunto Rápido:</label>
+              <div class="subject-tags-bar" role="group" aria-label="Tags de Assunto">
+                <button type="button" class="subject-tag active" data-subject="Proposta / Oportunidade Técnica" data-subject-en="Proposal / Tech Opportunity">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                  <span data-i18n="contact.tag_job">Proposta / Vaga</span>
+                </button>
+                <button type="button" class="subject-tag" data-subject="Projeto / Freelance" data-subject-en="Project / Freelance">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2 5-2"></path><path d="M12 15v5s3.03-.55 4.5-2c1.63-1.62 2-5 2-5"></path></svg>
+                  <span data-i18n="contact.tag_project">Projeto / Freelance</span>
+                </button>
+                <button type="button" class="subject-tag" data-subject="Arquitetura e Consultoria" data-subject-en="Architecture and Advisory">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg>
+                  <span data-i18n="contact.tag_advisory">Consultoria</span>
+                </button>
+                <button type="button" class="subject-tag" data-subject="Bate-papo Técnico / Café" data-subject-en="Tech Chat / Coffee">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span data-i18n="contact.tag_chat">Bate-papo Dev</span>
+                </button>
+                <button type="button" class="subject-tag" data-subject="Outro Assunto" data-subject-en="Other Subject">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  <span data-i18n="contact.tag_other">Outro Assunto</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Linha de Assunto (Controlada pelas Tags) -->
+            <div class="composer-field-group">
+              <label for="contactSubject" class="composer-label" data-i18n="contact.label_subject">Assunto Selecionado (Automático):</label>
+              <input type="text" id="contactSubject" name="subject" class="composer-input composer-input-disabled" value="Proposta / Oportunidade Técnica" placeholder="Selecione uma tag acima..." readonly>
+            </div>
+
+            <!-- 3. Seu E-mail para Resposta -->
+            <div class="composer-field-group">
+              <label for="contactEmail" class="composer-label" data-i18n="contact.label_email">Seu E-mail (para resposta):</label>
+              <input type="email" id="contactEmail" name="email" class="composer-input" placeholder="seu.email@empresa.com" required>
+            </div>
+
+            <!-- 4. Mensagem / Detalhes -->
+            <div class="composer-field-group">
+              <label for="contactMessage" class="composer-label" data-i18n="contact.label_message">Mensagem / Detalhes:</label>
+              <textarea id="contactMessage" name="message" class="composer-textarea" rows="4" placeholder="Olá Paulo, vi seu portfólio e gostaria de conversar sobre..." required></textarea>
+            </div>
+
+            <!-- 5. Feedback de Status -->
+            <div id="composerStatus" class="composer-status" style="display: none;" role="alert"></div>
+
+            <!-- 6. Ações e SLA -->
+            <div class="composer-actions-bar">
+              <div class="composer-buttons">
+                <button type="submit" class="btn btn-primary btn-lg" id="btnSendEmail">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  <span data-i18n="contact.btn_send_email">Enviar Mensagem Direta</span>
+                </button>
+              </div>
+              <div class="composer-sla">
+                <span class="sla-dot"></span>
+                <span data-i18n="contact.sla">Resposta garantida</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ─── CONEXÕES ─── -->
+      <section class="home-section" id="conexoes" aria-labelledby="connections-heading">
+        <h2 class="home-section-title" id="connections-heading" data-i18n="hub.section_connections">Conexões</h2>
+
+        <div class="connections-grid">
+          <!-- Card GitHub -->
+          <a href="https://github.com/pvduk" target="_blank" rel="noopener noreferrer" class="connection-card connection-github" aria-label="GitHub @pvduk">
+            <div class="conn-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </div>
+            <div class="conn-body">
+              <div class="conn-header">
+                <span class="conn-badge">GitHub</span>
+                <span class="conn-arrow">↗</span>
+              </div>
+              <h3 class="conn-handle">@pvduk</h3>
+              <p class="conn-desc" data-i18n="conn.github_desc">
+                Repositórios open-source, testes automatizados, arquitetura de software e implementações práticas.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card LinkedIn -->
+          <a href="https://linkedin.com/in/pvduk" target="_blank" rel="noopener noreferrer" class="connection-card connection-linkedin" aria-label="LinkedIn in/pvduk">
+            <div class="conn-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </div>
+            <div class="conn-body">
+              <div class="conn-header">
+                <span class="conn-badge">LinkedIn</span>
+                <span class="conn-arrow">↗</span>
+              </div>
+              <h3 class="conn-handle">in/pvduk</h3>
+              <p class="conn-desc" data-i18n="conn.linkedin_desc">
+                Trajetória profissional, liderança técnica, publicações de engenharia, recomendações e networking.
+              </p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MODO DEV (OPÇÃO 2 · INTERACTIVE TERMINAL E CLI WORKBENCH)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="view-dev">
+    <main class="dev-terminal-container">
+      <div class="terminal-window" role="region" aria-label="Terminal Interativo">
+        <!-- Terminal Window Header -->
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="term-dot dot-red"></span>
+            <span class="term-dot dot-yellow"></span>
+            <span class="term-dot dot-green"></span>
+          </div>
+          <div class="terminal-title" data-i18n="terminal.header_title">pvduk@dev-station:~ (zsh) — 80x24</div>
+          <div style="width:40px;"></div>
+        </div>
+
+        <!-- Quick Command Chips -->
+        <div class="terminal-chips-bar" aria-label="Comandos Rápidos">
+          <button type="button" class="term-chip" data-term-cmd="whoami" data-i18n="terminal.chip_whoami">$ whoami</button>
+          <button type="button" class="term-chip" data-term-cmd="projects" data-i18n="terminal.chip_projects">$ ls projects/</button>
+          <button type="button" class="term-chip" data-term-cmd="story" data-i18n="terminal.chip_story">$ cat story.log</button>
+          <button type="button" class="term-chip" data-term-cmd="contact" data-i18n="terminal.chip_contact">$ ./contact.sh</button>
+          <button type="button" class="term-chip" data-term-cmd="costar" data-i18n="terminal.chip_costar">$ costar --status</button>
+          <button type="button" class="term-chip" data-term-cmd="clear" data-i18n="terminal.chip_clear">$ clear</button>
+        </div>
+
+        <!-- Terminal Body / Output Console -->
+        <div class="terminal-output" id="terminalOutput">
+          <div class="term-line term-dim" data-i18n="terminal.welcome">
+            Bem-vindo ao terminal interativo de pvduk. Digite um comando ou clique nos atalhos acima:
+          </div>
+          <div class="term-line">
+            <span class="term-prompt-user">pvduk@dev-station</span>:<span class="term-prompt-path">~</span>$ <span class="term-cmd-text">whoami</span>
+          </div>
+          <div class="term-line term-output">
+            <div class="term-card">
+              <div class="term-user-title"><strong data-i18n="terminal.whoami_title">pvduk · Senior Software Engineer e FullStack C#/React</strong></div>
+              <p data-i18n="terminal.whoami_desc">Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.</p>
+              <div class="term-tags">
+                <span class="term-tag" data-i18n="terminal.whoami_tag_ts">TypeScript / Vanilla ES2026</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_clean">Clean Architecture e DDD</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_perf">Web Standards e CWV</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_docker">IaC e Docker</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_avalonia">Avalonia UI</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_db">SQL e NoSQL</span>
+                <span class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</span>
+              </div>
+              <div style="margin-top:8px; color:var(--color-green); font-weight:600;" data-i18n="terminal.whoami_status">
+                ● Status: Disponível para projetos e consultoria técnica
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Prompt Input Bar -->
+        <div class="terminal-prompt-bar">
+          <form class="terminal-form" id="terminalForm" autocomplete="off">
+            <span class="term-prompt-sym">➜ ~ $</span>
+            <input type="text" class="terminal-input" id="terminalInput" placeholder="Digite um comando (ex: help, whoami, projects, story, contact, clear)..." data-i18n-placeholder="terminal.placeholder">
+            <button type="submit" class="btn btn-primary" style="padding:6px 14px; font-size:11.5px;">Enter ↵</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito à mão com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Script Universal (Funciona via file:// e localhost) -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "pvdukdev-portfolio",
+  "version": "1.0.0",
+  "description": "Portfólio de Engenharia de Software com Dual-Mode (Padrão e Dev Terminal) e Roadmap FirstStrike Analytics",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node build.js",
+    "test": "node test/bdd-interactions.test.js"
+  },
+  "keywords": [
+    "portfolio",
+    "software-engineering",
+    "clean-code",
+    "bdd",
+    "tdd"
+  ],
+  "author": "pvduk",
+  "license": "MIT"
+}

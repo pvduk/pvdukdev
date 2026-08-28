@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark" data-view="standard">
+<head>
+  <meta charset="UTF-8">
+  <!-- Anti-FOUC Síncrono Imediato -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        var v = localStorage.getItem('costar_view_mode');
+        if (v === 'dev' || v === 'standard') {
+          document.documentElement.setAttribute('data-view', v);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 · NullReferenceException | pvduk.dev</title>
+  <meta name="description" content="404 · Página Não Encontrada. Diagnóstico de rota e recuperação de engenharia de software.">
+
+  <!-- Favicon com a Marca Visual SVG -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="assets/logo.svg">
+
+  <!-- Google Fonts Otimizadas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+  <style>
+    .error-hero {
+      padding: 60px 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .error-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(220, 38, 38, 0.12);
+      border: 1.5px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+    .error-title-hero {
+      font-family: var(--font-mono);
+      font-size: clamp(64px, 11vw, 110px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--color-blue);
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 30px rgba(37, 99, 235, 0.25);
+    }
+    .error-subtitle-hero {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 4vw, 30px);
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .error-tagline {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .error-terminal-box {
+      width: 100%;
+      max-width: 640px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .error-terminal-header {
+      color: var(--badge-blue-text);
+      font-weight: 700;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .error-hypo-item {
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+    }
+    .error-hypo-item strong {
+      color: var(--color-amber);
+    }
+    .error-actions-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill" href="index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill" href="roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- MODO DEV TOGGLE -->
+      <button type="button" class="view-toggle" id="btnViewToggle" aria-label="Alternar Modo Dev / Terminal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <span data-i18n="btn.dev_mode">Modo Dev</span>
+      </button>
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ CONTEÚDO PRINCIPAL 404 ═══════════ -->
+  <main id="main-content" class="main-content" style="display:flex; flex-direction:column; align-items:center;">
+    <div class="site-container" style="width:100%;">
+      <section class="error-hero">
+        <div class="error-badge" data-i18n="404.badge">// FATAL: 0x00000404 · Segment Fault in /dev/null</div>
+        <div class="error-title-hero">404</div>
+        <h1 class="error-subtitle-hero" data-i18n="404.title">404 · NullReferenceException</h1>
+        <p class="error-tagline" data-i18n="404.desc">
+          A rota solicitada aponta para uma referência nula na memória ou foi dropada no pipeline de CI/CD.
+        </p>
+
+        <!-- Caixa de Diagnóstico Dev Engraçada -->
+        <div class="error-terminal-box">
+          <div class="error-terminal-header" data-i18n="404.hypo_title">[ROOT CAUSE ANALYSIS · DIAGNÓSTICO DE ENGENHARIA]</div>
+          <div class="error-hypo-item">
+            <span>●</span>
+            <span data-i18n="404.hypo_1">Hipótese 01: O estagiário deu git push --force na sexta-feira às 18h.</span>
+          </div>
+          <div class="error-hypo-item">
+            <span>●</span>
+            <span data-i18n="404.hypo_2">Hipótese 02: O Garbage Collector coletou esta página por considerá-la unreachable.</span>
+          </div>
+          <div class="error-hypo-item">
+            <span>●</span>
+            <span data-i18n="404.hypo_3">Hipótese 03: Você tentou acessar uma rota sem colocar ponto-e-vírgula no final.</span>
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="error-actions-group">
+          <a href="index.html" class="btn btn-primary" data-i18n="404.btn_home">cd /home ➔</a>
+          <a href="roadmap-requisitos.html" class="btn btn-outline" data-i18n="404.btn_roadmap">git checkout roadmap ➔</a>
+          <button type="button" class="btn btn-outline" onclick="window.makeCoffee ? window.makeCoffee() : alert('HTTP 418: I\'m a teapot · Coffee provisioned! ☕')" data-i18n="404.btn_coffee">
+            ☕ sudo make-coffee
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito à mão com Vanilla Web Standards e Clean Architecture.</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Script Universal -->
+  <script src="js/app.js" defer></script>
+</body>
+</html>

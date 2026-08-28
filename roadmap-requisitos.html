@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('costar_preferred_lang');
+        if (l === 'pt' || l === 'en') {
+          document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+        }
+        var v = localStorage.getItem('costar_view_mode');
+        if (v === 'dev' || v === 'standard') {
+          document.documentElement.setAttribute('data-view', v);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Roadmap de Engenharia de Software em 8 Fases · Estudo de caso de arquitetura e desenvolvimento SaaS com C# .NET e Clean Architecture.">
+  <title>Roadmap de Engenharia e Requisitos · Estudo de Caso SaaS FirstStrike Analytics</title>
+
+  <!-- Favicon com a Marca Visual SVG -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
+  <!-- PWA & Mobile Web App Capabilities -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="pvduk.dev">
+  <link rel="apple-touch-icon" href="assets/logo.svg">
+
+  <!-- Google Fonts Otimizadas: Plus Jakarta Sans, Inter, JetBrains Mono, Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/roadmap.css">
+</head>
+<body>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <!-- ÍCONE MARCA VISUAL -->
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill" href="index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill active" href="roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- MODO DEV TOGGLE -->
+      <button type="button" class="view-toggle" id="btnViewToggle" aria-label="Alternar Modo Dev / Terminal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <span data-i18n="btn.dev_mode">Modo Dev</span>
+      </button>
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ CONTEÚDO PRINCIPAL ═══════════ -->
+  <main class="roadmap-page" id="main-content">
+
+    <!-- ── HEADER ── -->
+    <header class="roadmap-header">
+      <div class="roadmap-eyebrow" data-i18n="roadmap.header_eyebrow">// Estudo de Caso de Engenharia de Software · C# .NET e Clean Architecture</div>
+      <h1 class="roadmap-title" data-i18n="roadmap.header_title">Roadmap de Engenharia de Software</h1>
+      <p class="roadmap-subtitle" data-i18n="roadmap.header_sub">
+        Do Discovery ao Deploy em Produção: Como atacamos o problema de latência analítica aplicando fundamentos sólidos e o ecossistema C# .NET mais moderno
+      </p>
+
+      <!-- Cartão Informativo do Projeto -->
+      <div class="infobox ib-blue" style="margin-top:20px; border-left: 4px solid var(--color-blue);">
+        <div class="infobox-title" data-i18n="roadmap.case_overview_title">Visão Geral do Caso: Plataforma Analítica SaaS</div>
+        <p data-i18n="roadmap.case_overview_text">
+          Este estudo de caso documenta as decisões arquiteturais e os fundamentos de engenharia aplicados na construção do FirstStrike Analytics, um SaaS de alta performance. Demonstra como um problema de alto custo computacional e concorrência foi resolvido através de <strong>Clean Architecture</strong>, processamento assíncrono em segundo plano (<em>Zero-Compute</em> no client), <strong>C# .NET 10</strong>, cacheamento inteligente na borda e testes automatizados em múltiplas camadas.
+        </p>
+      </div>
+    </header>
+
+    <!-- ── COSTAR GRID DO PROJETO ── -->
+    <section aria-labelledby="costar-heading">
+      <div class="section-divider-title" id="costar-heading" data-i18n="roadmap.costar_title">Framework COSTAR · Estratégia de Engenharia</div>
+      <div class="roadmap-costar-grid">
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(91,111,255,0.15);color:var(--color-accent);">C</span>
+            Contexto
+          </div>
+          <div class="roadmap-costar-text">O processamento síncrono de modelos estatísticos e chamadas de IA sob demanda gerava alto tempo de resposta (TTFB &gt; 2s), sobrecarga de CPU no servidor e risco de estouro de cotas de APIs externas.</div>
+        </div>
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(56,189,248,0.15);color:var(--color-accent2);">O</span>
+            Objetivo
+          </div>
+          <div class="roadmap-costar-text">Garantir tempo de resposta sub-35ms para o usuário final, desacoplar 100% da computação pesada para background workers e blindar o backend contra picos de tráfego.</div>
+        </div>
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(167,139,250,0.15);color:var(--color-accent3);">S</span>
+            Style
+          </div>
+          <div class="roadmap-costar-text">Estudo de caso focado em fundamentos de engenharia: trade-offs arquiteturais, padrões de resiliência e boas práticas de código limpo.</div>
+        </div>
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(52,211,153,0.15);color:var(--color-green);">T</span>
+            Tom
+          </div>
+          <div class="roadmap-costar-text">Técnico, objetivo e orientado a resultados de engenharia de software (DDD, SOLID, concorrência e alta disponibilidade).</div>
+        </div>
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(251,146,60,0.15);color:var(--color-orange);">A</span>
+            Audiência
+          </div>
+          <div class="roadmap-costar-text">Tech Leads, Arquitetos de Software, Engenheiros e Recrutadores Técnicos avaliando maturidade de design e execução.</div>
+        </div>
+        <div class="roadmap-costar-cell">
+          <div class="roadmap-costar-label">
+            <span class="roadmap-costar-letter" style="background:rgba(244,114,182,0.15);color:#f472b6;">R</span>
+            Resposta
+          </div>
+          <div class="roadmap-costar-text">8 fases estruturadas demonstrando a evolução desde a análise da dor do usuário até a entrada em produção contínua.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PHASES DO ROADMAP ── -->
+    <section aria-labelledby="phases-heading">
+      <div class="section-divider-title" id="phases-heading" data-i18n="roadmap.phases_title">Roadmap de Engenharia · 8 Fases do Projeto</div>
+      <div class="phases" id="phases">
+
+        <!-- FASE 0 -->
+        <article class="phase" data-phase="0">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(91,111,255,0.15);color:var(--color-accent);">00</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p0_title">Fase 00 · Discovery e Alinhamento da Dor de Negócio</div>
+              <div class="phase-desc" data-i18n="roadmap.p0_desc">Onde o produto ataca a dor real do usuário antes de qualquer linha de código</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-blue">Problema Validado</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">1–3 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block">
+                <div class="block-title">O Problema e a Causa Raiz</div>
+                <ul class="checklist">
+                  <li><strong>A Dor do Usuário:</strong> Tomada de decisão baseada em métricas estáticas e agregadas, ignorando a volatilidade temporal e a dispersão dos dados.</li>
+                  <li><strong>Inconsistência Analítica:</strong> Plataformas existentes calculam projeções de forma síncrona e lenta, ou fornecem visões genéricas sem granularidade.</li>
+                  <li><strong>Fundamento Aplicado:</strong> Análise de Causa Raiz (5 Porquês) para mapear o comportamento do usuário e isolar o escopo essencial do MVP.</li>
+                  <li><strong>Abordagem Técnica:</strong> Arquitetura orientada a processamento em lote em background, eliminando cálculos pesados da experiência de navegação.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Critérios de Sucesso e KPIs de Engenharia</div>
+                <ul class="checklist">
+                  <li><strong>Latência no Client:</strong> Servir visualizações e dados em menos de 35ms a partir da borda.</li>
+                  <li><strong>Carga no Servidor:</strong> Zero custo computacional pesado acionado por cliques de leitura do usuário.</li>
+                  <li><strong>Atualização Contínua:</strong> Pipeline assíncrono mantendo dados e status de contexto sempre sincronizados.</li>
+                  <li><strong>Resiliência de Integração:</strong> 100% de disponibilidade de pareceres mesmo sob instabilidade em serviços externos.</li>
+                </ul>
+              </div>
+              <div class="content-block full">
+                <div class="infobox ib-green">
+                  <strong>Artefato Entregue na Fase 00:</strong> <em>Documento de Visão de Produto e Escopo Técnico</em>, formalizando a arquitetura assíncrona orientada a eventos para mitigar o gargalo de latência na experiência do usuário.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 1 -->
+        <article class="phase" data-phase="1">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(56,189,248,0.15);color:var(--color-accent2);">01</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p1_title">Fase 01 · Atores, Fronteiras e Diagrama C4 de Contexto</div>
+              <div class="phase-desc" data-i18n="roadmap.p1_desc">Mapeamento de atores, serviços externos e fluxo macro do sistema</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-blue">C4 Nível 1</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">2–4 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block">
+                <div class="block-title">Atores e Papéis</div>
+                <ul class="checklist">
+                  <li><strong>Usuário Final (Web / PWA):</strong> Navega por dados consolidados, aplica filtros e consome resumos analíticos em tempo real.</li>
+                  <li><strong>Hosted Background Workers:</strong> Processos assíncronos autônomos que realizam tarefas periódicas de ingestão e modelagem.</li>
+                  <li><strong>Serviços Externos:</strong> APIs de dados brutos e provedores de IA integrados com camadas de proteção e contingência.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Fundamentos de Integração</div>
+                <ul class="checklist">
+                  <li><strong>Isolamento de Responsabilidades:</strong> O cliente web nunca se comunica diretamente com serviços externos lentos.</li>
+                  <li><strong>Topologia Desacoplada:</strong> O backend centraliza a persistência atômica, servindo dados prontos para a camada de borda.</li>
+                  <li><strong>Comunicação Resiliente:</strong> Circuit breakers e retries automáticos com backoff exponencial.</li>
+                </ul>
+              </div>
+              <div class="content-block full">
+                <div class="block-title">Diagrama C4 Nível 1 · Fluxo Arquitetural do Sistema</div>
+                <div style="background:var(--bg-surface); border:1px solid var(--border); border-radius:6px; padding:14px 18px; font-family:var(--font-mono); font-size:12px; line-height:1.8; color:var(--color-accent2); overflow-x:auto; max-width:100%;">
+                  [ Usuário / Cliente ] ──(HTTPS/PWA)──&gt; [ Serviço Front / Edge CDN ] ──(Cache Miss)──&gt; [ Backend API (C# .NET) ]<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Leituras O(1))<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                  [ Feeds Externos de Dados ] ──&gt; [ Background Hosted Workers (.NET) ] ──(Write)──&gt; [ Banco de Dados NoSQL ] &lt;──(Read)<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Assíncrono)<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Provedores de IA Generativa ]
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 2 -->
+        <article class="phase" data-phase="2">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(167,139,250,0.15);color:var(--color-accent3);">02</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p2_title">Fase 02 · Requisitos Funcionais, MoSCoW e BDD Gherkin</div>
+              <div class="phase-desc" data-i18n="roadmap.p2_desc">Especificação precisa com critérios de aceite testáveis e priorização clara</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-purple">Gherkin BDD</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">3–5 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block full">
+                <div class="block-title">Especificação Comportamental em Gherkin</div>
+                <div style="background:var(--bg-surface); border:1px solid var(--border); border-radius:6px; padding:14px; font-family:var(--font-mono); font-size:12px; line-height:1.7; color:var(--text-main);">
+                  <strong style="color:var(--color-accent3);">História: Consulta Analítica com Resposta de Baixa Latência</strong><br>
+                  <em>Como um</em> analista ou usuário da plataforma<br>
+                  <em>Quero</em> acessar os relatórios e métricas consolidadas da rodada<br>
+                  <em>Para</em> obter insumos decisórios instantâneos sem aguardar reprocessamento de cálculos pesados.<br><br>
+                  <strong style="color:var(--color-green);">Cenário BDD: Resposta Otimizada a Partir da Camada Consolidada</strong><br>
+                  <strong>Given (Dado)</strong> que o pipeline assíncrono de background concluiu a geração das análises diárias<br>
+                  <strong>When (Quando)</strong> eu solicito os dados consolidados pelo dashboard ou API<br>
+                  <strong>Then (Então)</strong> o sistema deve retornar as projeções e resumos em menos de 35ms<br>
+                  <strong>And (E)</strong> nenhuma computação estatística pesada deve ser executada de forma síncrona na thread da requisição.
+                </div>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Priorização de Escopo (MoSCoW)</div>
+                <ul class="checklist">
+                  <li><strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.</li>
+                  <li><strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.</li>
+                  <li><strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.</li>
+                  <li><strong>Won't Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Requisitos Não-Funcionais</div>
+                <ul class="checklist">
+                  <li><strong>Performance:</strong> Time to First Byte (TTFB) &lt; 35ms para rotas de leitura em cache.</li>
+                  <li><strong>Eficiência de Recursos:</strong> Backend enxuto com baixo footprint de memória e CPU.</li>
+                  <li><strong>Alta Disponibilidade:</strong> Resiliência a falhas parciais em integrações externas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 3 -->
+        <article class="phase" data-phase="3">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(52,211,153,0.15);color:var(--color-green);">03</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p3_title">Fase 03 · Modelagem de Domínio (DDD) e Persistência NoSQL</div>
+              <div class="phase-desc" data-i18n="roadmap.p3_desc">Linguagem ubíqua, aggregate roots e persistência atômica de alta performance</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-green">DDD e NoSQL</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">3–6 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block">
+                <div class="block-title">O Problema e os Fundamentos DDD</div>
+                <ul class="checklist">
+                  <li><strong>O Problema:</strong> Modelos relacionais altamente normalizados exigiam múltiplos JOINs sob alta concorrência de leitura, degradando o tempo de resposta.</li>
+                  <li><strong>Fundamento Aplicado:</strong> Domain-Driven Design (DDD) com Aggregate Roots auto-contidos e consistência eventual.</li>
+                  <li><strong>Decisão de Modelagem:</strong> Estruturar agregados que consolidam metadados, métricas e análises pré-calculadas em um único documento atômico.</li>
+                  <li><strong>Benefício:</strong> Leituras em tempo $O(1)$ diretamente indexadas, eliminando consultas N+1.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Bounded Contexts e Índices</div>
+                <ul class="checklist">
+                  <li><strong>Contexto de Ingestão:</strong> Coleta e saneamento de dados de fontes externas.</li>
+                  <li><strong>Contexto Analítico:</strong> Execução de modelos estatísticos e agregações em lote.</li>
+                  <li><strong>Contexto de Consulta:</strong> Resolução rápida de queries com índices compostos estratégicos.</li>
+                  <li><strong>Idempotência:</strong> Provisionamento automático de índices na inicialização do serviço.</li>
+                </ul>
+              </div>
+              <div class="content-block full">
+                <div class="infobox ib-green">
+                  <strong>Artefato Entregue na Fase 03:</strong> <em>Modelo de Domínio em C# e Mapeamento de Persistência NoSQL</em>, consolidando agregados de leitura atômica sem sobrecarga relacional.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 4 -->
+        <article class="phase" data-phase="4">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(251,146,60,0.15);color:var(--color-orange);">04</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p4_title">Fase 04 · Decisões de Arquitetura em C# .NET e ADRs</div>
+              <div class="phase-desc" data-i18n="roadmap.p4_desc">Clean Architecture em 4 camadas, desacoplamento assíncrono e resiliência</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-amber">Clean Architecture (.NET)</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">4–7 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block full">
+                <div class="block-title">ADR #001 · Clean Architecture com Desacoplamento Zero-Compute em Background (.NET 10)</div>
+                <div style="background:var(--bg-surface); border:1px solid var(--border); border-radius:6px; padding:14px; font-family:var(--font-mono); font-size:12px; line-height:1.7; color:var(--text-main);">
+                  <strong style="color:var(--color-orange);">Status:</strong> APROVADO E IMPLEMENTADO<br>
+                  <strong style="color:var(--color-blue);">Contexto:</strong> Cálculos matemáticos estocásticos e requisições para LLMs possuem tempo de execução imprevisível (800ms a 3s). Bloquear requisições HTTP síncronas degradaria a experiência do usuário e saturaria o pool de threads do servidor.<br>
+                  <strong style="color:var(--color-green);">Decisão:</strong> Adotar <strong>Clean Architecture</strong> em C# (.NET 10) com separação estrita de camadas (<em>Domain, Application, Infrastructure, WebApi</em>) e padrão CQRS (MediatR). 100% das tarefas pesadas foram movidas para <code class="inline-code">HostedService</code> de background. As rotas HTTP realizam apenas leituras em $O(1)$ de documentos consolidados.<br>
+                  <strong style="color:var(--color-amber);">Consequências:</strong> Resposta instantânea da API, separação clara de responsabilidades, previsibilidade de consumo de CPU e facilidade de manutenção e testes.
+                </div>
+              </div>
+              <div class="content-block full">
+                <div class="block-title">ADR #002 · Cadeia de Resiliência e Fallback para Serviços Externos</div>
+                <div style="background:var(--bg-surface); border:1px solid var(--border); border-radius:6px; padding:14px; font-family:var(--font-mono); font-size:12px; line-height:1.7; color:var(--text-main);">
+                  <strong style="color:var(--color-orange);">Status:</strong> APROVADO E IMPLEMENTADO<br>
+                  <strong style="color:var(--color-blue);">Contexto:</strong> Serviços de IA e APIs externas de dados podem apresentar instabilidade pontual, picos de latência ou rate limiting (HTTP 429).<br>
+                  <strong style="color:var(--color-green);">Decisão:</strong> Implementar uma <strong>Cadeia de Contingência Resiliente</strong> no adaptador de infraestrutura, com fallback automático em cascata entre múltiplos modelos e estratégias de cache.<br>
+                  <strong style="color:var(--color-amber);">Consequências:</strong> Garantia de continuidade de serviço para o usuário final, com degradação suave e logs transparentes de chaveamento.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 5 -->
+        <article class="phase" data-phase="5">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(244,114,182,0.15);color:#f472b6;">05</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p5_title">Fase 05 · Segurança, Rate Limiting e Edge Caching (RFC-7234)</div>
+              <div class="phase-desc" data-i18n="roadmap.p5_desc">Proteção de borda, controle de abuso e entrega acelerada via CDN</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-red">RFC-7234 + Segurança</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">3–5 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block">
+                <div class="block-title">Proteção e Defesa em Profundidade</div>
+                <ul class="checklist">
+                  <li><strong>Rate Limiting no ASP.NET Core:</strong> Middleware com limite de taxa por IP para evitar abusos e scraping automatizado.</li>
+                  <li><strong>Autenticação de Origem:</strong> Validação de requisições de clientes autorizados via headers criptográficos.</li>
+                  <li><strong>Gestão Segura de Configurações:</strong> Segredos e credenciais isolados do repositório e injetados via variáveis de ambiente em runtime.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Estratégia de Cacheamento na Borda</div>
+                <ul class="checklist">
+                  <li><strong>Headers Declarativos:</strong> Utilização do padrão <code class="inline-code">stale-while-revalidate</code> na camada de controllers.</li>
+                  <li><strong>Desafogamento do Backend:</strong> Requisições subsequentes são atendidas pela CDN global, reduzindo hits ao banco.</li>
+                  <li><strong>Sanitização de Payload:</strong> Filtros de saída garantem que apenas dados pertinentes ao estado atual sejam expostos.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 6 -->
+        <article class="phase" data-phase="6">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(91,111,255,0.15);color:var(--color-blue);">06</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p6_title">Fase 06 · Stack Tecnológica e Docker Multi-Container</div>
+              <div class="phase-desc" data-i18n="roadmap.p6_desc">Ambiente 100% reproduzível com Hot Reload e controle rigoroso de recursos</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-blue">Docker Compose</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">3–5 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block">
+                <div class="block-title">Stack de Produção Selecionada</div>
+                <ul class="checklist">
+                  <li><strong>Backend:</strong> C# .NET 10 (ASP.NET Core Web API, MediatR, Hosted Services).</li>
+                  <li><strong>Frontend:</strong> React 19, TypeScript, Vite, Tailwind CSS e PWA Standalone.</li>
+                  <li><strong>Banco de Dados:</strong> MongoDB (NoSQL atômico com índices compostos).</li>
+                  <li><strong>Borda e Deploy:</strong> Edge CDN com cacheamento HTTP RFC-7234.</li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <div class="block-title">Fundamentos de Containerização</div>
+                <ul class="checklist">
+                  <li><strong>Isolamento de Recursos:</strong> Limites explícitos de memória (<code class="inline-code">mem_limit</code>) configurados para cada serviço.</li>
+                  <li><strong>Produtividade com Hot Reload:</strong> Bind mounts e watchers otimizados para compilação contínua em C# e Frontend.</li>
+                  <li><strong>Healthchecks Ativos:</strong> Serviços aguardam prontidão dos bancos antes de iniciar a inicialização da aplicação.</li>
+                </ul>
+              </div>
+              <div class="content-block full">
+                <div class="infobox ib-blue">
+                  <strong>Artefato Entregue na Fase 06:</strong> <em>Orquestração Docker Compose Multi-Container</em>, garantindo paridade total entre ambiente local e produção com subida de 1 comando.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 7 -->
+        <article class="phase" data-phase="7">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(56,189,248,0.15);color:var(--color-accent2);">07</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p7_title">Fase 07 · Contratos de API e Qualidade de Software</div>
+              <div class="phase-desc" data-i18n="roadmap.p7_desc">Design formal de contratos de API e garantia de qualidade em 3 camadas de testes</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-blue">Testes e OpenAPI</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">2–3 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block full">
+                <div class="block-title">Estratégia de Contratos e Testes Automatizados</div>
+                <ul class="checklist">
+                  <li><strong>Contratos de Interface (OpenAPI 3.0 / Swagger):</strong> Rotas padronizadas para consulta de datas, agregados de partidas, simulações e status do sistema.</li>
+                  <li><strong>Testes Unitários e de Domínio (C# .NET xUnit):</strong> Cobertura extensiva de regras de negócio, cálculos matemáticos e resiliência de fallback.</li>
+                  <li><strong>Testes de Componentes e Hooks (Frontend Vitest):</strong> Validação de renderização, gerenciamento de estado global e compatibilidade PWA.</li>
+                  <li><strong>Testes End-to-End BDD (Playwright):</strong> Simulação da jornada real do usuário cobrindo primeiro acesso, navegação e filtros.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FASE 8 -->
+        <article class="phase" data-phase="8">
+          <div class="phase-header" onclick="togglePhase(this)">
+            <span class="phase-num" style="background:rgba(52,211,153,0.15);color:var(--color-green);">08</span>
+            <div class="phase-title-wrap">
+              <div class="phase-title" data-i18n="roadmap.p8_title">Fase 08 · Gate de Qualidade e Entrada em Produção</div>
+              <div class="phase-desc" data-i18n="roadmap.p8_desc">Checklist de prontidão técnica aprovado e operação contínua com alta performance</div>
+            </div>
+            <div class="phase-tags">
+              <span class="tag badge-green">Live in Production</span>
+              <span class="tag" style="background:var(--bg-surface-alt);color:var(--text-muted);border-color:var(--border);">1–2 dias</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="phase-body">
+            <div class="content-grid">
+              <div class="content-block full">
+                <div class="block-title">Status do Gate de Entrada em Produção</div>
+                <div class="gate-status-grid">
+                  <div>
+                    <div style="font-size:11.5px; color:var(--color-green); font-family:var(--font-mono); margin-bottom:8px; font-weight:700;">✓ FUNDAMENTOS E BACKEND (100%)</div>
+                    <ul class="checklist">
+                      <li>Clean Architecture em C# .NET 10 implementada</li>
+                      <li>Desacoplamento Zero-Compute em Background Workers</li>
+                      <li>Persistência NoSQL atômica em tempo O(1)</li>
+                      <li>100% da suíte de testes xUnit aprovada</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div style="font-size:11.5px; color:var(--color-accent2); font-family:var(--font-mono); margin-bottom:8px; font-weight:700;">✓ FRONTEND E PERFORMANCE (100%)</div>
+                    <ul class="checklist">
+                      <li>Edge Caching com TTFB sub-35ms</li>
+                      <li>PWA Universal (Mobile e Desktop)</li>
+                      <li>Fallback resiliente de integrações externas</li>
+                      <li>Testes E2E e Vitest 100% aprovados</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="infobox ib-green" style="margin-top:16px;">
+                  <strong>Veredito do Gate: [LIVE IN PRODUCTION]</strong> A plataforma foi homologada e está operando em produção contínua. Os workers assíncronos em C# .NET realizam o processamento prévio dos dados, entregando uma experiência instantânea e estável para o usuário final com custo operacional enxuto.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── DELIVERABLES TIMELINE ── -->
+    <section aria-labelledby="timeline-heading">
+      <div class="section-divider-title" id="timeline-heading" data-i18n="roadmap.timeline_title">Linha do Tempo de Engenharia e Entregáveis</div>
+      <div class="timeline-wrap">
+        <div class="timeline">
+          <div class="tline-item">
+            <div class="tline-line"><div class="tline-dot" style="background:var(--color-accent)"></div><div class="tline-connector"></div></div>
+            <div class="tline-content"><div class="tline-title">Semana 1 · Discovery e Modelagem da Solução</div><div class="tline-desc">Análise de Causa Raiz da dor de negócio · Definição de KPIs de Engenharia · Estratégia de Processamento Assíncrono</div></div>
+          </div>
+          <div class="tline-item">
+            <div class="tline-line"><div class="tline-dot" style="background:var(--color-accent2)"></div><div class="tline-connector"></div></div>
+            <div class="tline-content"><div class="tline-title">Semana 2 · Domínio DDD e Persistência NoSQL</div><div class="tline-desc">Modelagem de Agregados Atômicos em C# · Eliminação de queries N+1 · Índices compostos e leitura em O(1)</div></div>
+          </div>
+          <div class="tline-item">
+            <div class="tline-line"><div class="tline-dot" style="background:var(--color-accent3)"></div><div class="tline-connector"></div></div>
+            <div class="tline-content"><div class="tline-title">Semana 3 · Clean Architecture e Hosted Workers (.NET 10)</div><div class="tline-desc">ADR #001 Desacoplamento Zero-Compute · ADR #002 Cadeia de Resiliência de IA · Ingestão e Processamento em Background</div></div>
+          </div>
+          <div class="tline-item">
+            <div class="tline-line"><div class="tline-dot" style="background:var(--color-green)"></div><div class="tline-connector"></div></div>
+            <div class="tline-content"><div class="tline-title">Semana 4 · Frontend Moderno, Edge Caching e Testes</div><div class="tline-desc">React 19 + PWA · Headers de Cache RFC-7234 (stale-while-revalidate) · Suíte de Testes Automatizados (xUnit, Vitest, E2E)</div></div>
+          </div>
+          <div class="tline-item">
+            <div class="tline-line"><div class="tline-dot" style="background:var(--color-orange)"></div></div>
+            <div class="tline-content"><div class="tline-title">Produção · Live in Production</div><div class="tline-desc">Plataforma operando em produção com alta disponibilidade, custo otimizado e resposta instantânea para o usuário.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER PROGRESS BAR ── -->
+    <div class="footer-progress-bar">
+      <span>COSTAR · Roadmap de Engenharia de Software (Estudo de Caso SaaS)</span>
+      <div class="progress-wrap">
+        <span id="progress-text">0 / 8 fases abertas</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito à mão com Vanilla Web Standards e Clean Architecture.</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Script Universal (Funciona via file:// e localhost) -->
+  <script src="js/app.js"></script>
+</body>
+</html>

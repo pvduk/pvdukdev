@@ -1,0 +1,245 @@
+/**
+ * Translation Dictionary · English (en)
+ * COSTAR Suite · Software Engineering and Portfolio
+ */
+export const en = {
+  // ─── Topbar and Navigation ───
+  'nav.home': 'Home',
+  'nav.roadmap': 'Roadmap',
+  'nav.system_design': '02 · System Design',
+  'nav.brand': 'pvduk · dev',
+  'nav.series': 'Software Engineer',
+  'btn.lang': 'EN',
+  'btn.theme_toggle': 'Toggle Theme',
+  'btn.dev_mode': 'Dev Mode',
+  'btn.std_mode': 'Standard Mode',
+  'footer.author': 'Handcrafted with Vanilla Web Standards and Clean Architecture.',
+
+  // ─── Home Hub: Standard Mode (Option 1 · The Architectural Engineer) ───
+  'hub.badge_status': 'Available for projects and consulting',
+  'hub.hero_title': 'Software Engineer and<br><em>FullStack C#/React</em>',
+  'hub.hero_tagline': 'Specialized in clean architecture, distributed systems, web performance, and pure frontend engineering.',
+  'hub.btn_explore': 'Explore Portfolio ↓',
+  'hub.btn_contact': 'Get in Touch ⟶',
+
+  // Technical Disciplines
+  'disc.system_design': 'System Design',
+  'disc.clean_arch': 'Clean Architecture',
+  'disc.web_perf': 'Web Performance (CWV)',
+  'disc.avalonia_ui': 'Avalonia UI',
+  'disc.sql_nosql': 'SQL and NoSQL',
+  'disc.iac_docker': 'IaC and Docker',
+
+  // Sections
+  'hub.section_flagship': 'Flagship Project',
+  'hub.section_projects': 'Technical Specialties',
+  'hub.section_story': 'Project Milestones',
+  'hub.section_contact': 'Get in Touch',
+  'hub.section_connections': 'Connections',
+
+  // COSTAR Volumes
+  'vol1.tag': 'Flagship Project · Process and Case Study',
+  'vol1.title': 'Software Engineering and Requirements Roadmap',
+  'vol1.desc': 'Structured 8-phase guide with the real FirstStrike Analytics SaaS case study: from business discovery to the Production Gate.',
+  'vol1.feat1': 'Intuitive, simple, and rich case study for any user',
+  'vol1.feat2': 'C4 Level 1 diagrams, DDD and NoSQL tables',
+  'vol1.feat3': 'Real OpenAPI 3.0 specs and Docker Compose environment',
+  'vol1.btn': 'Open Interactive Roadmap ⟶',
+
+  'vol2.tag': 'Volume 02 · Architecture and Decisions',
+  'vol2.title': 'Decisional System Design COSTAR',
+  'vol2.desc': 'Interactive workbench to declare latency/throughput trade-offs, simulate CAP Theorem, and export versionable Markdown ADRs.',
+  'vol2.feat1': 'Visual CAP Theorem simulator',
+  'vol2.feat2': 'Pareto 20/80 prioritization matrix',
+  'vol2.feat3': 'Markdown ADR generator for /docs/adr/',
+  'vol2.btn': 'Open Workbench ⟶',
+
+  // Selected Projects
+  'proj1.title': 'High-Performance Web Architecture',
+  'proj1.desc': 'Web applications crafted without heavy frameworks, achieving 99th percentile Core Web Vitals, CSS Cascade Layers, and ultra-fast rendering.',
+  'proj1.tag': 'Pure Frontend · Zero Runtime',
+  'proj2.title': 'System Design and Microservices',
+  'proj2.desc': 'Domain-Driven Design (DDD), bounded context isolation, asynchronous messaging architectures, and distributed system resilience.',
+  'proj2.tag': 'Architecture · DDD · Microservices',
+  'proj3.title': 'DevOps and Immutable Local Environments',
+  'proj3.desc': 'Infrastructure provisioning with OpenTofu/Terraform, automated GitHub Actions CI/CD pipelines, and unified local Docker Compose stacks.',
+  'proj3.tag': 'Docker · CI/CD · IaC',
+
+  // My Story (Timeline)
+  'story.step1_year': 'Foundations and Web Excellence',
+  'story.step1_title': 'Mastery of Standards and Algorithms',
+  'story.step1_desc': 'Early career focused on data structures, algorithms, and in-depth mastery of W3C/ECMA standards. Building lightweight, accessible, and user-centric web applications.',
+
+  'story.step2_year': 'Scale Engineering and Architecture',
+  'story.step2_title': 'Distributed Systems and Resilience',
+  'story.step2_desc': 'Leading high-volume operations, decoupling monolithic architectures, implementing DDD, asynchronous event pipelines, and ADR-driven technical governance.',
+
+  'story.step3_year': 'Present and COSTAR Suite',
+  'story.step3_title': 'Technical Leadership and Decision Tools',
+  'story.step3_desc': 'Architecting conceptual ecosystems and frameworks that reduce architectural decision costs, elevating Clean Code practices and aligning product with engineering.',
+
+  // Contact
+  'contact.title': 'Let’s Build High-Impact Software Together',
+  'contact.desc': 'Whether proposing a technical opportunity, discussing system architecture, or collaborating on practical projects, compose your message below:',
+  'contact.label_tags': 'Select Quick Subject:',
+  'contact.tag_job': 'Proposal / Job',
+  'contact.tag_project': 'Project / Freelance',
+  'contact.tag_advisory': 'Consulting',
+  'contact.tag_chat': 'Dev Chat',
+  'contact.tag_other': 'Other Subject',
+  'contact.label_subject': 'Selected Subject (Automatic):',
+  'contact.label_email': 'Your E-mail (for reply):',
+  'contact.label_message': 'Your Message:',
+  'contact.placeholder_message': 'Briefly describe your project, technical scope, or opportunity...',
+  'contact.btn_send': 'Send Direct Message ⟶',
+  'contact.btn_send_email': 'Send Direct Message',
+  'contact.sending': 'Sending message...',
+  'contact.success': '✓ Message sent successfully! I will reply soon.',
+  'contact.error': '✕ Error sending message. Please try again or use direct email.',
+  'contact.direct_label': 'Or connect directly:',
+  'contact.email_label': 'Primary E-mail',
+  'contact.btn_copy_email': 'Copy E-mail',
+  'contact.email_copied': '✓ E-mail Copied!',
+  'contact.btn_email_direct': 'Send Direct Message ⟶',
+  'contact.social_github': 'GitHub',
+  'contact.social_linkedin': 'LinkedIn',
+  'contact.sla': 'Guaranteed response',
+  'conn.github_desc': 'Open-source repositories, automated tests, software architecture, and hands-on implementations.',
+  'conn.linkedin_desc': 'Professional trajectory, technical leadership, engineering insights, recommendations, and networking.',
+
+  // ─── Home Hub: Dev Mode (Option 2 · Terminal CLI) ───
+  'terminal.header_title': 'pvduk@dev-station:~ (zsh) — 80x24',
+  'terminal.welcome': 'Welcome to pvduk interactive terminal. Enter a command or click one of the quick shortcuts below:',
+  'terminal.chip_whoami': '$ whoami',
+  'terminal.chip_projects': '$ ls projects/',
+  'terminal.chip_story': '$ cat story.log',
+  'terminal.chip_contact': '$ ./contact.sh',
+  'terminal.chip_costar': '$ costar --status',
+  'terminal.chip_clear': '$ clear',
+  'terminal.placeholder': 'Type a command (e.g., help, whoami, projects, story, contact, clear)...',
+
+  // Terminal: whoami
+  'terminal.whoami_title': 'pvduk · Senior Software Engineer and FullStack C#/React',
+  'terminal.whoami_desc': 'Specialized in clean architecture, distributed systems, web performance, and pure frontend engineering.',
+  'terminal.whoami_tag_ts': 'TypeScript / Vanilla ES2026',
+  'terminal.whoami_tag_clean': 'Clean Architecture and DDD',
+  'terminal.whoami_tag_perf': 'Web Standards and CWV',
+  'terminal.whoami_tag_docker': 'IaC and Docker',
+  'terminal.whoami_tag_sd': 'System Design',
+  'terminal.whoami_tag_avalonia': 'Avalonia UI',
+  'terminal.whoami_tag_db': 'SQL and NoSQL',
+  'terminal.whoami_status': '● Status: Available for projects and technical consulting',
+
+  // Terminal: help
+  'terminal.help_title': 'AVAILABLE COMMANDS:',
+  'terminal.help_whoami': 'Shows developer profile and core skills',
+  'terminal.help_projects': 'Lists projects and engineering artifacts',
+  'terminal.help_story': 'Career changelog and milestones',
+  'terminal.help_contact': 'Direct contact channels and e-mail',
+  'terminal.help_costar': 'Status and links of the COSTAR Framework',
+  'terminal.help_theme': 'Toggles Dark / Light theme',
+  'terminal.help_lang': 'Toggles language PT / EN',
+  'terminal.help_clear': 'Clears terminal console',
+
+  // Terminal: projects
+  'terminal.projects_title': '[ARTIFACTS AND PROJECTS]',
+  'terminal.th_name': 'NAME',
+  'terminal.th_stack': 'STACK',
+  'terminal.th_type': 'TYPE',
+  'terminal.th_link': 'ACCESS',
+  'terminal.proj1_name': '01 · Requirements Roadmap',
+  'terminal.proj1_stack': 'HTML5 / Vanilla JS / C# .NET 10 / MongoDB NoSQL',
+  'terminal.proj1_type': 'Process and Case Study',
+  'terminal.proj1_link': '[Open] ➔',
+  'terminal.proj2_name': 'Web Perf and Zero-Runtime',
+  'terminal.proj2_stack': 'CSS Cascade Layers / ES2026',
+  'terminal.proj2_type': 'Architecture Kit',
+  'terminal.proj2_status': 'Live',
+  'terminal.proj3_name': 'Clean Architecture and DDD',
+  'terminal.proj3_stack': 'C# .NET 10 / MongoDB / Docker',
+  'terminal.proj3_type': 'Pattern Boilerplate',
+  'terminal.proj3_status': 'Live',
+
+  // Terminal: story
+  'terminal.story_title': '[CAREER LOG AND ENGINEERING MILESTONES]',
+  'terminal.story_m3_role': 'Present:',
+  'terminal.story_m3_desc': 'Technical Leadership and Decisional COSTAR Suite',
+  'terminal.story_m2_role': 'Scale Era:',
+  'terminal.story_m2_desc': 'Distributed Systems, DDD, Resilience and Microservices',
+  'terminal.story_m1_role': 'Foundations:',
+  'terminal.story_m1_desc': 'Algorithms, W3C Standards, Vanilla Web and Performance',
+
+  // Terminal: contact
+  'terminal.contact_title': '[CONTACT CHANNELS]',
+  'terminal.contact_desc': 'Ready to collaborate on high-impact projects and technical consulting:',
+  'terminal.contact_email_label': 'E-mail:',
+  'terminal.contact_copy_btn': '[Copy]',
+  'terminal.contact_copied': '✓ E-mail Copied!',
+  'terminal.contact_github_label': 'GitHub:',
+  'terminal.contact_linkedin_label': 'LinkedIn:',
+  'terminal.contact_sla': '● Response time: < 24 business hours',
+
+  // Terminal: costar
+  'terminal.costar_title': '[COSTAR FRAMEWORK · STATUS REPORT]',
+  'terminal.costar_item1': '01 · Requirements Roadmap:',
+  'terminal.costar_status1': '[ACTIVE / OPERATIONAL] ➔',
+
+  // Terminal: feedback
+  'terminal.theme_changed': '✓ Theme changed successfully.',
+  'terminal.lang_changed': '✓ Language changed to Portuguese.',
+
+  // ─── Volume 01: Roadmap ───
+  'roadmap.header_eyebrow': '// Software Engineering Case Study · C# .NET and Clean Architecture',
+  'roadmap.header_title': 'Software Engineering Roadmap',
+  'roadmap.header_sub': 'From Discovery to Production Deploy: How we solved the analytical latency bottleneck in FirstStrike Analytics using C# .NET and Clean Architecture',
+  'roadmap.case_overview_title': 'Case Overview: SaaS Analytics Platform',
+  'roadmap.case_overview_text': 'This case study documents the architectural decisions and engineering fundamentals applied in building FirstStrike Analytics, a high-performance SaaS. It demonstrates how a high compute cost and concurrency bottleneck was solved through Clean Architecture, asynchronous background workers (Zero-Compute on client), C# .NET 10, intelligent edge caching, and multi-layer automated testing.',
+  'roadmap.costar_title': 'COSTAR Framework · Engineering Strategy',
+  'roadmap.phases_title': 'Engineering Roadmap · 8 Project Phases',
+  'roadmap.timeline_title': 'Engineering Timeline and Deliverables',
+  'roadmap.progress_text': 'phases open',
+
+  'roadmap.p0_title': 'Phase 00 · Discovery and Business Pain Alignment',
+  'roadmap.p0_desc': 'Where the product tackles the real user pain before any line of code',
+  'roadmap.p1_title': 'Phase 01 · Actors, Boundaries and C4 Context Diagram',
+  'roadmap.p1_desc': 'Mapping actors, external services and system macro flow',
+  'roadmap.p2_title': 'Phase 02 · Functional Requirements, MoSCoW and BDD Gherkin',
+  'roadmap.p2_desc': 'Precise specification with testable acceptance criteria and clear prioritization',
+  'roadmap.p3_title': 'Phase 03 · Domain-Driven Design (DDD) and NoSQL Persistence',
+  'roadmap.p3_desc': 'Ubiquitous language, aggregate roots and high-performance atomic persistence',
+  'roadmap.p4_title': 'Phase 04 · C# .NET Architecture Decisions and ADRs',
+  'roadmap.p4_desc': '4-Layer Clean Architecture, async decoupling and resilience',
+  'roadmap.p5_title': 'Phase 05 · Security, Rate Limiting and Edge Caching (RFC-7234)',
+  'roadmap.p5_desc': 'Edge protection, abuse prevention and CDN-accelerated delivery',
+  'roadmap.p6_title': 'Phase 06 · Tech Stack and Multi-Container Docker',
+  'roadmap.p6_desc': '100% reproducible environment with Hot Reload and strict resource control',
+  'roadmap.p7_title': 'Phase 07 · API Contracts and Software Quality',
+  'roadmap.p7_desc': 'Formal API contracts design and 3-layer quality assurance tests',
+  'roadmap.p8_title': 'Phase 08 · Quality Gate and Production Launch',
+  'roadmap.p8_desc': 'Approved technical readiness checklist and continuous high-performance operation',
+
+  // ─── Volume 02: System Design ───
+  'sd.brand': 'System Design',
+  'sd.series': 'vol. 2 / 2',
+  'sd.eyebrow': '// Decisional COSTAR · Software Architecture',
+  'sd.title': 'Pre-processing of<br><em>Architectural Decisions</em>',
+  'sd.desc': 'An interactive workbench to map context, declare trade-offs, apply the Pareto principle, and select the right architectural pattern — before the first line of code.',
+  'sd.badge_num': '20%',
+  'sd.badge_lbl': 'of decisions →<br>80% of impact',
+  'sd.btn_generate': 'Generate Decision Summary',
+  'sd.btn_copy': 'Copy Markdown',
+  'sd.btn_copied': '✓ Copied!',
+
+  // ─── 404 Error Page ───
+  '404.badge': '// FATAL: 0x00000404 · Segment Fault in /dev/null',
+  '404.title': '404 · NullReferenceException',
+  '404.desc': 'The requested route points to a null reference in memory or was dropped in the CI/CD pipeline.',
+  '404.hypo_title': '[ROOT CAUSE ANALYSIS · ENGINEERING DIAGNOSTIC]',
+  '404.hypo_1': 'Hypothesis 01: The intern ran git push --force on Friday at 6 PM.',
+  '404.hypo_2': 'Hypothesis 02: The Garbage Collector reclaimed this page as unreachable.',
+  '404.hypo_3': 'Hypothesis 03: You tried to access a route without putting a semicolon at the end.',
+  '404.btn_home': 'cd /home ➔',
+  '404.btn_roadmap': 'git checkout roadmap ➔',
+  '404.btn_coffee': '☕ sudo make-coffee',
+  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!'
+};

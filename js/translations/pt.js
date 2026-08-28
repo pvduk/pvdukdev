@@ -1,0 +1,245 @@
+/**
+ * Dicionário de Traduções · Português (pt-BR)
+ * Suíte COSTAR · Engenharia de Software e Portfólio
+ */
+export const pt = {
+  // ─── Topbar e Navegação ───
+  'nav.home': 'Início',
+  'nav.roadmap': 'Roadmap',
+  'nav.system_design': '02 · System Design',
+  'nav.brand': 'pvduk · dev',
+  'nav.series': 'Engenheiro de Software',
+  'btn.lang': 'PT',
+  'btn.theme_toggle': 'Alternar Tema',
+  'btn.dev_mode': 'Modo Dev',
+  'btn.std_mode': 'Modo Padrão',
+  'footer.author': 'Feito à mão com Vanilla Web Standards e Clean Architecture.',
+
+  // ─── Home Hub: Modo Padrão (Opção 1 · The Architectural Engineer) ───
+  'hub.badge_status': 'Disponível para projetos e consultoria',
+  'hub.hero_title': 'Engenheiro de Software e<br><em>FullStack C#/React</em>',
+  'hub.hero_tagline': 'Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.',
+  'hub.btn_explore': 'Explorar Portfólio ↓',
+  'hub.btn_contact': 'Fale Conosco ⟶',
+
+  // Disciplinas Técnicas
+  'disc.system_design': 'System Design',
+  'disc.clean_arch': 'Clean Architecture',
+  'disc.web_perf': 'Web Performance (CWV)',
+  'disc.avalonia_ui': 'Avalonia UI',
+  'disc.sql_nosql': 'SQL e NoSQL',
+  'disc.iac_docker': 'IaC e Docker',
+
+  // Seções
+  'hub.section_flagship': 'Projeto em Destaque',
+  'hub.section_projects': 'Especialidades Técnicas',
+  'hub.section_story': 'Ápices nos Projetos',
+  'hub.section_contact': 'Fale Conosco',
+  'hub.section_connections': 'Conexões',
+
+  // Volumes COSTAR
+  'vol1.tag': 'Projeto Principal · Processo e Estudo de Caso',
+  'vol1.title': 'Roadmap de Engenharia e Requisitos',
+  'vol1.desc': 'Guia estruturado em 8 fases com o estudo de caso real do projeto FirstStrike Analytics: do discovery de negócio ao Gate de Entrada no Sprint 0.',
+  'vol1.feat1': 'Exemplo prático, simples e intuitivo para qualquer usuário',
+  'vol1.feat2': 'Diagramas C4 Nível 1, DDD e tabelas NoSQL',
+  'vol1.feat3': 'Contrato OpenAPI 3.0 e ambiente Docker Compose real',
+  'vol1.btn': 'Acessar Roadmap Interativo ⟶',
+
+  'vol2.tag': 'Volume 02 · Arquitetura e Decisões',
+  'vol2.title': 'System Design COSTAR Decisório',
+  'vol2.desc': 'Workbench interativo para declarar trade-offs de latência/throughput, simular o Teorema CAP e exportar ADRs em Markdown versionável.',
+  'vol2.feat1': 'Simulador visual do Teorema CAP',
+  'vol2.feat2': 'Matriz de priorização Pareto 20/80',
+  'vol2.feat3': 'Gerador de ADR Markdown para /docs/adr/',
+  'vol2.btn': 'Abrir Workbench ⟶',
+
+  // Projetos Selecionados
+  'proj1.title': 'Arquitetura Web de Alta Performance',
+  'proj1.desc': 'Aplicações web sem frameworks pesados, com Core Web Vitals no percentil 99, CSS com Cascade Layers e renderização ultra-rápida.',
+  'proj1.tag': 'Frontend Puro · Zero Runtime',
+  'proj2.title': 'Design de Sistemas e Microsserviços',
+  'proj2.desc': 'Modelagem orientada a domínio (DDD), isolamento por bounded contexts, estratégias de mensageria assíncrona e resiliência.',
+  'proj2.tag': 'Arquitetura · DDD · Microservices',
+  'proj3.title': 'DevOps e Infraestrutura Local Imutável',
+  'proj3.desc': 'Provisionamento com OpenTofu/Terraform, pipelines CI/CD automatizados no GitHub Actions e ambientes locais via Docker Compose.',
+  'proj3.tag': 'Docker · CI/CD · IaC',
+
+  // Minha História (Timeline)
+  'story.step1_year': 'Fundação e Excelência Web',
+  'story.step1_title': 'Domínio de Padrões e Algoritmos',
+  'story.step1_desc': 'Início focado em algoritmos, estruturas de dados e domínio profundo das especificações do W3C/ECMA. Construção de aplicações leves, acessíveis e centradas na experiência do usuário.',
+
+  'story.step2_year': 'Engenharia de Escala e Arquitetura',
+  'story.step2_title': 'Sistemas Distribuídos e Resiliência',
+  'story.step2_desc': 'Atuação em cenários de alta volumetria, desacoplamento de monolitos, modelagem DDD, pipelines de dados assíncronos e governança técnica orientada a ADRs.',
+
+  'story.step3_year': 'Presente e Suíte COSTAR',
+  'story.step3_title': 'Liderança Técnica e Ferramentas Decisórias',
+  'story.step3_desc': 'Criação de ecossistemas e frameworks conceituais que reduzem o custo de decisão arquitetural, promovendo excelência de Clean Code e alinhamento entre produto e engenharia.',
+
+  // Fale Conosco
+  'contact.title': 'Vamos Construir Software de Alto Impacto?',
+  'contact.desc': 'Seja para propor uma oportunidade, debater arquitetura de sistemas ou colaborar em projetos práticos, monte sua mensagem abaixo:',
+  'contact.label_tags': 'Selecione o Assunto Rápido:',
+  'contact.tag_job': 'Proposta / Vaga',
+  'contact.tag_project': 'Projeto / Freelance',
+  'contact.tag_advisory': 'Consultoria',
+  'contact.tag_chat': 'Bate-papo Dev',
+  'contact.tag_other': 'Outro Assunto',
+  'contact.label_subject': 'Assunto Selecionado (Automático):',
+  'contact.label_email': 'Seu E-mail (para resposta):',
+  'contact.label_message': 'Sua Mensagem:',
+  'contact.placeholder_message': 'Descreva brevemente o projeto, escopo ou oportunidade técnica...',
+  'contact.btn_send': 'Enviar Mensagem Direta ⟶',
+  'contact.btn_send_email': 'Enviar Mensagem Direta',
+  'contact.sending': 'Enviando mensagem...',
+  'contact.success': '✓ Mensagem enviada com sucesso! Responderei em breve.',
+  'contact.error': '✕ Erro ao enviar mensagem. Tente novamente ou use o e-mail direto.',
+  'contact.direct_label': 'Ou conecte-se diretamente:',
+  'contact.email_label': 'E-mail Principal',
+  'contact.btn_copy_email': 'Copiar E-mail',
+  'contact.email_copied': '✓ E-mail Copiado!',
+  'contact.btn_email_direct': 'Enviar Mensagem Direta ⟶',
+  'contact.social_github': 'GitHub',
+  'contact.social_linkedin': 'LinkedIn',
+  'contact.sla': 'Resposta garantida',
+  'conn.github_desc': 'Repositórios open-source, testes automatizados, arquitetura de software e implementações práticas.',
+  'conn.linkedin_desc': 'Trajetória profissional, liderança técnica, publicações de engenharia, recomendações e networking.',
+
+  // ─── Home Hub: Modo Dev (Opção 2 · Terminal CLI) ───
+  'terminal.header_title': 'pvduk@dev-station:~ (zsh) — 80x24',
+  'terminal.welcome': 'Bem-vindo ao terminal interativo de pvduk. Digite um comando ou clique nos atalhos acima:',
+  'terminal.chip_whoami': '$ whoami',
+  'terminal.chip_projects': '$ ls projects/',
+  'terminal.chip_story': '$ cat story.log',
+  'terminal.chip_contact': '$ ./contact.sh',
+  'terminal.chip_costar': '$ costar --status',
+  'terminal.chip_clear': '$ clear',
+  'terminal.placeholder': 'Digite um comando (ex: help, whoami, projects, story, contact, clear)...',
+
+  // Terminal: whoami
+  'terminal.whoami_title': 'pvduk · Senior Software Engineer e FullStack C#/React',
+  'terminal.whoami_desc': 'Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.',
+  'terminal.whoami_tag_ts': 'TypeScript / Vanilla ES2026',
+  'terminal.whoami_tag_clean': 'Clean Architecture e DDD',
+  'terminal.whoami_tag_perf': 'Web Standards e CWV',
+  'terminal.whoami_tag_docker': 'IaC e Docker',
+  'terminal.whoami_tag_sd': 'System Design',
+  'terminal.whoami_tag_avalonia': 'Avalonia UI',
+  'terminal.whoami_tag_db': 'SQL e NoSQL',
+  'terminal.whoami_status': '● Status: Disponível para projetos e consultoria técnica',
+
+  // Terminal: help
+  'terminal.help_title': 'COMANDOS DISPONÍVEIS:',
+  'terminal.help_whoami': 'Exibe perfil e especialidades técnicas',
+  'terminal.help_projects': 'Lista projetos e artefatos de engenharia',
+  'terminal.help_story': 'Linha do tempo de carreira e marcos profissionais',
+  'terminal.help_contact': 'Canais diretos de contato e e-mail',
+  'terminal.help_costar': 'Status e links do Framework COSTAR',
+  'terminal.help_theme': 'Alterna tema Dark / Light',
+  'terminal.help_lang': 'Alterna idioma PT / EN',
+  'terminal.help_clear': 'Limpa o console do terminal',
+
+  // Terminal: projects
+  'terminal.projects_title': '[ARTEFATOS E PROJETOS]',
+  'terminal.th_name': 'NOME',
+  'terminal.th_stack': 'STACK',
+  'terminal.th_type': 'TIPO',
+  'terminal.th_link': 'ACESSO',
+  'terminal.proj1_name': '01 · Roadmap de Requisitos',
+  'terminal.proj1_stack': 'HTML5 / Vanilla JS / C# .NET 10 / MongoDB NoSQL',
+  'terminal.proj1_type': 'Processo e Estudo de Caso',
+  'terminal.proj1_link': '[Acessar] ➔',
+  'terminal.proj2_name': 'Web Perf e Zero-Runtime',
+  'terminal.proj2_stack': 'CSS Cascade Layers / ES2026',
+  'terminal.proj2_type': 'Kit de Arquitetura',
+  'terminal.proj2_status': 'Produção',
+  'terminal.proj3_name': 'Clean Architecture e DDD',
+  'terminal.proj3_stack': 'C# .NET 10 / MongoDB / Docker',
+  'terminal.proj3_type': 'Boilerplate de Padrões',
+  'terminal.proj3_status': 'Produção',
+
+  // Terminal: story
+  'terminal.story_title': '[LOG DE CARREIRA E MARCOS DE ENGENHARIA]',
+  'terminal.story_m3_role': 'Presente:',
+  'terminal.story_m3_desc': 'Liderança Técnica e Suíte Decisória COSTAR',
+  'terminal.story_m2_role': 'Engenharia de Escala:',
+  'terminal.story_m2_desc': 'Sistemas Distribuídos, DDD, Resiliência e Microsserviços',
+  'terminal.story_m1_role': 'Fundação:',
+  'terminal.story_m1_desc': 'Algoritmos, W3C Standards, Vanilla Web e Performance',
+
+  // Terminal: contact
+  'terminal.contact_title': '[CANAIS DE CONTATO]',
+  'terminal.contact_desc': 'Pronto para colaborar em projetos de alto impacto e consultoria técnica:',
+  'terminal.contact_email_label': 'E-mail:',
+  'terminal.contact_copy_btn': '[Copiar]',
+  'terminal.contact_copied': '✓ E-mail Copiado!',
+  'terminal.contact_github_label': 'GitHub:',
+  'terminal.contact_linkedin_label': 'LinkedIn:',
+  'terminal.contact_sla': '● Tempo de resposta: < 24h úteis',
+
+  // Terminal: costar
+  'terminal.costar_title': '[FRAMEWORK COSTAR · STATUS REPORT]',
+  'terminal.costar_item1': '01 · Roadmap de Requisitos:',
+  'terminal.costar_status1': '[ATIVO / OPERACIONAL] ➔',
+
+  // Terminal: feedback
+  'terminal.theme_changed': '✓ Tema alterado com sucesso.',
+  'terminal.lang_changed': '✓ Idioma alterado para Inglês.',
+
+  // ─── Volume 01: Roadmap ───
+  'roadmap.header_eyebrow': '// Estudo de Caso de Engenharia de Software · C# .NET e Clean Architecture',
+  'roadmap.header_title': 'Roadmap de Engenharia de Software',
+  'roadmap.header_sub': 'Do Discovery ao Deploy em Produção: Como atacamos o problema de latência analítica no FirstStrike Analytics com C# .NET e Clean Architecture',
+  'roadmap.case_overview_title': 'Visão Geral do Caso: Plataforma Analítica SaaS',
+  'roadmap.case_overview_text': 'Este estudo de caso documenta as decisões arquiteturais e os fundamentos de engenharia aplicados na construção do FirstStrike Analytics, um SaaS de alta performance. Demonstra como um problema de alto custo computacional e concorrência foi resolvido através de Clean Architecture, processamento assíncrono em segundo plano (Zero-Compute no client), C# .NET 10, cacheamento inteligente na borda e testes automatizados em múltiplas camadas.',
+  'roadmap.costar_title': 'Framework COSTAR · Estratégia de Engenharia',
+  'roadmap.phases_title': 'Roadmap de Engenharia · 8 Fases do Projeto',
+  'roadmap.timeline_title': 'Linha do Tempo de Engenharia e Entregáveis',
+  'roadmap.progress_text': 'fases abertas',
+
+  'roadmap.p0_title': 'Fase 00 · Discovery e Alinhamento da Dor de Negócio',
+  'roadmap.p0_desc': 'Onde o produto ataca a dor real do usuário antes de qualquer linha de código',
+  'roadmap.p1_title': 'Fase 01 · Atores, Fronteiras e Diagrama C4 de Contexto',
+  'roadmap.p1_desc': 'Mapeamento de atores, serviços externos e fluxo macro do sistema',
+  'roadmap.p2_title': 'Fase 02 · Requisitos Funcionais, MoSCoW e BDD Gherkin',
+  'roadmap.p2_desc': 'Especificação precisa com critérios de aceite testáveis e priorização clara',
+  'roadmap.p3_title': 'Fase 03 · Modelagem de Domínio (DDD) e Persistência NoSQL',
+  'roadmap.p3_desc': 'Linguagem ubíqua, aggregate roots e persistência atômica de alta performance',
+  'roadmap.p4_title': 'Fase 04 · Decisões de Arquitetura em C# .NET e ADRs',
+  'roadmap.p4_desc': 'Clean Architecture em 4 camadas, desacoplamento assíncrono e resiliência',
+  'roadmap.p5_title': 'Fase 05 · Segurança, Rate Limiting e Edge Caching (RFC-7234)',
+  'roadmap.p5_desc': 'Proteção de borda, controle de abuso e entrega acelerada via CDN',
+  'roadmap.p6_title': 'Fase 06 · Stack Tecnológica e Docker Multi-Container',
+  'roadmap.p6_desc': 'Ambiente 100% reproduzível com Hot Reload e controle rigoroso de recursos',
+  'roadmap.p7_title': 'Fase 07 · Contratos de API e Qualidade de Software',
+  'roadmap.p7_desc': 'Design formal de contratos de API e garantia de qualidade em 3 camadas de testes',
+  'roadmap.p8_title': 'Fase 08 · Gate de Qualidade e Entrada em Produção',
+  'roadmap.p8_desc': 'Checklist de prontidão técnica aprovado e operação contínua com alta performance',
+
+  // ─── Volume 02: System Design ───
+  'sd.brand': 'System Design',
+  'sd.series': 'vol. 2 / 2',
+  'sd.eyebrow': '// COSTAR Decisório · Arquitetura de Software',
+  'sd.title': 'Pre-processing de<br><em>Decisões Arquiteturais</em>',
+  'sd.desc': 'Um workbench interativo para mapear contexto, declarar trade-offs, aplicar o princípio de Pareto e escolher o padrão arquitetural certo — antes da primeira linha de código.',
+  'sd.badge_num': '20%',
+  'sd.badge_lbl': 'das decisões →<br>80% do impacto',
+  'sd.btn_generate': 'Gerar Resumo Decisório',
+  'sd.btn_copy': 'Copiar Markdown',
+  'sd.btn_copied': '✓ Copiado!',
+
+  // ─── 404 Error Page ───
+  '404.badge': '// FATAL: 0x00000404 · Segment Fault in /dev/null',
+  '404.title': '404 · NullReferenceException',
+  '404.desc': 'A rota solicitada aponta para uma referência nula na memória ou foi dropada no pipeline de CI/CD.',
+  '404.hypo_title': '[ROOT CAUSE ANALYSIS · DIAGNÓSTICO DE ENGENHARIA]',
+  '404.hypo_1': 'Hipótese 01: O estagiário deu git push --force na sexta-feira às 18h.',
+  '404.hypo_2': 'Hipótese 02: O Garbage Collector coletou esta página por considerá-la unreachable.',
+  '404.hypo_3': 'Hipótese 03: Você tentou acessar uma rota sem colocar ponto-e-vírgula no final.',
+  '404.btn_home': 'cd /home ➔',
+  '404.btn_roadmap': 'git checkout roadmap ➔',
+  '404.btn_coffee': '☕ sudo make-coffee',
+  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!'
+};

@@ -1,0 +1,50 @@
+{
+  "name": "pvduk · Senior Software Engineer e FullStack C#/React",
+  "short_name": "pvduk.dev",
+  "description": "Portfólio de Engenharia de Software, Clean Architecture e Suíte Decisória COSTAR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c0e12",
+  "theme_color": "#0c0e12",
+  "categories": ["development", "productivity", "utilities"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Roadmap de Requisitos",
+      "short_name": "Roadmap",
+      "description": "Estudo de Caso FirstStrike Analytics e 8 Fases de Engenharia",
+      "url": "roadmap-requisitos.html",
+      "icons": [{ "src": "assets/logo.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Modo Dev Terminal",
+      "short_name": "Terminal",
+      "description": "Terminal CLI Interativo de Engenharia de Software",
+      "url": "index.html",
+      "icons": [{ "src": "assets/logo.svg", "sizes": "any" }]
+    }
+  ]
+}

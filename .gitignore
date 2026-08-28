@@ -1,0 +1,50 @@
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Dependências & Pacotes
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs & Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Segredos & Credenciais
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa
+id_rsa.pub
+id_ed25519
+credentials.json
+service-account*.json
+*.sqlite
+*.db
+*.bak
+*.backup
+
+# Builds & Relatórios
+dist/
+coverage/
+scratch/
+_agents/
+docs/uncle-bob-audit-report.md
+docs/frontend-architecture.md
+docs/vision-document.md
+PROMPT_MASTER.md
