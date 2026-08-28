@@ -1130,6 +1130,35 @@ console.log('\n📦 Scenario 29: Progressive Enhancement & Resiliência No-JS (T
   });
 }
 
+console.log('\n📦 Scenario 30: Content Security Policy (CSP) & Defesa contra XSS/Injection');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const serverJs = fs.readFileSync(path.join(__dirname, '../server.js'), 'utf8');
+
+  it('Todas as páginas HTML devem conter a meta tag http-equiv="Content-Security-Policy"', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html) => {
+      assert.ok(html.includes('http-equiv="Content-Security-Policy"'), 'CSP meta tag presente');
+      assert.ok(html.includes("default-src 'self'"), "default-src 'self' presente");
+      assert.ok(html.includes("script-src 'self' 'unsafe-inline'"), "script-src presente");
+      assert.ok(html.includes("style-src 'self' 'unsafe-inline'"), "style-src presente");
+      assert.ok(html.includes("font-src 'self'"), "font-src 'self' presente");
+      assert.ok(html.includes("img-src 'self' data: https:"), "img-src presente");
+      assert.ok(html.includes("connect-src 'self' https://api.web3forms.com"), "connect-src restrito ao Web3Forms");
+      assert.ok(html.includes("object-src 'none'"), "object-src 'none' presente");
+      assert.ok(html.includes("base-uri 'self'"), "base-uri 'self' presente");
+      assert.ok(html.includes("form-action 'self' https://api.web3forms.com"), "form-action restrito");
+    });
+  });
+
+  it('server.js deve enviar headers de segurança HTTP (CSP, nosniff, DENY)', () => {
+    assert.ok(serverJs.includes('Content-Security-Policy'), 'CSP header em server.js');
+    assert.ok(serverJs.includes("'X-Content-Type-Options': 'nosniff'"), 'nosniff em server.js');
+    assert.ok(serverJs.includes("'X-Frame-Options': 'DENY'"), 'X-Frame-Options DENY em server.js');
+  });
+}
+
 console.log('\n═══════════════════════════════════════════════════════════');
 console.log(`📊 RESULTADO DA SUÍTE DE TESTES: ${passed} / ${total} PASSOU COM SUCESSO! 🚀`);
 console.log('═══════════════════════════════════════════════════════════\n');
