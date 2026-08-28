@@ -26,9 +26,35 @@
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="pvduk · Engenheiro de Software e FullStack C#/React. Portfólio técnico, trajetória e projetos de engenharia.">
-  <meta name="author" content="pvdukdev">
   <title>pvduk · Engenheiro de Software e FullStack C#/React</title>
+  <meta name="title" content="pvduk · Engenheiro de Software e FullStack C#/React">
+  <meta name="description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta name="author" content="pvdukdev">
+  <link rel="canonical" href="https://pvduk.github.io/pvdukdev/">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pvduk.github.io/pvdukdev/">
+  <meta property="og:title" content="pvduk · Engenheiro de Software e FullStack C#/React">
+  <meta property="og:description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:secure_url" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="pvduk · Engenheiro de Software - Preview do Portfólio e Roadmap SaaS">
+  <meta property="og:site_name" content="pvduk.dev">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/">
+  <meta name="twitter:title" content="pvduk · Engenheiro de Software e FullStack C#/React">
+  <meta name="twitter:description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="pvduk · Engenheiro de Software - Preview do Portfólio e Roadmap SaaS">
+  <meta name="twitter:creator" content="@pvduk">
 
   <!-- Favicon com a Marca Visual SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
@@ -43,10 +69,9 @@
   <meta name="apple-mobile-web-app-title" content="pvduk.dev">
   <link rel="apple-touch-icon" href="assets/logo.svg">
 
-  <!-- Google Fonts Otimizadas: Plus Jakarta Sans, Inter, JetBrains Mono, Fira Code -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <!-- Self-Hosted WOFF2 Fonts Preload (Zero Third-Party Latency · Inter & JetBrains Mono) -->
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- CSS Modular -->
   <link rel="stylesheet" href="css/base.css">
@@ -54,6 +79,12 @@
   <link rel="stylesheet" href="css/pages/home.css">
 </head>
 <body>
+  <!-- Progressive Enhancement Fallback Banner (No-JS) -->
+  <noscript>
+    <div class="noscript-banner" role="status">
+      ⚡ <strong>Aviso:</strong> JavaScript está desativado. O portfólio completo, projetos e canais de contato estão 100% acessíveis e funcionais no modo padrão. O Terminal Interativo (Modo Dev) é uma melhoria progressiva que requer JavaScript.
+    </div>
+  </noscript>
 
   <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
   <header class="topbar" role="banner">
@@ -82,7 +113,7 @@
       </button>
       <!-- IDIOMA E TEMA -->
       <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
-        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
         <span>PT</span>
       </button>
       <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
@@ -142,29 +173,29 @@
       <section class="home-section" id="portfolio" aria-labelledby="flagship-title">
         <h2 class="home-section-title" id="flagship-title" data-i18n="hub.section_flagship">Projeto em Destaque</h2>
 
-        <div class="volumes-grid" style="grid-template-columns: 1fr;">
+        <div class="volumes-grid volumes-grid--single">
           <!-- VOLUME 01 - ROADMAP FIRSTSTRIKE ANALYTICS (FEATURED CARD) -->
-          <article class="volume-card" style="--card-accent: var(--color-accent); padding: 32px; border: 1px solid rgba(91,111,255,0.3); background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(91,111,255,0.03) 100%);">
+          <article class="volume-card volume-card--featured">
             <div>
-              <div class="vol-header" style="margin-bottom: 16px;">
-                <div class="vol-tag" style="font-size: 11px; padding: 4px 10px;" data-i18n="vol1.tag">Projeto Principal · Processo e Estudo de Caso</div>
-                <h3 class="vol-title" style="font-size: 24px; margin-top: 8px;" data-i18n="vol1.title">Roadmap de Engenharia e Requisitos</h3>
+              <div class="vol-header">
+                <div class="vol-tag" data-i18n="vol1.tag">Projeto Principal · Processo e Estudo de Caso</div>
+                <h3 class="vol-title" data-i18n="vol1.title">Roadmap de Engenharia e Requisitos</h3>
               </div>
-              <p class="vol-desc" style="font-size: 15px; max-width: 800px; margin-bottom: 20px;" data-i18n="vol1.desc">
+              <p class="vol-desc" data-i18n="vol1.desc">
                 Guia estruturado em 8 fases com o estudo de caso real do projeto FirstStrike Analytics: do discovery de negócio ao Gate de Entrada no Sprint 0.
               </p>
-              <ul class="vol-features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 24px;">
+              <ul class="vol-features">
                 <li data-i18n="vol1.feat1">Exemplo prático, simples e intuitivo para qualquer usuário</li>
                 <li data-i18n="vol1.feat2">Diagramas C4 Nível 1, DDD e tabelas NoSQL</li>
                 <li data-i18n="vol1.feat3">Contrato OpenAPI 3.0 e ambiente Docker Compose real</li>
               </ul>
             </div>
-            <a href="roadmap-requisitos.html" class="btn btn-primary vol-btn" style="max-width: 280px; justify-content: center;" data-i18n="vol1.btn">Acessar Roadmap Interativo ⟶</a>
+            <a href="roadmap-requisitos.html" class="btn btn-primary vol-btn" data-i18n="vol1.btn">Acessar Roadmap Interativo ⟶</a>
           </article>
         </div>
 
         <!-- Especialidades Técnicas -->
-        <h3 class="home-section-title" style="font-size:18px; margin-top:32px;" data-i18n="hub.section_projects">Especialidades Técnicas</h3>
+        <h3 class="home-section-title home-section-title--sub" data-i18n="hub.section_projects">Especialidades Técnicas</h3>
         <div class="projects-subgrid">
           <div class="project-item-card">
             <div>
@@ -248,7 +279,7 @@
             <!-- Web3Forms Config -->
             <input type="hidden" name="access_key" value="d4d219ae-6575-4b32-b4a1-bf14f65fb12c">
             <input type="hidden" name="from_name" value="Portfólio pvduk.dev">
-            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+            <input type="checkbox" name="botcheck" class="hidden">
 
             <!-- 1. Tags Rápidas de Assunto -->
             <div class="composer-field-group">
@@ -296,7 +327,7 @@
             </div>
 
             <!-- 5. Feedback de Status -->
-            <div id="composerStatus" class="composer-status" style="display: none;" role="alert"></div>
+            <div id="composerStatus" class="composer-status" role="alert"></div>
 
             <!-- 6. Ações e SLA -->
             <div class="composer-actions-bar">
@@ -377,7 +408,7 @@
             <span class="term-dot dot-green"></span>
           </div>
           <div class="terminal-title" data-i18n="terminal.header_title">pvduk@dev-station:~ (zsh) — 80x24</div>
-          <div style="width:40px;"></div>
+          <div class="term-spacer"></div>
         </div>
 
         <!-- Quick Command Chips -->
@@ -392,6 +423,11 @@
 
         <!-- Terminal Body / Output Console -->
         <div class="terminal-output" id="terminalOutput">
+          <noscript>
+            <div class="terminal-noscript">
+              ⚡ <strong>Terminal em Modo Estático:</strong> O interpretador interativo de comandos requer JavaScript ativado. O portfólio completo com todos os projetos, tecnologias e contatos está disponível na visualização principal.
+            </div>
+          </noscript>
           <div class="term-line term-dim" data-i18n="terminal.welcome">
             Bem-vindo ao terminal interativo de pvduk. Digite um comando ou clique nos atalhos acima:
           </div>
@@ -411,7 +447,7 @@
                 <span class="term-tag" data-i18n="terminal.whoami_tag_db">SQL e NoSQL</span>
                 <span class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</span>
               </div>
-              <div style="margin-top:8px; color:var(--color-green); font-weight:600;" data-i18n="terminal.whoami_status">
+              <div class="term-status-available" data-i18n="terminal.whoami_status">
                 ● Status: Disponível para projetos e consultoria técnica
               </div>
             </div>
@@ -423,7 +459,7 @@
           <form class="terminal-form" id="terminalForm" autocomplete="off">
             <span class="term-prompt-sym">➜ ~ $</span>
             <input type="text" class="terminal-input" id="terminalInput" placeholder="Digite um comando (ex: help, whoami, projects, story, contact, clear)..." data-i18n-placeholder="terminal.placeholder">
-            <button type="submit" class="btn btn-primary" style="padding:6px 14px; font-size:11.5px;">Enter ↵</button>
+            <button type="submit" class="btn btn-primary term-btn-submit">Enter ↵</button>
           </form>
         </div>
       </div>

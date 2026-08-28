@@ -160,6 +160,15 @@
     white-space: nowrap;
   }
 
+  .lang-flag {
+    width: 15px;
+    height: 11px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   .theme-toggle {
     display: inline-flex;
     align-items: center;
@@ -330,6 +339,135 @@
     flex-shrink: 0;
     color: currentColor;
     opacity: 0.85;
+  }
+
+  .main-content--centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .site-container {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── NOSCRIPT BANNER / PROGRESSIVE ENHANCEMENT ─── */
+  .noscript-banner {
+    display: block;
+    background: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--color-amber);
+    line-height: 1.5;
+  }
+  .noscript-banner code {
+    background: rgba(245, 158, 11, 0.15);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .terminal-noscript {
+    display: block;
+    padding: 12px 16px;
+    margin: 12px 0;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px dashed var(--color-amber);
+    border-radius: var(--radius-sm);
+    color: var(--color-amber);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    line-height: 1.6;
+  }
+
+  /* ─── 404 ERROR PAGE ─── */
+  .error-hero {
+    padding: 60px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .error-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    background: rgba(220, 38, 38, 0.12);
+    border: 1.5px solid rgba(239, 68, 68, 0.35);
+    color: #f87171;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .error-title-hero {
+    font-family: var(--font-mono);
+    font-size: clamp(64px, 11vw, 110px);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--color-blue);
+    letter-spacing: -0.05em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 30px rgba(37, 99, 235, 0.25);
+  }
+  .error-subtitle-hero {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 4vw, 30px);
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .error-tagline {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .error-terminal-box {
+    width: 100%;
+    max-width: 640px;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-md);
+  }
+  .error-terminal-header {
+    color: var(--badge-blue-text);
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .error-hypo-item {
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: flex;
+    gap: 8px;
+  }
+  .error-hypo-item strong {
+    color: var(--color-amber);
+  }
+  .error-actions-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   /* ─── RESPONSIVIDADE & FAT FINGER PROTECTION (WCAG 2.2 AA · 44x44px Touch Targets) ─── */

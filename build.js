@@ -117,15 +117,12 @@ filesToProcess.forEach(({ src, dest, type }) => {
   console.log(`  ✓ ${src.padEnd(28)} ${(beforeSize / 1024).toFixed(1)} KB → ${(afterSize / 1024).toFixed(1)} KB (-${pct}%)`);
 });
 
-// 4. Copiar Assets Estáticos (Imagens / Ícones)
+// 4. Copiar Assets Estáticos (Imagens, Ícones e Fontes WOFF2)
 const assetsDir = path.join(ROOT_DIR, 'assets');
 const distAssetsDir = path.join(DIST_DIR, 'assets');
 if (fs.existsSync(assetsDir)) {
-  const assets = fs.readdirSync(assetsDir);
-  assets.forEach(asset => {
-    fs.copyFileSync(path.join(assetsDir, asset), path.join(distAssetsDir, asset));
-  });
-  console.log(`  ✓ assets/ (${assets.length} arquivos estáticos copiados)`);
+  fs.cpSync(assetsDir, distAssetsDir, { recursive: true });
+  console.log(`  ✓ assets/ (assets visuais e fontes locais copiadas recursivamente)`);
 }
 
 const duration = Date.now() - startTime;

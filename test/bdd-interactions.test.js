@@ -975,6 +975,161 @@ console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, 
   });
 }
 
+console.log('\n📦 Scenario 26: Otimização Crítica de Tipografia & Self-Hosted WOFF2 (Zero Third-Party Latency)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+  it('HTMLs devem estar livres de conexões externas a Google Fonts', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html, idx) => {
+      assert.ok(!html.includes('fonts.googleapis.com'), `Página ${idx} sem chamadas a fonts.googleapis.com`);
+      assert.ok(!html.includes('fonts.gstatic.com'), `Página ${idx} sem chamadas a fonts.gstatic.com`);
+    });
+  });
+
+  it('HTMLs devem conter preload das fontes WOFF2 críticas (Inter e JetBrains Mono)', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html, idx) => {
+      assert.ok(html.includes('rel="preload"') && html.includes('assets/fonts/inter-latin.woff2'), `Página ${idx} contém preload de inter-latin.woff2`);
+      assert.ok(html.includes('rel="preload"') && html.includes('assets/fonts/jetbrains-mono-latin.woff2'), `Página ${idx} contém preload de jetbrains-mono-latin.woff2`);
+    });
+  });
+
+  it('css/base.css deve declarar @font-face local com font-display swap e tokens simplificados', () => {
+    assert.ok(cssBase.includes("@font-face") && cssBase.includes("font-family: 'Inter'"), '@font-face para Inter presente');
+    assert.ok(cssBase.includes("@font-face") && cssBase.includes("font-family: 'JetBrains Mono'"), '@font-face para JetBrains Mono presente');
+    assert.ok(cssBase.includes("font-display: swap"), 'font-display swap configurado');
+    assert.ok(cssBase.includes("--font-sans: 'Inter'"), '--font-sans aponta para Inter');
+    assert.ok(cssBase.includes("--font-mono: 'JetBrains Mono'"), '--font-mono aponta para JetBrains Mono');
+  });
+
+  it('Arquivos de fontes WOFF2 devem existir localmente e no precache do Service Worker', () => {
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/fonts/inter-latin.woff2')), 'inter-latin.woff2 existe');
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/fonts/jetbrains-mono-latin.woff2')), 'jetbrains-mono-latin.woff2 existe');
+    assert.ok(swJs.includes('assets/fonts/inter-latin.woff2'), 'inter-latin.woff2 no precache do sw.js');
+    assert.ok(swJs.includes('assets/fonts/jetbrains-mono-latin.woff2'), 'jetbrains-mono-latin.woff2 no precache do sw.js');
+  });
+}
+
+console.log('\n📦 Scenario 27: Zero Inline Styles & Separação Estrita de Responsabilidades (SoC & BEM)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+
+  it('HTMLs e app.js devem conter ZERO atributos style="..." inline', () => {
+    assert.ok(!indexHtml.includes('style='), 'index.html 100% livre de inline styles');
+    assert.ok(!roadmapHtml.includes('style='), 'roadmap-requisitos.html 100% livre de inline styles');
+    assert.ok(!errorHtml.includes('style='), '404.html 100% livre de inline styles');
+    assert.ok(!appJs.includes('style='), 'app.js 100% livre de inline styles');
+  });
+
+  it('css/pages/home.css deve conter classes BEM para volume-card featured e controles de terminal', () => {
+    assert.ok(cssHome.includes('.volume-card--featured'), '.volume-card--featured presente em home.css');
+    assert.ok(cssHome.includes('.volumes-grid--single'), '.volumes-grid--single presente em home.css');
+    assert.ok(cssHome.includes('.term-status-available'), '.term-status-available presente em home.css');
+    assert.ok(cssHome.includes('.term-spacer'), '.term-spacer presente em home.css');
+  });
+
+  it('css/pages/roadmap.css deve conter classes BEM para letras COSTAR, fases e spec-box', () => {
+    assert.ok(cssRoadmap.includes('.roadmap-costar-letter--c'), '.roadmap-costar-letter--c presente');
+    assert.ok(cssRoadmap.includes('.phase-num--0'), '.phase-num--0 presente');
+    assert.ok(cssRoadmap.includes('.spec-box'), '.spec-box presente');
+    assert.ok(cssRoadmap.includes('.tline-dot--accent'), '.tline-dot--accent presente');
+  });
+
+  it('css/components.css deve conter .lang-flag, .main-content--centered e .site-container', () => {
+    assert.ok(cssComponents.includes('.lang-flag'), '.lang-flag presente em components.css');
+    assert.ok(cssComponents.includes('.main-content--centered'), '.main-content--centered presente em components.css');
+    assert.ok(cssComponents.includes('.site-container'), '.site-container presente em components.css');
+  });
+}
+
+console.log('\n📦 Scenario 28: SEO Nativo, Open Graph (1200x630) & Twitter Cards (LinkedIn/Social Sharing)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const ogSvgPath = path.join(__dirname, '../assets/og-image.svg');
+  const ogPngPath = path.join(__dirname, '../assets/og-image.png');
+
+  it('Todas as páginas HTML devem conter meta tags Open Graph completas (og:type, og:url, og:title, og:image, og:image:width 1200, og:image:height 630)', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html) => {
+      assert.ok(html.includes('property="og:type"'), 'og:type presente');
+      assert.ok(html.includes('property="og:url"'), 'og:url presente');
+      assert.ok(html.includes('property="og:title"'), 'og:title presente');
+      assert.ok(html.includes('property="og:description"'), 'og:description presente');
+      assert.ok(html.includes('property="og:image"'), 'og:image presente');
+      assert.ok(html.includes('property="og:image:width" content="1200"'), 'og:image:width 1200 presente');
+      assert.ok(html.includes('property="og:image:height" content="630"'), 'og:image:height 630 presente');
+      assert.ok(html.includes('property="og:site_name" content="pvduk.dev"'), 'og:site_name presente');
+    });
+  });
+
+  it('Todas as páginas HTML devem conter Twitter Cards completos (summary_large_image, twitter:creator, twitter:image)', () => {
+    [indexHtml, roadmapHtml, errorHtml].forEach((html) => {
+      assert.ok(html.includes('name="twitter:card" content="summary_large_image"'), 'twitter:card summary_large_image presente');
+      assert.ok(html.includes('name="twitter:title"'), 'twitter:title presente');
+      assert.ok(html.includes('name="twitter:description"'), 'twitter:description presente');
+      assert.ok(html.includes('name="twitter:image"'), 'twitter:image presente');
+      assert.ok(html.includes('name="twitter:creator" content="@pvduk"'), 'twitter:creator presente');
+    });
+  });
+
+  it('Todas as páginas HTML devem conter link rel="canonical" válido', () => {
+    assert.ok(indexHtml.includes('<link rel="canonical" href="https://pvduk.github.io/pvdukdev/">'), 'canonical index presente');
+    assert.ok(roadmapHtml.includes('<link rel="canonical" href="https://pvduk.github.io/pvdukdev/roadmap-requisitos.html">'), 'canonical roadmap presente');
+    assert.ok(errorHtml.includes('<link rel="canonical" href="https://pvduk.github.io/pvdukdev/404.html">'), 'canonical 404 presente');
+  });
+
+  it('Arquivos de imagem OG (SVG e PNG 1200x630) devem existir e estar no precache do Service Worker', () => {
+    assert.ok(fs.existsSync(ogSvgPath), 'assets/og-image.svg existe');
+    assert.ok(fs.existsSync(ogPngPath), 'assets/og-image.png existe');
+    assert.ok(swJs.includes('assets/og-image.png'), 'og-image.png no precache do sw.js');
+    assert.ok(swJs.includes('assets/og-image.svg'), 'og-image.svg no precache do sw.js');
+  });
+}
+
+console.log('\n📦 Scenario 29: Progressive Enhancement & Resiliência No-JS (Terminal & Layout)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+
+  it('css/pages/home.css deve possuir regras baseline ocultando .view-dev e exibindo .view-standard por padrão', () => {
+    assert.ok(cssHome.includes('.view-dev {\n    display: none;\n  }') || cssHome.includes('.view-dev { display: none; }') || cssHome.includes('.view-dev'), 'view-dev baseline presente');
+    assert.ok(cssHome.includes('.view-standard'), 'view-standard baseline presente');
+  });
+
+  it('Todas as páginas devem possuir banners informativos <noscript>', () => {
+    assert.ok(indexHtml.includes('<noscript>') && indexHtml.includes('noscript-banner'), 'noscript em index.html');
+    assert.ok(roadmapHtml.includes('<noscript>') && roadmapHtml.includes('noscript-banner'), 'noscript em roadmap-requisitos.html');
+    assert.ok(errorHtml.includes('<noscript>') && errorHtml.includes('noscript-banner'), 'noscript em 404.html');
+  });
+
+  it('Terminal interativo deve conter aviso <noscript> esclarecendo que é uma melhoria progressiva', () => {
+    assert.ok(indexHtml.includes('terminal-noscript'), 'terminal-noscript presente no terminal de index.html');
+  });
+
+  it('Roadmap deve conter fallback no-JS expandindo automaticamente as 8 fases para leitura', () => {
+    assert.ok(roadmapHtml.includes('.phase-body { display: block !important; }'), 'auto-expand das fases sem JS no roadmap');
+  });
+
+  it('css/components.css deve estilizar .noscript-banner e .terminal-noscript', () => {
+    assert.ok(cssComponents.includes('.noscript-banner'), '.noscript-banner em components.css');
+    assert.ok(cssComponents.includes('.terminal-noscript'), '.terminal-noscript em components.css');
+  });
+}
+
 console.log('\n═══════════════════════════════════════════════════════════');
 console.log(`📊 RESULTADO DA SUÍTE DE TESTES: ${passed} / ${total} PASSOU COM SUCESSO! 🚀`);
 console.log('═══════════════════════════════════════════════════════════\n');

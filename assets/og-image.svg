@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e12"/>
+      <stop offset="50%" stop-color="#111620"/>
+      <stop offset="100%" stop-color="#090b0e"/>
+    </linearGradient>
+
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0d1117" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="blueTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+    </pattern>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="150" cy="120" r="280" fill="url(#accentGlow)" filter="blur(60px)"/>
+  <circle cx="1050" cy="500" r="320" fill="url(#accentGlow)" filter="blur(70px)"/>
+
+  <!-- Main Card Container -->
+  <rect x="60" y="50" width="1080" height="530" rx="24" fill="url(#cardGrad)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" filter="url(#shadow)"/>
+
+  <!-- Top Accent Bar -->
+  <rect x="60" y="50" width="1080" height="4" rx="2" fill="url(#blueTextGrad)"/>
+
+  <!-- Brand Logo Icon (100x100 box) -->
+  <g transform="translate(110, 110)">
+    <rect width="90" height="90" rx="18" fill="#000000" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+    <path d="M16 16 H61 C72 16 76 23 76 34 C76 45 72 52 61 52 H38 V74 H16 Z" fill="#FFFFFF"/>
+    <rect x="38" y="31" width="20" height="9" rx="2.5" fill="#000000"/>
+    <path d="M47 58 H74 C74 67 67 74 58 74 H47 Z" fill="#3B82F6"/>
+  </g>
+
+  <!-- Header Text -->
+  <g transform="translate(225, 125)">
+    <!-- Eyebrow Badge -->
+    <rect x="0" y="0" width="370" height="28" rx="6" fill="rgba(59, 130, 246, 0.15)" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1"/>
+    <text x="14" y="19" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#60a5fa" letter-spacing="1.5">// SENIOR SOFTWARE ENGINEER</text>
+
+    <!-- Main Domain Title -->
+    <text x="0" y="68" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="44" font-weight="900" fill="#ffffff" letter-spacing="-1.5">pvduk<tspan fill="#38bdf8">.dev</tspan></text>
+  </g>
+
+  <!-- Tagline / Bio -->
+  <text x="110" y="275" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="600" fill="#e2e8f0" letter-spacing="-0.5">
+    Clean Architecture · C# .NET 10 · High-Performance Web Standards
+  </text>
+  <text x="110" y="310" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="400" fill="#94a3b8">
+    Estudo de caso SaaS com Roadmap de 8 Fases · Zero-Compute Workers · Core Web Vitals sub-35ms
+  </text>
+
+  <!-- Tech Badges Bar -->
+  <g transform="translate(110, 360)">
+    <!-- Badge 1: C# .NET 10 -->
+    <g transform="translate(0, 0)">
+      <rect width="130" height="38" rx="8" fill="rgba(167, 139, 250, 0.12)" stroke="rgba(167, 139, 250, 0.3)" stroke-width="1"/>
+      <text x="16" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, monospace" font-size="14" font-weight="700" fill="#c084fc">C# .NET 10</text>
+    </g>
+
+    <!-- Badge 2: Clean Arch / DDD -->
+    <g transform="translate(142, 0)">
+      <rect width="180" height="38" rx="8" fill="rgba(56, 189, 248, 0.12)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1"/>
+      <text x="16" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">Clean Arch / DDD</text>
+    </g>
+
+    <!-- Badge 3: React / TypeScript -->
+    <g transform="translate(334, 0)">
+      <rect width="170" height="38" rx="8" fill="rgba(59, 130, 246, 0.12)" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1"/>
+      <text x="16" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="700" fill="#60a5fa">React / TypeScript</text>
+    </g>
+
+    <!-- Badge 4: Web Standards (ES2026) -->
+    <g transform="translate(516, 0)">
+      <rect width="190" height="38" rx="8" fill="rgba(52, 211, 153, 0.12)" stroke="rgba(52, 211, 153, 0.3)" stroke-width="1"/>
+      <text x="16" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="700" fill="#34d399">Web Standards CWV</text>
+    </g>
+
+    <!-- Badge 5: Docker / NoSQL -->
+    <g transform="translate(718, 0)">
+      <rect width="170" height="38" rx="8" fill="rgba(251, 146, 60, 0.12)" stroke="rgba(251, 146, 60, 0.3)" stroke-width="1"/>
+      <text x="16" y="24" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="700" fill="#fb923c">Docker / MongoDB</text>
+    </g>
+  </g>
+
+  <!-- Bottom Metric Highlights Card -->
+  <g transform="translate(110, 435)">
+    <rect width="980" height="95" rx="14" fill="#11161f" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1"/>
+
+    <!-- Metric 1 -->
+    <g transform="translate(40, 22)">
+      <text x="0" y="26" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="28" font-weight="900" fill="#38bdf8">8 Fases</text>
+      <text x="0" y="52" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="0.5">ROADMAP COSTAR</text>
+    </g>
+
+    <line x1="260" y1="20" x2="260" y2="75" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1"/>
+
+    <!-- Metric 2 -->
+    <g transform="translate(300, 22)">
+      <text x="0" y="26" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="28" font-weight="900" fill="#34d399">&lt; 35ms</text>
+      <text x="0" y="52" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="0.5">LATÊNCIA NA BORDA</text>
+    </g>
+
+    <line x1="530" y1="20" x2="530" y2="75" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1"/>
+
+    <!-- Metric 3 -->
+    <g transform="translate(570, 22)">
+      <text x="0" y="26" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="28" font-weight="900" fill="#c084fc">Zero-Dep</text>
+      <text x="0" y="52" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="0.5">BUILD ES2026 NATIVO</text>
+    </g>
+
+    <line x1="780" y1="20" x2="780" y2="75" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1"/>
+
+    <!-- Metric 4 -->
+    <g transform="translate(820, 22)">
+      <text x="0" y="26" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="28" font-weight="900" fill="#f472b6">100% PWA</text>
+      <text x="0" y="52" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="0.5">OFFLINE FIRST SHELL</text>
+    </g>
+  </g>
+
+  <!-- Live Status Dot Indicator (Top Right) -->
+  <g transform="translate(970, 100)">
+    <circle cx="0" cy="0" r="6" fill="#34d399"/>
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#34d399" stroke-width="1.5" opacity="0.6"/>
+    <text x="16" y="4" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, monospace" font-size="12" font-weight="700" fill="#34d399">DISPONÍVEL</text>
+  </g>
+</svg>

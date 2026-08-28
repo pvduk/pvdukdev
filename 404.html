@@ -21,7 +21,34 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 · NullReferenceException | pvduk.dev</title>
+  <meta name="title" content="404 · NullReferenceException | pvduk.dev">
   <meta name="description" content="404 · Página Não Encontrada. Diagnóstico de rota e recuperação de engenharia de software.">
+  <meta name="author" content="pvdukdev">
+  <link rel="canonical" href="https://pvduk.github.io/pvdukdev/404.html">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pvduk.github.io/pvdukdev/404.html">
+  <meta property="og:title" content="404 · NullReferenceException | pvduk.dev">
+  <meta property="og:description" content="404 · Página Não Encontrada. Diagnóstico de rota e recuperação de engenharia de software.">
+  <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:secure_url" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="404 - Página Não Encontrada | pvduk.dev">
+  <meta property="og:site_name" content="pvduk.dev">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/404.html">
+  <meta name="twitter:title" content="404 · NullReferenceException | pvduk.dev">
+  <meta name="twitter:description" content="404 · Página Não Encontrada. Diagnóstico de rota e recuperação de engenharia de software.">
+  <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="404 - Página Não Encontrada | pvduk.dev">
+  <meta name="twitter:creator" content="@pvduk">
 
   <!-- Favicon com a Marca Visual SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
@@ -30,102 +57,22 @@
   <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="assets/logo.svg">
 
-  <!-- Google Fonts Otimizadas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <!-- Self-Hosted WOFF2 Fonts Preload (Zero Third-Party Latency · Inter & JetBrains Mono) -->
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- CSS Modular -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages/home.css">
-  <style>
-    .error-hero {
-      padding: 60px 0 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .error-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      background: rgba(220, 38, 38, 0.12);
-      border: 1.5px solid rgba(239, 68, 68, 0.35);
-      color: #f87171;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: -0.01em;
-    }
-    .error-title-hero {
-      font-family: var(--font-mono);
-      font-size: clamp(64px, 11vw, 110px);
-      font-weight: 900;
-      line-height: 1;
-      color: var(--color-blue);
-      letter-spacing: -0.05em;
-      margin-bottom: 12px;
-      text-shadow: 0 0 30px rgba(37, 99, 235, 0.25);
-    }
-    .error-subtitle-hero {
-      font-family: var(--font-display);
-      font-size: clamp(20px, 4vw, 30px);
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-    .error-tagline {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 600px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-    .error-terminal-box {
-      width: 100%;
-      max-width: 640px;
-      background: var(--bg-surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      text-align: left;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      line-height: 1.65;
-      margin-bottom: 32px;
-      box-shadow: var(--shadow-md);
-    }
-    .error-terminal-header {
-      color: var(--badge-blue-text);
-      font-weight: 700;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-    .error-hypo-item {
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      display: flex;
-      gap: 8px;
-    }
-    .error-hypo-item strong {
-      color: var(--color-amber);
-    }
-    .error-actions-group {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  </style>
 </head>
 <body>
+  <!-- Progressive Enhancement Fallback Banner (No-JS) -->
+  <noscript>
+    <div class="noscript-banner" role="status">
+      ⚡ <strong>Navegação Estática:</strong> JavaScript desativado. Use os links de navegação da barra superior para retornar à estação principal.
+    </div>
+  </noscript>
 
   <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
   <header class="topbar" role="banner">
@@ -153,7 +100,7 @@
       </button>
       <!-- IDIOMA E TEMA -->
       <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
-        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
         <span>PT</span>
       </button>
       <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
@@ -163,8 +110,8 @@
   </header>
 
   <!-- ═══════════ CONTEÚDO PRINCIPAL 404 ═══════════ -->
-  <main id="main-content" class="main-content" style="display:flex; flex-direction:column; align-items:center;">
-    <div class="site-container" style="width:100%;">
+  <main id="main-content" class="main-content main-content--centered">
+    <div class="site-container">
       <section class="error-hero">
         <div class="error-badge" data-i18n="404.badge">// FATAL: 0x00000404 · Segment Fault in /dev/null</div>
         <div class="error-title-hero">404</div>

@@ -476,8 +476,8 @@
     moon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
     terminal: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`,
     layout: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`,
-    flagBR: `<svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>`,
-    flagUS: `<svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" style="border-radius:2px; flex-shrink:0; display:inline-block; vertical-align:middle;"><rect width="20" height="14" rx="2" fill="#B91C1C"/><path d="M0 1.08h20v1.08H0z M0 3.23h20v1.08H0z M0 5.38h20v1.08H0z M0 7.54h20v1.08H0z M0 9.69h20v1.08H0z M0 11.85h20v1.08H0z" fill="#FFFFFF"/><rect width="8.5" height="7.54" rx="1" fill="#1E3A8A"/><circle cx="2" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="4.25" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="6.5" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="3.12" cy="3.77" r="0.6" fill="#FFFFFF"/><circle cx="5.37" cy="3.77" r="0.6" fill="#FFFFFF"/><circle cx="2" cy="5.64" r="0.6" fill="#FFFFFF"/><circle cx="4.25" cy="5.64" r="0.6" fill="#FFFFFF"/><circle cx="6.5" cy="5.64" r="0.6" fill="#FFFFFF"/></svg>`
+    flagBR: `<svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>`,
+    flagUS: `<svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#B91C1C"/><path d="M0 1.08h20v1.08H0z M0 3.23h20v1.08H0z M0 5.38h20v1.08H0z M0 7.54h20v1.08H0z M0 9.69h20v1.08H0z M0 11.85h20v1.08H0z" fill="#FFFFFF"/><rect width="8.5" height="7.54" rx="1" fill="#1E3A8A"/><circle cx="2" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="4.25" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="6.5" cy="1.9" r="0.6" fill="#FFFFFF"/><circle cx="3.12" cy="3.77" r="0.6" fill="#FFFFFF"/><circle cx="5.37" cy="3.77" r="0.6" fill="#FFFFFF"/><circle cx="2" cy="5.64" r="0.6" fill="#FFFFFF"/><circle cx="4.25" cy="5.64" r="0.6" fill="#FFFFFF"/><circle cx="6.5" cy="5.64" r="0.6" fill="#FFFFFF"/></svg>`
   };
 
   // ─── VIEW TRANSITION HELPER (ECMAScript & Web Standards) ───
@@ -737,7 +737,7 @@
     <span class="term-tag" data-i18n="terminal.whoami_tag_db">${isPt ? 'SQL e NoSQL' : 'SQL and NoSQL'}</span>
     <span class="term-tag" data-i18n="terminal.whoami_tag_sd">System Design</span>
   </div>
-  <div style="margin-top:8px; color:var(--color-green); font-weight:600;" data-i18n="terminal.whoami_status">
+  <div class="term-status-available" data-i18n="terminal.whoami_status">
     ${isPt ? '● Status: Disponível para projetos e consultoria técnica' : '● Status: Available for projects and technical consulting'}
   </div>
 </div>`,
@@ -795,7 +795,7 @@
 <div class="term-card">
   <div class="term-title" data-i18n="terminal.contact_title">${isPt ? '[CANAIS DE CONTATO]' : '[CONTACT CHANNELS]'}</div>
   <p data-i18n="terminal.contact_desc">${isPt ? 'Pronto para colaborar em projetos de alto impacto e consultoria técnica:' : 'Ready to collaborate on high-impact projects and technical consulting:'}</p>
-  <div style="margin: 8px 0;">
+  <div class="term-row-spaced">
     <div><strong data-i18n="terminal.contact_email_label">${isPt ? 'E-mail:' : 'E-mail:'}</strong> <code class="inline-code">paulo.dukven@gmail.com</code> <button type="button" class="term-copy-btn" onclick="navigator.clipboard.writeText('paulo.dukven@gmail.com');alert('${isPt ? '✓ E-mail Copiado!' : '✓ E-mail Copied!'}')" data-i18n="terminal.contact_copy_btn">${isPt ? '[Copiar]' : '[Copy]'}</button></div>
     <div><strong data-i18n="terminal.contact_github_label">${isPt ? 'GitHub:' : 'GitHub:'}</strong> <a href="https://github.com/pvduk" target="_blank" rel="noopener noreferrer" class="term-link">github.com/pvduk</a></div>
     <div><strong data-i18n="terminal.contact_linkedin_label">${isPt ? 'LinkedIn:' : 'LinkedIn:'}</strong> <a href="https://linkedin.com/in/pvduk" target="_blank" rel="noopener noreferrer" class="term-link">linkedin.com/in/pvduk</a></div>
@@ -806,7 +806,7 @@
       costar: (isPt) => `
 <div class="term-box">
   <div class="term-title" data-i18n="terminal.costar_title">${isPt ? '[FRAMEWORK COSTAR · STATUS REPORT]' : '[COSTAR FRAMEWORK · STATUS REPORT]'}</div>
-  <div><strong data-i18n="terminal.costar_item1">${isPt ? '01 · Roadmap de Requisitos:' : '01 · Requirements Roadmap:'}</strong> <span style="color:var(--color-green)" data-i18n="terminal.costar_status1">${isPt ? '[ATIVO / OPERACIONAL] ➔' : '[ACTIVE / OPERATIONAL] ➔'}</span> <a href="roadmap-requisitos.html" class="term-link">roadmap-requisitos.html</a></div>
+  <div><strong data-i18n="terminal.costar_item1">${isPt ? '01 · Roadmap de Requisitos:' : '01 · Requirements Roadmap:'}</strong> <span class="text-green" data-i18n="terminal.costar_status1">${isPt ? '[ATIVO / OPERACIONAL] ➔' : '[ACTIVE / OPERATIONAL] ➔'}</span> <a href="roadmap-requisitos.html" class="term-link">roadmap-requisitos.html</a></div>
 </div>`,
 
       theme: (isPt) => {
@@ -839,7 +839,7 @@
         const result = handler(isPt);
         if (result) appendLine(result);
       } else {
-        appendLine(`zsh: command not found: <span style="color:var(--color-red);">${escapeHtml(cmdRaw)}</span>. ${isPt ? 'Digite "help" para ver os comandos disponíveis.' : 'Type "help" to list available commands.'}`, 'error');
+        appendLine(`zsh: command not found: <span class="text-red">${escapeHtml(cmdRaw)}</span>. ${isPt ? 'Digite "help" para ver os comandos disponíveis.' : 'Type "help" to list available commands.'}`, 'error');
       }
     }
 

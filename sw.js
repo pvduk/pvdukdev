@@ -5,13 +5,14 @@
  * ═════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'pvdukdev-v1.0.2';
+const CACHE_VERSION = 'pvdukdev-v2.1.0';
 const CACHE_NAME = `costar-pwa-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
   './',
   './index.html',
   './roadmap-requisitos.html',
+  './404.html',
   './manifest.webmanifest',
   './css/base.css',
   './css/components.css',
@@ -20,7 +21,11 @@ const PRECACHE_ASSETS = [
   './js/app.js',
   './js/translations/pt.js',
   './js/translations/en.js',
+  './assets/fonts/inter-latin.woff2',
+  './assets/fonts/jetbrains-mono-latin.woff2',
   './assets/logo.svg',
+  './assets/og-image.svg',
+  './assets/og-image.png',
   './assets/pwa-icon.svg',
   './assets/icon-192.png',
   './assets/icon-512.png'
@@ -64,22 +69,6 @@ self.addEventListener('fetch', (event) => {
 
   // Requisições externas à API do Web3Forms não passam pelo cache
   if (url.origin !== self.location.origin) {
-    // Para recursos estáticos de CDN como fontes do Google Fonts: Stale-While-Revalidate
-    if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
-      event.respondWith(
-        caches.open(CACHE_NAME).then((cache) => {
-          return cache.match(request).then((cachedResponse) => {
-            const fetchPromise = fetch(request).then((networkResponse) => {
-              if (networkResponse && networkResponse.status === 200) {
-                cache.put(request, networkResponse.clone());
-              }
-              return networkResponse;
-            }).catch(() => cachedResponse);
-            return cachedResponse || fetchPromise;
-          });
-        })
-      );
-    }
     return;
   }
 
