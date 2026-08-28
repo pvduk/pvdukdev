@@ -965,6 +965,9 @@ console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, 
   });
 
   it('build.js deve gerar pasta dist/ com todos os arquivos minificados com sucesso', () => {
+    const { execSync } = require('child_process');
+    execSync('node build.js', { cwd: path.join(__dirname, '..'), stdio: 'ignore' });
+
     assert.ok(fs.existsSync(path.join(__dirname, '../dist')), 'Pasta dist/ existe');
     assert.ok(fs.existsSync(path.join(__dirname, '../dist/index.html')), 'dist/index.html gerado');
     assert.ok(fs.existsSync(path.join(__dirname, '../dist/js/app.js')), 'dist/js/app.js gerado');
