@@ -70,7 +70,61 @@ function minifyHTML(html) {
   return placeholderHtml.replace(/___PRE_BLOCK_(\d+)___/g, (_, idx) => preBlocks[Number(idx)]);
 }
 
+// 2.1 Gerador de Sitemap XML e Robots.txt
+function generateSitemapAndRobots() {
+  const BASE_URL = 'https://pvduk.github.io/pvdukdev';
+  const today = new Date().toISOString().split('T')[0];
+
+  const urls = [
+    { loc: `${BASE_URL}/`, lastmod: today, changefreq: 'weekly', priority: '1.0' },
+    { loc: `${BASE_URL}/roadmap-requisitos.html`, lastmod: today, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${BASE_URL}/blog/index.html`, lastmod: today, changefreq: 'daily', priority: '0.9' }
+  ];
+
+  const postsJsonPath = path.join(ROOT_DIR, 'data/posts.json');
+  if (fs.existsSync(postsJsonPath)) {
+    try {
+      const postsData = JSON.parse(fs.readFileSync(postsJsonPath, 'utf8'));
+      const posts = Array.isArray(postsData) ? postsData : (postsData.posts || []);
+      posts.forEach(post => {
+        if (post.published && post.file && !post.file.includes('TEMPLATE.html')) {
+          urls.push({
+            loc: `${BASE_URL}/blog/${post.file}`,
+            lastmod: post.date || today,
+            changefreq: 'monthly',
+            priority: '0.8'
+          });
+        }
+      });
+    } catch (e) {
+      console.warn('  ⚠️ Aviso ao ler posts.json para o sitemap:', e.message);
+    }
+  }
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${u.lastmod}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')}
+</urlset>
+`;
+
+  const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${BASE_URL}/sitemap.xml
+`;
+
+  fs.writeFileSync(path.join(ROOT_DIR, 'sitemap.xml'), sitemapXml, 'utf8');
+  fs.writeFileSync(path.join(ROOT_DIR, 'robots.txt'), robotsTxt, 'utf8');
+}
+
 // 3. Arquivos para Processar
+generateSitemapAndRobots();
+
 const filesToProcess = [
   { src: 'index.html', dest: 'index.html', type: 'html' },
   { src: 'roadmap-requisitos.html', dest: 'roadmap-requisitos.html', type: 'html' },
@@ -79,6 +133,8 @@ const filesToProcess = [
   { src: 'blog/posts/TEMPLATE.html', dest: 'blog/posts/TEMPLATE.html', type: 'html' },
   { src: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', dest: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', type: 'html' },
   { src: 'data/posts.json', dest: 'data/posts.json', type: 'json' },
+  { src: 'sitemap.xml', dest: 'sitemap.xml', type: 'raw' },
+  { src: 'robots.txt', dest: 'robots.txt', type: 'raw' },
   { src: 'css/base.css', dest: 'css/base.css', type: 'css' },
   { src: 'css/components.css', dest: 'css/components.css', type: 'css' },
   { src: 'css/pages/home.css', dest: 'css/pages/home.css', type: 'css' },

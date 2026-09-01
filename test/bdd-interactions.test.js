@@ -1354,7 +1354,102 @@ console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por
     assert.ok(swJs.includes('./blog/css/blog.css'), 'sw.js precacheia blog/css/blog.css');
     assert.ok(swJs.includes('./blog/js/blog.js'), 'sw.js precacheia blog/js/blog.js');
     assert.ok(swJs.includes('./blog/posts/TEMPLATE.html'), 'sw.js precacheia TEMPLATE.html');
-    assert.ok(swJs.includes('pvdukdev-v2.3.0'), 'sw.js atualizado para v2.3.0');
+    assert.ok(swJs.includes('pvdukdev-v2.4.0') || swJs.includes('costar-pwa-'), 'sw.js com versão de cache válida');
+  });
+}
+
+console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt & Resiliência Offline do SW');
+{
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const sitemapPath = path.join(__dirname, '../sitemap.xml');
+  const robotsPath = path.join(__dirname, '../robots.txt');
+
+  it('build.js deve gerar sitemap.xml e robots.txt válidos com URLs canônicas', () => {
+    assert.ok(fs.existsSync(sitemapPath), 'sitemap.xml existe na raiz');
+    assert.ok(fs.existsSync(robotsPath), 'robots.txt existe na raiz');
+
+    const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
+    const robotsContent = fs.readFileSync(robotsPath, 'utf8');
+
+    assert.ok(sitemapContent.includes('<?xml version="1.0" encoding="UTF-8"?>'), 'Declaração XML presente');
+    assert.ok(sitemapContent.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'), 'Schema sitemap válido');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/'), 'URL home presente no sitemap');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/roadmap-requisitos.html'), 'URL roadmap presente no sitemap');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/index.html'), 'URL blog presente no sitemap');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html'), 'Post publicado no sitemap');
+
+    assert.ok(robotsContent.includes('User-agent: *'), 'Robots User-agent configurado');
+    assert.ok(robotsContent.includes('Sitemap: https://pvduk.github.io/pvdukdev/sitemap.xml'), 'Referência de sitemap em robots.txt');
+  });
+
+  it('sw.js deve conter precache de sitemap, robots e fallback contextual para o blog', () => {
+    assert.ok(swJs.includes('./sitemap.xml'), 'sw.js precacheia sitemap.xml');
+    assert.ok(swJs.includes('./robots.txt'), 'sw.js precacheia robots.txt');
+    assert.ok(swJs.includes('pvdukdev-v2.4.0'), 'sw.js atualizado para v2.4.0');
+    assert.ok(swJs.includes("url.pathname.includes('/blog/')"), 'Fallback contextual para rotas do blog presente');
+  });
+
+  it('Auditoria de integridade de links: todos os links relativos locais em arquivos HTML devem apontar para destinos existentes', () => {
+    const htmlFiles = [
+      'index.html',
+      'roadmap-requisitos.html',
+      '404.html',
+      'blog/index.html',
+      'blog/posts/TEMPLATE.html',
+      'blog/posts/2025-01-anatomia-do-cache-o-navegador.html'
+    ];
+
+    htmlFiles.forEach((file) => {
+      const filePath = path.join(__dirname, '..', file);
+      assert.ok(fs.existsSync(filePath), `Arquivo ${file} existe`);
+      const fileDir = path.dirname(filePath);
+      const content = fs.readFileSync(filePath, 'utf8');
+
+      // 1. Validar links <a href="..."> locais
+      const linkMatches = [...content.matchAll(/href="([^"#][^"]*)"/g)];
+      linkMatches.forEach((m) => {
+        const rawHref = m[1];
+        if (
+          !rawHref.startsWith('http://') &&
+          !rawHref.startsWith('https://') &&
+          !rawHref.startsWith('mailto:') &&
+          !rawHref.startsWith('tel:') &&
+          !rawHref.startsWith('javascript:')
+        ) {
+          const target = rawHref.split('#')[0].split('?')[0];
+          if (target) {
+            const resolvedPath = path.resolve(fileDir, target);
+            assert.ok(fs.existsSync(resolvedPath), `Destino de link válido em ${file}: ${rawHref} -> ${resolvedPath}`);
+          }
+        }
+      });
+
+      // 2. Validar <script src="...">
+      const scriptMatches = [...content.matchAll(/src="([^"#][^"]*)"/g)];
+      scriptMatches.forEach((m) => {
+        const rawSrc = m[1];
+        if (!rawSrc.startsWith('http://') && !rawSrc.startsWith('https://') && !rawSrc.startsWith('data:')) {
+          const target = rawSrc.split('?')[0];
+          if (target) {
+            const resolvedPath = path.resolve(fileDir, target);
+            assert.ok(fs.existsSync(resolvedPath), `Script válido em ${file}: ${rawSrc} -> ${resolvedPath}`);
+          }
+        }
+      });
+
+      // 3. Validar <link href="...">
+      const cssMatches = [...content.matchAll(/<link[^>]+href="([^"#][^"]*)"/g)];
+      cssMatches.forEach((m) => {
+        const rawHref = m[1];
+        if (!rawHref.startsWith('http://') && !rawHref.startsWith('https://') && !rawHref.startsWith('data:')) {
+          const target = rawHref.split('?')[0];
+          if (target) {
+            const resolvedPath = path.resolve(fileDir, target);
+            assert.ok(fs.existsSync(resolvedPath), `Recurso link válido em ${file}: ${rawHref} -> ${resolvedPath}`);
+          }
+        }
+      });
+    });
   });
 }
 

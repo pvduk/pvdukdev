@@ -5,7 +5,7 @@
  * ═════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'pvdukdev-v2.3.0';
+const CACHE_VERSION = 'pvdukdev-v2.4.0';
 const CACHE_NAME = `costar-pwa-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -17,6 +17,8 @@ const PRECACHE_ASSETS = [
   './blog/posts/TEMPLATE.html',
   './blog/posts/2025-01-anatomia-do-cache-o-navegador.html',
   './data/posts.json',
+  './sitemap.xml',
+  './robots.txt',
   './manifest.webmanifest',
   './css/base.css',
   './css/components.css',
@@ -78,7 +80,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Navegação HTML: Network-First com Fallback para Cache
+  // Navegação HTML: Network-First com Fallback Contextual para Cache
   if (request.mode === 'navigate' || request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
       fetch(request)
@@ -93,7 +95,13 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => {
           return caches.match(request).then((cached) => {
-            return cached || caches.match('./index.html');
+            if (cached) return cached;
+            if (url.pathname.includes('/blog/')) {
+              return caches.match('./blog/index.html').then((blogCached) => {
+                return blogCached || caches.match('./index.html');
+              });
+            }
+            return caches.match('./index.html');
           });
         })
     );
