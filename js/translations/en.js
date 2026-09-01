@@ -7,6 +7,7 @@ export const en = {
   'nav.skip_to_content': 'Skip to main content',
   'nav.home': 'Home',
   'nav.roadmap': 'Roadmap',
+  'nav.blog': 'Blog',
   'nav.system_design': '02 · System Design',
   'nav.brand': 'pvduk · dev',
   'nav.series': 'Software Engineer',
@@ -242,5 +243,29 @@ export const en = {
   '404.btn_home': 'cd /home ➔',
   '404.btn_roadmap': 'git checkout roadmap ➔',
   '404.btn_coffee': '☕ sudo make-coffee',
-  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!'
+  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!',
+
+  // ─── Engineering Blog & Articles ───
+  'blog.badge': '// Publications & Technical Articles',
+  'blog.title': 'Engineering Blog & Articles',
+  'blog.subtitle': 'Deep dives on Clean Architecture, System Design, Web Performance, and Software Engineering.',
+  'blog.all': 'All',
+  'blog.filter_label': 'Filter by Topic:',
+  'blog.empty': 'No articles found for the selected tag.',
+  'blog.error': 'Unable to load articles at the moment. Please try reloading the page.',
+  'blog.read_more': 'Read article ⟶',
+  'blog.published_at': 'Published on',
+  'blog.reading_time': 'min read',
+  'blog.back': '← Back to Blog',
+  'blog.noscript_msg': '⚡ JavaScript is disabled. Dynamic listing and filters require JavaScript, but individual articles are fully accessible statically.',
+
+  // ─── Article Series ───
+  'series.label': 'Series',
+  'series.part_of': 'Part {part} of {total}',
+  'series.previous': '← Previous',
+  'series.next': 'Next →',
+  'series.upcoming': 'coming soon',
+  'blog.post.series_part': 'Series: {series} · Part {part} of {total}',
+  'blog.post.next': 'Next',
+  'blog.post.back': 'Back to blog'
 };

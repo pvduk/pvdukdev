@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('costar_preferred_lang');
+        if (l === 'pt' || l === 'en') {
+          document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Anatomia do Cache, Parte 1: O Navegador · pvduk</title>
+  <meta name="title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
+  <meta name="description" content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+  <meta name="author" content="pvduk">
+  <link rel="canonical" href="https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html">
+
+  <!-- Open Graph Article Metadata -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html">
+  <meta property="og:title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
+  <meta property="og:description" content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+  <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="article:published_time" content="2025-01-15T00:00:00Z">
+  <meta property="article:author" content="pvduk">
+  <meta property="article:tag" content="cache">
+  <meta property="article:tag" content="performance">
+  <meta property="article:tag" content="web">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html">
+  <meta name="twitter:title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
+  <meta name="twitter:description" content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+  <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta name="twitter:creator" content="@pvdukdev">
+
+  <!-- Structured Data JSON-LD (Schema.org BlogPosting) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "A Anatomia do Cache, Parte 1: O Navegador",
+    "description": "Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.",
+    "author": {
+      "@type": "Person",
+      "name": "pvduk"
+    },
+    "datePublished": "2026-08-30",
+    "url": "https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html"
+  }
+  </script>
+
+  <!-- Favicon e Ícones PWA -->
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo.svg">
+  <link rel="apple-touch-icon" href="../../assets/logo.svg">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <meta name="theme-color" content="#0a0c10">
+
+  <!-- Preload Tipografia Crítica Self-Hosted & Manifesto de Artigos -->
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../data/posts.json" as="fetch" crossorigin>
+
+  <!-- CSS Cascade Layers -->
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body data-post-slug="2025-01-anatomia-do-cache-o-navegador">
+  <!-- A11y Skip Link (WCAG 2.4.1) -->
+  <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="../../index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <!-- ÍCONE MARCA VISUAL -->
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill" href="../../index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill" href="../../roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="nav-pill active" href="../index.html" data-i18n="nav.blog">Blog</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ CONTEÚDO DO ARTIGO ═══════════ -->
+  <main class="post-article-container" id="main-content">
+    <a href="../index.html" class="post-back-link" data-i18n="blog.back">← Voltar para o Blog</a>
+
+    <article class="post-article">
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="post-series-badge">Série: A Anatomia do Cache · Parte 1 de 4</span>
+          <time datetime="2025-01-15">30 de Agosto de 2026</time>
+          <span class="post-reading-time">12 min de leitura</span>
+        </div>
+
+        <h1 class="article-title">O Navegador: o cache que você controla</h1>
+        <p class="article-lead">
+          Memory cache, HTTP cache e Service Worker — as três camadas que decidem a latência que o seu usuário sente.
+        </p>
+      </header>
+
+      <div class="article-body">
+        <p>Cache não é uma feature. É uma arquitetura.</p>
+
+        <p>
+          Toda requisição que o seu usuário faz é, na verdade, uma pergunta em cadeia: <em>"você tem esse dado?"</em>. Cada camada responde <em>"sim"</em> o mais rápido que pode — mesmo que a resposta esteja levemente desatualizada. A essa mentira autorizada damos o nome de <strong>cache hit</strong>.
+        </p>
+
+        <p>
+          Nesta série, vamos percorrer o pipeline completo, do clique ao spin do disco. Começamos pelo lugar onde você, engenheiro frontend, tem mais poder: o navegador.
+        </p>
+
+        <!-- Diagrama ASCII Acessível -->
+        <figure class="article-figure">
+          <pre class="ascii-diagram"><code>REQUISIÇÃO DE UM RECURSO
+        │
+        ▼
+┌───────────────────┐
+│  MEMORY CACHE     │  ~0 ms · volátil (vive na sessão da aba)
+└────────┬──────────┘
+         │ miss
+         ▼
+┌───────────────────┐
+│  DISK CACHE       │  fresco? → HIT  ·  velho? → revalidar (ETag)
+└────────┬──────────┘
+         │ miss
+         ▼
+┌───────────────────┐
+│  SERVICE WORKER   │  política programável: cache-first, SWR...
+└────────┬──────────┘
+         │ miss
+         ▼
+┌───────────────────┐
+│      REDE ────────┼──►  Parte 2 desta série: DNS · TLS · EDGE
+└───────────────────┘</code></pre>
+          <figcaption>Fig. 1 — Lookup pipeline no navegador: a requisição avança até o primeiro hit; só então a rede é acionada.</figcaption>
+        </figure>
+
+        <h2>As três frentes de cache do browser</h2>
+
+        <h3>1. Memory Cache (RAM)</h3>
+        <p>
+          Extremamente rápido, volátil. Armazena recursos já parseados — CSS, JS, imagens decodificadas — durante a sessão da aba. Morre quando a aba fecha. É o cache que faz a navegação entre páginas do mesmo site parecer instantânea.
+        </p>
+
+        <h3>2. Disk Cache (HTTP Cache)</h3>
+        <p>
+          Persistente entre sessões. É aqui que vivem as duas decisões mais importantes que você toma como frontend:
+        </p>
+
+        <ul>
+          <li><strong>Cache-Control decide POR QUANTO TEMPO o recurso é fresco.</strong> <code>max-age=3600</code> significa: <em>"por uma hora, nem pergunte ao servidor"</em>.</li>
+          <li><strong>ETag decide COMO VALIDAR.</strong> Quando o recurso envelhece, o browser não baixa de novo: ele pergunta <em>"ainda é o mesmo?"</em> via <code>If-None-Match</code>. Se for, o servidor responde <code>304 Not Modified</code> — zero bytes de corpo.</li>
+        </ul>
+
+        <blockquote>
+          <strong>Insight:</strong> um 304 bem configurado é a otimização mais barata que existe. Você não reduziu requests; você reduziu payload a quase zero.
+        </blockquote>
+
+        <h3>3. Service Worker + Cache API</h3>
+        <p>
+          O proxy programável (especificação da WHATWG). Com ele, o browser ganha uma camada que VOCÊ controla por código: interceptar a requisição antes dela sair, decidir servir do cache, da rede, ou dos dois (padrões como <em>Cache First</em> e <em>Stale-While-Revalidate</em>).
+        </p>
+
+        <blockquote>
+          <strong>Insight:</strong> com Service Worker, o Cache-Control deixa de ser o único rei. Você pode servir a página inteira offline — ou mentir com elegância enquanto revalida em background.
+        </blockquote>
+
+        <h2>A camada que ninguém lembra: navegação</h2>
+        <p>
+          <strong>bfcache (back/forward cache):</strong> o browser guarda a página INTEIRA — DOM, JS, estado — ao navegar para outra. Voltar não é um request; é um restore. Milissegundos.
+        </p>
+
+        <p>
+          E os hints de recurso: <code>preconnect</code> antecipa o handshake de conexões, <code>preload</code> baixa recursos críticos antes do HTML pedir. São cache de futuro: você prepara o terreno antes da requisição existir.
+        </p>
+
+        <blockquote>
+          Early Hints (HTTP 103) e HTTP/3/QUIC estão reduzindo ainda mais o custo do "primeiro contato". Mas isso é conversa da Parte 2 — a borda.
+        </blockquote>
+
+        <h2>Mão na massa: Implementação e Teste Automatizado</h2>
+        <p>
+          Teoria sem código vira dogma. Vamos materializar o conceito de <strong>Memory Cache com TTL e fallback de rede</strong> em uma função utilitária pura de 15 linhas — e escrever o teste unitário usando o test runner nativo do Node.js (<code>node:test</code>), sem nenhuma dependência de terceiros.
+        </p>
+
+        <h3>1. O Utilitário de Cache em Memória</h3>
+        <p>
+          A função recebe uma URL, uma função fetch injetável (para facilitar mocks e testes), um store de cache e um tempo de vida (TTL):
+        </p>
+
+        <pre><code>/**
+ * Busca recurso com cache em memória e expiração TTL.
+ * @param {string} url - Endpoint a consultar
+ * @param {Function} fetcher - Função fetch (injetável para testes)
+ * @param {Map} cacheStore - Store em memória
+ * @param {number} ttlMs - Tempo de vida em milissegundos
+ */
+export async function fetchWithMemoryCache(url, fetcher = fetch, cacheStore = new Map(), ttlMs = 60000) {
+  const now = Date.now();
+  const cached = cacheStore.get(url);
+
+  // Cache Hit: Dado fresco na memória RAM
+  if (cached && (now - cached.timestamp &lt; ttlMs)) {
+    return { data: cached.data, fromCache: true };
+  }
+
+  // Cache Miss: Busca na rede e armazena na memória
+  const response = await fetcher(url);
+  const data = await response.json();
+  cacheStore.set(url, { data, timestamp: now });
+
+  return { data, fromCache: false };
+}</code></pre>
+
+        <h3>2. O Teste Unitário Automatizado (TDD / BDD)</h3>
+        <p>
+          Validamos os dois comportamentos fundamentais: no primeiro acesso (<em>miss</em>), a rede é requisitada; no segundo acesso (<em>hit</em>), a resposta é instantânea e a rede é poupada com zero latência.
+        </p>
+
+        <pre><code>// cache-helper.test.js
+import test from 'node:test';
+import assert from 'node:assert';
+import { fetchWithMemoryCache } from './cache-helper.js';
+
+test('Pipeline de Cache: deve alternar entre Cache Miss e Cache Hit', async () => {
+  let networkRequests = 0;
+  const mockFetcher = async () => {
+    networkRequests++;
+    return { json: async () => ({ status: 'success', version: 1 }) };
+  };
+  const cache = new Map();
+
+  // 1º Acesso: Cache Miss (deve chamar a rede)
+  const first = await fetchWithMemoryCache('/api/config', mockFetcher, cache, 5000);
+  assert.strictEqual(first.fromCache, false, 'Primeira chamada deve ser cache miss');
+  assert.strictEqual(networkRequests, 1, 'Deve ter disparado exatamente 1 requisição na rede');
+  assert.deepStrictEqual(first.data, { status: 'success', version: 1 });
+
+  // 2º Acesso: Cache Hit (deve servir da memória RAM sem nova requisição)
+  const second = await fetchWithMemoryCache('/api/config', mockFetcher, cache, 5000);
+  assert.strictEqual(second.fromCache, true, 'Segunda chamada deve ser cache hit');
+  assert.strictEqual(networkRequests, 1, 'Não deve incrementar requisições na rede');
+  assert.deepStrictEqual(second.data, { status: 'success', version: 1 });
+});</code></pre>
+
+        <blockquote>
+          <strong>Por que testar assim?</strong> Injetar o <code>fetcher</code> e o <code>cacheStore</code> torna a arquitetura 100% desacoplada e testável em milissegundos sem precisar subir servidores ou emuladores pesados.
+        </blockquote>
+
+        <h2>TL;DR</h2>
+        <ul>
+          <li><strong>Memory cache:</strong> rápido, volátil, vive na sessão da aba.</li>
+          <li><strong>Disk cache:</strong> Cache-Control define o prazo de validade; ETag valida com 304.</li>
+          <li><strong>Service Worker:</strong> cache programável; você decide a política por código.</li>
+          <li><strong>bfcache + hints:</strong> a navegação também tem cache — e quase ninguém usa direito.</li>
+        </ul>
+
+        <p>
+          O browser respondeu <em>"não tenho"</em>. A requisição agora sai da sua máquina. Na Parte 2, ela atravessa DNS, TLS e chega à camada mais quente da engenharia moderna: a borda.
+        </p>
+      </div>
+    </article>
+
+    <!-- Navegação de Série (Ativada dinamicamente via blog.js) -->
+    <aside id="seriesNav" class="series-nav" hidden aria-label="Navegação da Série"></aside>
+  </main>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/app.js"></script>
+  <script type="module" src="../js/blog.js"></script>
+</body>
+</html>

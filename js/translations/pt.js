@@ -7,6 +7,7 @@ export const pt = {
   'nav.skip_to_content': 'Pular para o conteúdo principal',
   'nav.home': 'Início',
   'nav.roadmap': 'Roadmap',
+  'nav.blog': 'Blog',
   'nav.system_design': '02 · System Design',
   'nav.brand': 'pvduk · dev',
   'nav.series': 'Engenheiro de Software',
@@ -242,5 +243,29 @@ export const pt = {
   '404.btn_home': 'cd /home ➔',
   '404.btn_roadmap': 'git checkout roadmap ➔',
   '404.btn_coffee': '☕ sudo make-coffee',
-  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!'
+  '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!',
+
+  // ─── Blog de Engenharia e Artigos ───
+  'blog.badge': '// Publicações e Artigos Técnicos',
+  'blog.title': 'Blog de Engenharia & Artigos',
+  'blog.subtitle': 'Reflexões sobre Clean Architecture, System Design, Web Performance e Engenharia de Software.',
+  'blog.all': 'Todas',
+  'blog.filter_label': 'Filtrar por Assunto:',
+  'blog.empty': 'Nenhum artigo encontrado para a tag selecionada.',
+  'blog.error': 'Não foi possível carregar os artigos no momento. Tente recarregar a página.',
+  'blog.read_more': 'Ler artigo ⟶',
+  'blog.published_at': 'Publicado em',
+  'blog.reading_time': 'min de leitura',
+  'blog.back': '← Voltar para o Blog',
+  'blog.noscript_msg': '⚡ JavaScript desativado. A listagem dinâmica e filtros requerem JavaScript, mas os artigos individuais funcionam perfeitamente no modo estático.',
+
+  // ─── Séries de Artigos ───
+  'series.label': 'Série',
+  'series.part_of': 'Parte {part} de {total}',
+  'series.previous': '← Anterior',
+  'series.next': 'Próxima →',
+  'series.upcoming': 'em breve',
+  'blog.post.series_part': 'Série: {series} · Parte {part} de {total}',
+  'blog.post.next': 'Próxima',
+  'blog.post.back': 'Voltar ao blog'
 };

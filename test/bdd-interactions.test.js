@@ -495,11 +495,11 @@ console.log('\n📦 Scenario 9: Consistência do Header & Transição de Rotas (
   const indexEnv = createDOMEnvironment('index.html');
   const roadmapEnv = createDOMEnvironment('roadmap-requisitos.html');
 
-  it('Ambas as páginas devem possuir o logo minimalista no header e botão de Modo Dev (#btnViewToggle)', () => {
+  it('Ambas as páginas devem possuir o logo minimalista no header e botão de Modo Dev (#btnViewToggle) exclusivo no index', () => {
     assert.ok(indexEnv.doc.querySelector('.topbar-brand-logo'), 'Logo presente no index header');
     assert.ok(roadmapEnv.doc.querySelector('.topbar-brand-logo'), 'Logo presente no roadmap header');
     assert.ok(indexEnv.doc.getElementById('btnViewToggle'), 'Modo Dev presente no index');
-    assert.ok(roadmapEnv.doc.getElementById('btnViewToggle'), 'Modo Dev presente no roadmap');
+    assert.ok(!roadmapEnv.doc.getElementById('btnViewToggle'), 'Modo Dev ausente no roadmap');
   });
 
   it('A página inicial deve exibir pvduk.dev no Hero Brand Lockup do main', () => {
@@ -1207,6 +1207,154 @@ console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas 
     assert.ok(ptTranslations.includes("'nav.skip_to_content': 'Pular para o conteúdo principal'"), 'skip_to_content em pt.js');
     assert.ok(enTranslations.includes("'nav.skip_to_content': 'Skip to main content'"), 'skip_to_content em en.js');
     assert.ok(enTranslations.includes("'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.'"), 'footer.author em en.js com Crafted');
+  });
+}
+
+console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por Tag & Template Semântico');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+  const errorHtml = fs.readFileSync(path.join(__dirname, '../404.html'), 'utf8');
+  const blogIndexHtml = fs.readFileSync(path.join(__dirname, '../blog/index.html'), 'utf8');
+  const blogTemplateHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/TEMPLATE.html'), 'utf8');
+  const postsJsonStr = fs.readFileSync(path.join(__dirname, '../data/posts.json'), 'utf8');
+  const ptTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+  const enTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const buildJs = fs.readFileSync(path.join(__dirname, '../build.js'), 'utf8');
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+  it('Aba Blog deve estar temporariamente oculta na navegação pública (evolução em branch dedicada)', () => {
+    assert.ok(!indexHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em index.html');
+    assert.ok(!roadmapHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em roadmap-requisitos.html');
+    assert.ok(!errorHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em 404.html');
+    assert.ok(blogIndexHtml.includes('class="nav-pill active" href="index.html"') || blogIndexHtml.includes('class="nav-pill active"'), 'Aba Blog preservada na rota interna blog/index.html');
+    assert.ok(blogTemplateHtml.includes('class="nav-pill active" href="../index.html"') || blogTemplateHtml.includes('class="nav-pill active"'), 'Aba Blog preservada no template de post');
+  });
+
+  it('Modo Dev (Terminal Interativo) deve estar presente exclusivamente em index.html', () => {
+    assert.ok(indexHtml.includes('class="view-toggle"'), 'Botão view-toggle presente em index.html');
+    assert.ok(!roadmapHtml.includes('class="view-toggle"'), 'Botão view-toggle ausente em roadmap-requisitos.html');
+    assert.ok(!errorHtml.includes('class="view-toggle"'), 'Botão view-toggle ausente em 404.html');
+    assert.ok(!blogIndexHtml.includes('class="view-toggle"'), 'Botão view-toggle ausente em blog/index.html');
+    assert.ok(!blogTemplateHtml.includes('class="view-toggle"'), 'Botão view-toggle ausente em TEMPLATE.html');
+  });
+
+  it('data/posts.json deve ser um JSON válido com schema { series, posts } e dados da série', () => {
+    const data = JSON.parse(postsJsonStr);
+    assert.ok(data && typeof data === 'object', 'data/posts.json é um objeto');
+    assert.ok(Array.isArray(data.series), 'data.series é uma array');
+    assert.ok(Array.isArray(data.posts), 'data.posts é uma array');
+    assert.ok(data.series.length >= 1, 'Pelo menos 1 série cadastrada');
+    assert.ok(data.posts.length >= 6, 'Pelo menos 6 posts cadastrados no total');
+
+    const cacheSeries = data.series.find(s => s.id === 'anatomia-do-cache');
+    assert.ok(cacheSeries, 'Série anatomia-do-cache cadastrada');
+    assert.ok(cacheSeries.title && cacheSeries.title.pt && cacheSeries.title.en, 'Série possui título PT/EN');
+    assert.ok(cacheSeries.description && cacheSeries.description.pt && cacheSeries.description.en, 'Série possui descrição PT/EN');
+
+    const cachePosts = data.posts.filter(p => p.series && p.series.id === 'anatomia-do-cache');
+    assert.strictEqual(cachePosts.length, 4, '4 partes cadastradas para a série anatomia-do-cache');
+    
+    data.posts.forEach(post => {
+      assert.ok(post.id, 'Post possui id');
+      assert.ok(post.slug, 'Post possui slug');
+      assert.ok(post.file, 'Post possui caminho file');
+      assert.ok(post.date && /^\d{4}-\d{2}-\d{2}$/.test(post.date), 'Post possui date ISO válida');
+      assert.ok(typeof post.published === 'boolean', 'Post possui published booleano');
+      assert.ok(Array.isArray(post.tags) && post.tags.length > 0, 'Post possui tags');
+      assert.ok(post.title && post.title.pt && post.title.en, 'Post possui title em PT e EN');
+      assert.ok(post.description && post.description.pt && post.description.en, 'Post possui description em PT e EN');
+    });
+
+    const publishedPosts = data.posts.filter(p => p.published === true);
+    assert.ok(publishedPosts.length >= 3, 'Pelo menos 3 posts publicados para listagem pública');
+  });
+
+  it('Dicionários i18n (pt.js, en.js e app.js) devem conter 100% de paridade para chaves do Blog e Séries', () => {
+    const requiredKeys = [
+      'nav.blog',
+      'blog.badge',
+      'blog.title',
+      'blog.subtitle',
+      'blog.all',
+      'blog.filter_label',
+      'blog.empty',
+      'blog.error',
+      'blog.read_more',
+      'blog.published_at',
+      'blog.reading_time',
+      'blog.back',
+      'blog.noscript_msg',
+      'series.label',
+      'series.part_of',
+      'series.previous',
+      'series.next',
+      'series.upcoming',
+      'blog.post.series_part',
+      'blog.post.next',
+      'blog.post.back'
+    ];
+
+    requiredKeys.forEach(key => {
+      assert.ok(ptTranslations.includes(`'${key}':`), `Chave ${key} presente em pt.js`);
+      assert.ok(enTranslations.includes(`'${key}':`), `Chave ${key} presente em en.js`);
+      assert.ok(appJs.includes(`'${key}':`), `Chave ${key} presente em app.js`);
+    });
+  });
+
+  it('blog/posts/2025-01-anatomia-do-cache-o-navegador.html deve conter conteúdo editorial completo, diagrama ASCII, exemplo de código testável e SEO', () => {
+    const post1Path = path.join(__dirname, '../blog/posts/2025-01-anatomia-do-cache-o-navegador.html');
+    assert.ok(fs.existsSync(post1Path), 'Arquivo da parte 1 publicado existe');
+    const post1Html = fs.readFileSync(post1Path, 'utf8');
+    const blogCss = fs.readFileSync(path.join(__dirname, '../blog/css/blog.css'), 'utf8');
+    const blogJs = fs.readFileSync(path.join(__dirname, '../blog/js/blog.js'), 'utf8');
+
+    assert.ok(post1Html.includes('data-post-slug="2025-01-anatomia-do-cache-o-navegador"'), 'data-post-slug correto no post 1');
+    assert.ok(post1Html.includes('A Anatomia do Cache, Parte 1: O Navegador'), 'Título presente');
+    assert.ok(post1Html.includes('<figure class="article-figure">'), 'figure presente no post 1');
+    assert.ok(post1Html.includes('<pre class="ascii-diagram">'), 'ascii-diagram presente no post 1');
+    assert.ok(post1Html.includes('fetchWithMemoryCache'), 'Implementação prática de código presente');
+    assert.ok(post1Html.includes('node:test') && post1Html.includes('cache-helper.test.js'), 'Exemplo de teste unitário automatizado presente');
+    assert.ok(post1Html.includes('<figcaption>'), 'figcaption presente no post 1');
+    assert.ok(post1Html.includes('id="seriesNav"'), 'aside#seriesNav presente no post 1');
+    assert.ok(post1Html.includes('application/ld+json'), 'JSON-LD structured data presente no post 1');
+    assert.ok(post1Html.includes('property="og:type" content="article"'), 'Open Graph article type presente');
+
+    // Validação de card inteiramente clicável
+    assert.ok(blogCss.includes('.post-card-title a::after') && blogCss.includes('cursor: pointer'), 'CSS suporta card inteiramente clicável');
+    assert.ok(blogJs.includes('card.addEventListener(\'click\''), 'blog.js inclui navegação por clique em qualquer área do card');
+  });
+
+  it('blog/index.html e TEMPLATE.html devem conter estrutura semântica, seriesNav e SEO completo', () => {
+    assert.ok(blogIndexHtml.includes('id="blogTagsFilter"'), 'Filtros de tag presentes');
+    assert.ok(blogIndexHtml.includes('id="blogPostsGrid"'), 'Grid de posts presente');
+    assert.ok(blogIndexHtml.includes('id="blogEmptyState"'), 'Empty state presente');
+    assert.ok(blogIndexHtml.includes('id="blogErrorState"'), 'Error state presente');
+    assert.ok(blogIndexHtml.includes('<noscript>'), 'Fallback noscript presente em blog/index.html');
+    
+    assert.ok(blogTemplateHtml.includes('data-post-slug='), 'body data-post-slug presente em TEMPLATE.html');
+    assert.ok(blogTemplateHtml.includes('id="seriesNav"'), 'aside#seriesNav presente em TEMPLATE.html');
+    assert.ok(blogTemplateHtml.includes('<article class="post-article">'), 'article semântico em TEMPLATE.html');
+    assert.ok(blogTemplateHtml.includes('<time datetime="'), 'time tag com datetime em TEMPLATE.html');
+    assert.ok(blogTemplateHtml.includes('class="post-back-link"'), 'Botão de retorno presente');
+    assert.ok(blogTemplateHtml.includes('property="og:type" content="article"'), 'Open Graph type article no post');
+    assert.ok(blogTemplateHtml.includes('property="article:published_time"'), 'article:published_time presente');
+  });
+
+  it('build.js e sw.js devem empacotar e precachear os recursos do Blog e data/posts.json', () => {
+    assert.ok(buildJs.includes('data/posts.json'), 'build.js inclui data/posts.json');
+    assert.ok(buildJs.includes('blog/index.html'), 'build.js inclui blog/index.html');
+    assert.ok(buildJs.includes('blog/css/blog.css'), 'build.js inclui blog/css/blog.css');
+    assert.ok(buildJs.includes('blog/js/blog.js'), 'build.js inclui blog/js/blog.js');
+    assert.ok(buildJs.includes('blog/posts/TEMPLATE.html'), 'build.js inclui blog/posts/TEMPLATE.html');
+
+    assert.ok(swJs.includes('./data/posts.json'), 'sw.js precacheia data/posts.json');
+    assert.ok(swJs.includes('./blog/index.html'), 'sw.js precacheia blog/index.html');
+    assert.ok(swJs.includes('./blog/css/blog.css'), 'sw.js precacheia blog/css/blog.css');
+    assert.ok(swJs.includes('./blog/js/blog.js'), 'sw.js precacheia blog/js/blog.js');
+    assert.ok(swJs.includes('./blog/posts/TEMPLATE.html'), 'sw.js precacheia TEMPLATE.html');
+    assert.ok(swJs.includes('pvdukdev-v2.3.0'), 'sw.js atualizado para v2.3.0');
   });
 }
 

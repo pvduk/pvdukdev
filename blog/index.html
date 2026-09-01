@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('costar_preferred_lang');
+        if (l === 'pt' || l === 'en') {
+          document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog · Engenharia de Software e Arquitetura Limpa | pvduk dev</title>
+  <meta name="title" content="Blog · Engenharia de Software e Arquitetura Limpa | pvduk dev">
+  <meta name="description" content="Artigos técnicos e publicações sobre Clean Architecture, System Design, Web Performance (CWV) e Engenharia de Software de alta performance.">
+  <meta name="author" content="pvdukdev">
+  <link rel="canonical" href="https://pvduk.github.io/pvdukdev/blog/">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pvduk.github.io/pvdukdev/blog/">
+  <meta property="og:title" content="Blog · Engenharia de Software e Arquitetura Limpa | pvduk dev">
+  <meta property="og:description" content="Artigos técnicos e publicações sobre Clean Architecture, System Design, Web Performance (CWV) e Engenharia de Software.">
+  <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="pvduk dev">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/blog/">
+  <meta name="twitter:title" content="Blog · Engenharia de Software e Arquitetura Limpa | pvduk dev">
+  <meta name="twitter:description" content="Artigos técnicos e publicações sobre Clean Architecture, System Design, Web Performance (CWV) e Engenharia de Software.">
+  <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta name="twitter:creator" content="@pvdukdev">
+
+  <!-- Favicon e Ícones PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="apple-touch-icon" href="../assets/logo.svg">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#0a0c10">
+
+  <!-- Preload Tipografia Crítica Self-Hosted & Manifesto de Artigos -->
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../data/posts.json" as="fetch" crossorigin>
+
+  <!-- CSS Cascade Layers -->
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+  <!-- A11y Skip Link (WCAG 2.4.1) -->
+  <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
+
+  <!-- Fallback No-JS -->
+  <noscript>
+    <div class="noscript-banner" role="status">
+      <span data-i18n="blog.noscript_msg">⚡ JavaScript desativado. A listagem dinâmica e filtros requerem JavaScript, mas os artigos individuais funcionam perfeitamente no modo estático.</span>
+    </div>
+  </noscript>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="../index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <!-- ÍCONE MARCA VISUAL -->
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill" href="../index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill" href="../roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="nav-pill active" href="index.html" data-i18n="nav.blog">Blog</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="12" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ CONTEÚDO PRINCIPAL DO BLOG ═══════════ -->
+  <main class="blog-page" id="main-content">
+    <section class="blog-hero">
+      <div class="blog-badge" data-i18n="blog.badge">// Publicações e Artigos Técnicos</div>
+      <h1 class="blog-title" data-i18n="blog.title">Blog de Engenharia & Artigos</h1>
+      <p class="blog-subtitle" data-i18n="blog.subtitle">
+        Reflexões sobre Clean Architecture, System Design, Web Performance e Engenharia de Software.
+      </p>
+    </section>
+
+    <!-- Barra de Filtros por Tag -->
+    <section class="blog-filters-wrap" aria-label="Filtros de Artigos">
+      <div class="blog-filters-header" data-i18n="blog.filter_label">Filtrar por Assunto:</div>
+      <ul class="blog-filter-pills" id="blogTagsFilter" role="toolbar" aria-label="Lista de Tags">
+        <!-- Injetado dinamicamente via blog.js -->
+        <li><button type="button" class="tag-pill-btn active" data-tag="all" data-i18n="blog.all">Todas</button></li>
+      </ul>
+    </section>
+
+    <!-- Grid de Artigos -->
+    <section class="posts-grid" id="blogPostsGrid" aria-live="polite">
+      <!-- Injetado dinamicamente via blog.js -->
+    </section>
+
+    <!-- Estado Vazio -->
+    <div class="blog-status-box" id="blogEmptyState" style="display: none;" role="status">
+      <div class="blog-status-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      </div>
+      <p class="blog-status-text" data-i18n="blog.empty">Nenhum artigo encontrado para a tag selecionada.</p>
+    </div>
+
+    <!-- Estado de Erro Amigável -->
+    <div class="blog-status-box" id="blogErrorState" style="display: none;" role="alert">
+      <div class="blog-status-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      </div>
+      <p class="blog-status-text" data-i18n="blog.error">Não foi possível carregar os artigos no momento. Tente recarregar a página.</p>
+    </div>
+  </main>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/app.js"></script>
+  <script type="module" src="js/blog.js"></script>
+</body>
+</html>

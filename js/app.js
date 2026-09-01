@@ -16,6 +16,7 @@
       'nav.skip_to_content': 'Pular para o conteúdo principal',
       'nav.home': 'Início',
       'nav.roadmap': 'Roadmap',
+      'nav.blog': 'Blog',
       'nav.brand': 'pvduk · dev',
       'nav.series': 'Engenheiro de Software',
       'btn.lang': 'PT',
@@ -237,12 +238,37 @@
       '404.btn_home': 'cd /home ➔',
       '404.btn_roadmap': 'git checkout roadmap ➔',
       '404.btn_coffee': '☕ sudo make-coffee',
-      '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!'
+      '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!',
+
+      // ─── Blog de Engenharia e Artigos ───
+      'blog.badge': '// Publicações e Artigos Técnicos',
+      'blog.title': 'Blog de Engenharia & Artigos',
+      'blog.subtitle': 'Reflexões sobre Clean Architecture, System Design, Web Performance e Engenharia de Software.',
+      'blog.all': 'Todas',
+      'blog.filter_label': 'Filtrar por Assunto:',
+      'blog.empty': 'Nenhum artigo encontrado para a tag selecionada.',
+      'blog.error': 'Não foi possível carregar os artigos no momento. Tente recarregar a página.',
+      'blog.read_more': 'Ler artigo ⟶',
+      'blog.published_at': 'Publicado em',
+      'blog.reading_time': 'min de leitura',
+      'blog.back': '← Voltar para o Blog',
+      'blog.noscript_msg': '⚡ JavaScript desativado. A listagem dinâmica e filtros requerem JavaScript, mas os artigos individuais funcionam perfeitamente no modo estático.',
+
+      // ─── Séries de Artigos ───
+      'series.label': 'Série',
+      'series.part_of': 'Parte {part} de {total}',
+      'series.previous': '← Anterior',
+      'series.next': 'Próxima →',
+      'series.upcoming': 'em breve',
+      'blog.post.series_part': 'Série: {series} · Parte {part} de {total}',
+      'blog.post.next': 'Próxima',
+      'blog.post.back': 'Voltar ao blog'
     },
     en: {
       'nav.skip_to_content': 'Skip to main content',
       'nav.home': 'Home',
       'nav.roadmap': 'Roadmap',
+      'nav.blog': 'Blog',
       'nav.brand': 'pvduk · dev',
       'nav.series': 'Software Engineer',
       'btn.lang': 'EN',
@@ -464,7 +490,31 @@
       '404.btn_home': 'cd /home ➔',
       '404.btn_roadmap': 'git checkout roadmap ➔',
       '404.btn_coffee': '☕ sudo make-coffee',
-      '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!'
+      '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!',
+
+      // ─── Engineering Blog & Articles ───
+      'blog.badge': '// Publications & Technical Articles',
+      'blog.title': 'Engineering Blog & Articles',
+      'blog.subtitle': 'Deep dives on Clean Architecture, System Design, Web Performance, and Software Engineering.',
+      'blog.all': 'All',
+      'blog.filter_label': 'Filter by Topic:',
+      'blog.empty': 'No articles found for the selected tag.',
+      'blog.error': 'Unable to load articles at the moment. Please try reloading the page.',
+      'blog.read_more': 'Read article ⟶',
+      'blog.published_at': 'Published on',
+      'blog.reading_time': 'min read',
+      'blog.back': '← Back to Blog',
+      'blog.noscript_msg': '⚡ JavaScript is disabled. Dynamic listing and filters require JavaScript, but individual articles are fully accessible statically.',
+
+      // ─── Article Series ───
+      'series.label': 'Series',
+      'series.part_of': 'Part {part} of {total}',
+      'series.previous': '← Previous',
+      'series.next': 'Next →',
+      'series.upcoming': 'coming soon',
+      'blog.post.series_part': 'Series: {series} · Part {part} of {total}',
+      'blog.post.next': 'Next',
+      'blog.post.back': 'Back to blog'
     }
   };
 
@@ -553,6 +603,10 @@
         btn.innerHTML = `${SVG_ICONS.terminal} <span>${dict['btn.dev_mode'] || 'Modo Dev'}</span>`;
       }
     });
+
+    try {
+      window.dispatchEvent(new CustomEvent('costar:languagechange', { detail: { lang: currentLang } }));
+    } catch (e) {}
   }
 
   function toggleLanguage() {
@@ -562,6 +616,8 @@
   }
 
   window.toggleLanguage = toggleLanguage;
+  window.getCurrentLanguage = function () { return currentLang; };
+  window.getDictionary = function (lang) { return dictionaries[lang || currentLang] || dictionaries.pt; };
 
   window.makeCoffee = function () {
     const dict = dictionaries[currentLang] || dictionaries.pt;

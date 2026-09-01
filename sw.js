@@ -5,7 +5,7 @@
  * ═════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'pvdukdev-v2.1.0';
+const CACHE_VERSION = 'pvdukdev-v2.3.0';
 const CACHE_NAME = `costar-pwa-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -13,12 +13,18 @@ const PRECACHE_ASSETS = [
   './index.html',
   './roadmap-requisitos.html',
   './404.html',
+  './blog/index.html',
+  './blog/posts/TEMPLATE.html',
+  './blog/posts/2025-01-anatomia-do-cache-o-navegador.html',
+  './data/posts.json',
   './manifest.webmanifest',
   './css/base.css',
   './css/components.css',
   './css/pages/home.css',
   './css/pages/roadmap.css',
+  './blog/css/blog.css',
   './js/app.js',
+  './blog/js/blog.js',
   './js/translations/pt.js',
   './js/translations/en.js',
   './assets/fonts/inter-latin.woff2',

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+  <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('costar_preferred_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('costar_preferred_lang');
+        if (l === 'pt' || l === 'en') {
+          document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clean Architecture e Web Standards · Artigo | pvduk dev</title>
+  <meta name="title" content="Clean Architecture e Web Standards · Artigo | pvduk dev">
+  <meta name="description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
+  <meta name="author" content="pvdukdev">
+  <link rel="canonical" href="https://pvduk.github.io/pvdukdev/blog/posts/TEMPLATE.html">
+
+  <!-- Open Graph Article Metadata -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pvduk.github.io/pvdukdev/blog/posts/TEMPLATE.html">
+  <meta property="og:title" content="Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências">
+  <meta property="og:description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
+  <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="article:published_time" content="2025-01-15T00:00:00Z">
+  <meta property="article:author" content="pvdukdev">
+  <meta property="article:tag" content="arquitetura">
+  <meta property="article:tag" content="clean-code">
+  <meta property="article:tag" content="web-standards">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/blog/posts/TEMPLATE.html">
+  <meta name="twitter:title" content="Clean Architecture e Web Standards · pvduk dev">
+  <meta name="twitter:description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
+  <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta name="twitter:creator" content="@pvdukdev">
+
+  <!-- Favicon e Ícones PWA -->
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo.svg">
+  <link rel="apple-touch-icon" href="../../assets/logo.svg">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <meta name="theme-color" content="#0a0c10">
+
+  <!-- Preload Tipografia Crítica Self-Hosted -->
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS Cascade Layers -->
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body data-post-slug="2025-01-clean-architecture-vanilla-web">
+  <!-- A11y Skip Link (WCAG 2.4.1) -->
+  <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
+
+  <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
+  <header class="topbar" role="banner">
+    <a href="../../index.html" class="topbar-brand-wrap" aria-label="Home pvduk dev">
+      <!-- ÍCONE MARCA VISUAL -->
+      <div class="topbar-brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="pvduk logo">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação Principal">
+      <a class="nav-pill" href="../../index.html" data-i18n="nav.home">Início</a>
+      <a class="nav-pill" href="../../roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="nav-pill active" href="../index.html" data-i18n="nav.blog">Blog</a>
+    </nav>
+
+    <div class="topbar-controls">
+      <!-- IDIOMA E TEMA -->
+      <button type="button" class="lang-toggle" aria-label="PT - Alternar Idioma">
+        <svg width="15" height="11" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="lang-flag"><rect width="20" height="14" rx="2" fill="#059669"/><polygon points="10,1.8 18.2,7 10,12.2 1.8,7" fill="#F59E0B"/><circle cx="10" cy="7" r="3.2" fill="#1D4ED8"/><path d="M7.1 7.7 Q10 5.6 12.9 6.3" stroke="#FFFFFF" stroke-width="0.75" fill="none" stroke-linecap="round"/><circle cx="10.2" cy="5.2" r="0.28" fill="#FFFFFF"/><circle cx="10" cy="8.2" r="0.28" fill="#FFFFFF"/><circle cx="9.3" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10.7" cy="7.8" r="0.22" fill="#FFFFFF"/><circle cx="10" cy="9.0" r="0.2" fill="#FFFFFF"/></svg>
+        <span>PT</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Alternar Tema" data-i18n-aria="btn.theme_toggle">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="12" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ CONTEÚDO DO ARTIGO ═══════════ -->
+  <main class="post-article-container" id="main-content">
+    <a href="../index.html" class="post-back-link" data-i18n="blog.back">← Voltar para o Blog</a>
+
+    <article class="post-article">
+      <header class="article-header">
+        <div class="article-meta">
+          <time datetime="2025-01-15">15 de Janeiro de 2025</time>
+          <span class="post-reading-time">8 min de leitura</span>
+        </div>
+
+        <h1 class="article-title">Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências</h1>
+        <p class="article-lead">
+          Como aplicar os princípios de Robert C. Martin (Uncle Bob) e padrões nativos da W3C/ECMA para desenvolver aplicações web rápidas, manuteníveis e sem dependência de ecossistemas instáveis.
+        </p>
+      </header>
+
+      <div class="article-body">
+        <h2>1. O Paradoxo dos Frameworks Modernos</h2>
+        <p>
+          No desenvolvimento frontend contemporâneo, tornou-se comum importar árvores inteiras de dependências para tarefas que a plataforma web nativa já resolve com primazia. Ao adotarmos <strong>Clean Architecture</strong>, o objetivo primordial é manter as regras de negócio e a experiência do usuário isoladas dos detalhes de infraestrutura.
+        </p>
+
+        <blockquote>
+          "A arquitetura não deve ser sobre frameworks. Frameworks são opções de entrega, não o coração do seu sistema." — Robert C. Martin (Uncle Bob)
+        </blockquote>
+
+        <h2>2. Princípios SOLID Aplicados à Web Pura</h2>
+        <p>
+          Quando escrevemos HTML5 semântico, CSS com Cascade Layers e JavaScript modular ES2026, estamos aplicando diretamente os princípios fundamentais de engenharia de software:
+        </p>
+
+        <ul>
+          <li><strong>Single Responsibility Principle (SRP):</strong> HTML cuida exclusivamente da estrutura semântica; CSS governa a apresentação e temas; JavaScript orquestra o comportamento assíncrono.</li>
+          <li><strong>Open/Closed Principle (OCP):</strong> Novos recursos e dicionários de tradução são adicionados por extensão de tabelas/objetos, sem modificar o motor central de execução.</li>
+          <li><strong>Dependency Inversion (DIP):</strong> A interface do usuário consome dados desacoplados através de contratos JSON claros (`data/posts.json`), sem acoplamento direto com bancos de dados ou pipelines complexos.</li>
+        </ul>
+
+        <h2>3. Exemplo Prático: Isolamento de Contratos</h2>
+        <pre><code>// Contrato limpo para consumo de dados desacoplados
+async function fetchPostManifest() {
+  const res = await fetch('../data/posts.json');
+  if (!res.ok) throw new Error('Falha ao carregar manifesto');
+  return await res.json();
+}</code></pre>
+
+        <h2>4. Conclusão</h2>
+        <p>
+          Adotar os padrões da web não significa rejeitar a modernidade; significa abraçar a durabilidade e o respeito aos recursos da máquina do usuário. O resultado é um sistema com <strong>Score 100 no Lighthouse</strong>, zero latência e total autonomia.
+        </p>
+      </div>
+    </article>
+
+    <!-- Navegação de Série (Ativada dinamicamente via blog.js se o post pertencer a uma série) -->
+    <aside id="seriesNav" class="series-nav" hidden aria-label="Navegação da Série"></aside>
+  </main>
+
+  <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+      <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/app.js"></script>
+  <script type="module" src="../js/blog.js"></script>
+</body>
+</html>

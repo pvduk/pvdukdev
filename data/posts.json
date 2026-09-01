@@ -1,0 +1,135 @@
+{
+  "series": [
+    {
+      "id": "anatomia-do-cache",
+      "title": {
+        "pt": "A Anatomia do Cache",
+        "en": "The Anatomy of Caching"
+      },
+      "description": {
+        "pt": "Uma jornada profunda de 4 partes explorando como o cache funciona do navegador até o disco.",
+        "en": "A 4-part deep dive exploring how caching works from browser to disk."
+      }
+    }
+  ],
+  "posts": [
+    {
+      "id": "clean-architecture-vanilla-web",
+      "slug": "2025-01-clean-architecture-vanilla-web",
+      "file": "posts/TEMPLATE.html",
+      "date": "2025-01-15",
+      "readingTime": 8,
+      "published": true,
+      "tags": ["arquitetura", "clean-code", "web-standards"],
+      "title": {
+        "pt": "Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências",
+        "en": "Clean Architecture & Web Standards: Building Resilient Software Without Dependencies"
+      },
+      "description": {
+        "pt": "Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.",
+        "en": "How to apply Uncle Bob's Clean Architecture principles in modern web applications without relying on 50MB heavyweight frameworks."
+      }
+    },
+    {
+      "id": "system-design-tradeoffs-latency-throughput",
+      "slug": "2025-02-system-design-tradeoffs-latency-throughput",
+      "file": "posts/TEMPLATE.html",
+      "date": "2025-02-10",
+      "readingTime": 6,
+      "published": true,
+      "tags": ["system-design", "performance", "distribuidos"],
+      "title": {
+        "pt": "System Design Decisório: Dominando Trade-offs de Latência e Throughput",
+        "en": "Decisional System Design: Mastering Latency and Throughput Trade-offs"
+      },
+      "description": {
+        "pt": "Análise aprofundada do Teorema CAP, estratégias de cache na borda (Edge Caching) e desacoplamento assíncrono para arquiteturas escaláveis.",
+        "en": "In-depth analysis of CAP Theorem, edge caching strategies, and asynchronous decoupling for scalable architectures."
+      }
+    },
+    {
+      "id": "anatomia-do-cache-1-navegador",
+      "slug": "2025-01-anatomia-do-cache-o-navegador",
+      "file": "posts/2025-01-anatomia-do-cache-o-navegador.html",
+      "date": "2026-01-15",
+      "readingTime": 6,
+      "published": true,
+      "series": {
+        "id": "anatomia-do-cache",
+        "part": 1
+      },
+      "tags": ["cache", "performance", "web"],
+      "title": {
+        "pt": "A Anatomia do Cache, Parte 1: O Navegador",
+        "en": "The Anatomy of Caching, Part 1: The Browser"
+      },
+      "description": {
+        "pt": "Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser.",
+        "en": "Memory cache, HTTP cache, ETag and Service Worker: the three cache layers you control in the browser."
+      }
+    },
+    {
+      "id": "anatomia-do-cache-2-borda",
+      "slug": "2025-03-anatomia-do-cache-2-borda",
+      "file": "posts/TEMPLATE.html",
+      "date": "2025-03-08",
+      "readingTime": 7,
+      "published": false,
+      "series": {
+        "id": "anatomia-do-cache",
+        "part": 2
+      },
+      "tags": ["cache", "performance", "web"],
+      "title": {
+        "pt": "A Borda: DNS, TLS e a revolução Edge",
+        "en": "The Edge: DNS, TLS, and the Edge revolution"
+      },
+      "description": {
+        "pt": "Parte 2 da série A Anatomia do Cache: CDNs, Edge Compute e terminação TLS.",
+        "en": "Part 2 of The Anatomy of Caching: CDNs, Edge Compute, and TLS termination."
+      }
+    },
+    {
+      "id": "anatomia-do-cache-3-servidor",
+      "slug": "2025-03-anatomia-do-cache-3-servidor",
+      "file": "posts/TEMPLATE.html",
+      "date": "2025-03-15",
+      "readingTime": 8,
+      "published": false,
+      "series": {
+        "id": "anatomia-do-cache",
+        "part": 3
+      },
+      "tags": ["cache", "performance", "web"],
+      "title": {
+        "pt": "O Servidor: app, reverse proxy e o para-choque",
+        "en": "The Server: app, reverse proxy, and the shock absorber"
+      },
+      "description": {
+        "pt": "Parte 3 da série A Anatomia do Cache: Nginx, Redis e cache em memória na aplicação.",
+        "en": "Part 3 of The Anatomy of Caching: Nginx, Redis, and application in-memory cache."
+      }
+    },
+    {
+      "id": "anatomia-do-cache-4-fonte-da-verdade",
+      "slug": "2025-03-anatomia-do-cache-4-fonte-da-verdade",
+      "file": "posts/TEMPLATE.html",
+      "date": "2025-03-22",
+      "readingTime": 9,
+      "published": false,
+      "series": {
+        "id": "anatomia-do-cache",
+        "part": 4
+      },
+      "tags": ["cache", "performance", "web"],
+      "title": {
+        "pt": "A Fonte da Verdade: banco de dados e disco",
+        "en": "The Source of Truth: database and disk"
+      },
+      "description": {
+        "pt": "Parte 4 da série A Anatomia do Cache: buffer pools, páginas de disco e invalidação consistente.",
+        "en": "Part 4 of The Anatomy of Caching: buffer pools, disk pages, and consistent invalidation."
+      }
+    }
+  ]
+}
