@@ -332,6 +332,26 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* ─── ROADMAP & DEV TERMINAL CONTAINERS (PADRONIZADO COM INDEX 1040PX) ─── */
+  #main-content.roadmap-page,
+  .roadmap-page {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    box-sizing: border-box;
+  }
+  main.dev-terminal-container,
+  .dev-terminal-container {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    box-sizing: border-box;
   }
 
   /* ─── FOOTER UNIVERSAL (STICKY FOOTER FIXO NO BOTTOM) ─── */
@@ -348,14 +368,36 @@
     max-width: 1040px;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 13px;
     font-weight: 500;
     color: var(--text-muted);
     font-family: var(--font-sans);
     letter-spacing: -0.01em;
+  }
+  .footer-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .footer-line--copyright {
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+  }
+  .footer-line--tagline {
+    font-size: 12px;
+    opacity: 0.85;
   }
   .footer-coffee-icon {
     display: inline-block;
@@ -363,6 +405,31 @@
     flex-shrink: 0;
     color: currentColor;
     opacity: 0.85;
+  }
+
+  @media (max-width: 580px) {
+    #main-content.roadmap-page,
+    .roadmap-page {
+      padding: 24px 16px 48px;
+    }
+    main.dev-terminal-container,
+    .dev-terminal-container {
+      padding: 16px 8px 48px;
+    }
+    .site-footer {
+      padding: 20px 16px;
+    }
+    .site-footer-inner {
+      gap: 6px;
+    }
+    .footer-line--copyright {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .footer-line--tagline {
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
   }
 
   .main-content--centered {

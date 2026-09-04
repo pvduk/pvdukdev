@@ -178,9 +178,55 @@
       <section class="home-section" id="portfolio" aria-labelledby="flagship-title">
         <h2 class="home-section-title" id="flagship-title" data-i18n="hub.section_flagship">Projeto em Destaque</h2>
 
+        <!-- Navegação por Abas (WAI-ARIA Tabs) -->
+        <div class="project-tabs-nav" role="tablist" aria-label="Projetos em Destaque">
+          <button type="button" role="tab" class="project-tab-btn active" id="tab-btn-analytics" aria-selected="true" aria-controls="tab-panel-analytics">
+            <img src="assets/analytics-icon.png" alt="" class="project-tab-icon" width="18" height="18" loading="lazy" decoding="async" aria-hidden="true">
+            <span data-i18n="projects.tab_analytics">FirstStrike Analytics</span>
+          </button>
+          <button type="button" role="tab" class="project-tab-btn" id="tab-btn-ops" aria-selected="false" aria-controls="tab-panel-ops">
+            <img src="assets/ops-icon.png" alt="" class="project-tab-icon" width="18" height="18" loading="lazy" decoding="async" aria-hidden="true">
+            <span data-i18n="projects.tab_ops">FirstStrike Ops</span>
+          </button>
+          <button type="button" role="tab" class="project-tab-btn" id="tab-btn-planexa" aria-selected="false" aria-controls="tab-panel-planexa">
+            <img src="assets/planexa-icon.png" alt="" class="project-tab-icon" width="18" height="18" loading="lazy" decoding="async" aria-hidden="true">
+            <span data-i18n="projects.tab_planexa">Planexa OS</span>
+          </button>
+          <button type="button" role="tab" class="project-tab-btn" id="tab-btn-roadmap" aria-selected="false" aria-controls="tab-panel-roadmap">
+            <span class="project-tab-indicator" aria-hidden="true"></span>
+            <span data-i18n="projects.tab_roadmap">Roadmap de Requisitos</span>
+          </button>
+        </div>
+
         <div class="volumes-grid volumes-grid--single">
-          <!-- VOLUME 01 - ROADMAP FIRSTSTRIKE ANALYTICS (FEATURED CARD) -->
-          <article class="volume-card volume-card--featured">
+          <!-- PAINEL 01: FIRSTSTRIKE ANALYTICS (SAAS LIVE EM PRODUÇÃO) -->
+          <article class="volume-card volume-card--featured project-tab-panel" id="tab-panel-analytics" role="tabpanel" aria-labelledby="tab-btn-analytics" tabindex="0">
+            <div>
+              <div class="project-card-header">
+                <img src="assets/analytics-icon.png" alt="FirstStrike Analytics Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async">
+                <div class="project-card-header-text">
+                  <div class="vol-tag" data-i18n="analytics.tag">Produção Live · IA & Modelagem Quantitativa · FullStack .NET 10 / React 19</div>
+                  <h3 class="vol-title" data-i18n="analytics.title">FirstStrike Analytics ⚡ · Plataforma Quantitativa da NBA</h3>
+                </div>
+              </div>
+              <p class="vol-desc" data-i18n="analytics.desc">
+                Plataforma SaaS quantitativa de alta precisão projetada para modelar, prever e analisar o desempenho de atletas da NBA em dois escopos: Primeiro Quarto (Q1, 12 min) e Jogo Completo (Full Game, 48 min). Combina distribuições estatísticas discretas (Poisson e Binomial Negativa), simulações conjuntas de Monte Carlo (10.000 iterações por cenário) e IA generativa (Google Gemini) para identificar valor esperado (EV+).
+              </p>
+              <ul class="vol-features">
+                <li data-i18n="analytics.feat1">Dual-Scope Analytics: Modelagem estatística especializada para 1º Quarto e Jogo Completo</li>
+                <li data-i18n="analytics.feat2">Joint Monte Carlo Engine: 10.000 iterações para cálculo de probabilidades conjuntas e canibalização de volume</li>
+                <li data-i18n="analytics.feat3">Projeções Táticas com Gemini: Análise contextual com cadeia de contingência automática de rate limits</li>
+                <li data-i18n="analytics.feat4">Ambiente Docker Compose + PWA Universal: Backend .NET 10, Frontend React 19 + Tailwind v4 e MongoDB Atlas</li>
+              </ul>
+            </div>
+            <div class="project-card-footer project-card-footer--between">
+              <a href="https://firststrikeanalytics.com.br" target="_blank" rel="noopener noreferrer" class="btn btn-primary vol-btn" data-i18n="analytics.btn">Acessar FirstStrike Analytics ↗</a>
+              <span class="project-badge-pill" data-i18n="analytics.badge">Live em Produção · firststrikeanalytics.com.br</span>
+            </div>
+          </article>
+
+          <!-- PAINEL 02: ROADMAP FIRSTSTRIKE ANALYTICS -->
+          <article class="volume-card volume-card--featured project-tab-panel" id="tab-panel-roadmap" role="tabpanel" aria-labelledby="tab-btn-roadmap" tabindex="0" hidden>
             <div>
               <div class="vol-header">
                 <div class="vol-tag" data-i18n="vol1.tag">Projeto Principal · Processo e Estudo de Caso</div>
@@ -196,6 +242,56 @@
               </ul>
             </div>
             <a href="roadmap-requisitos.html" class="btn btn-primary vol-btn" data-i18n="vol1.btn">Acessar Roadmap Interativo ⟶</a>
+          </article>
+
+          <!-- PAINEL 02: PLANEXA OS -->
+          <article class="volume-card volume-card--featured project-tab-panel" id="tab-panel-planexa" role="tabpanel" aria-labelledby="tab-btn-planexa" tabindex="0" hidden>
+            <div>
+              <div class="project-card-header">
+                <img src="assets/planexa-icon.png" alt="Planexa OS Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async">
+                <div class="project-card-header-text">
+                  <div class="vol-tag" data-i18n="planexa.tag">Desktop Nativo · Clean Architecture · 100% Offline-First</div>
+                  <h3 class="vol-title" data-i18n="planexa.title">Planexa OS 💎⚡ · Executive Workflow & Gantt</h3>
+                </div>
+              </div>
+              <p class="vol-desc" data-i18n="planexa.desc">
+                Sistema operacional desktop de alta densidade para engenharia PJ, estudos e gestão. Pomodoro reativo integrado ao TanStack Query, cronograma Gantt vetorial SVG com diluição proporcional de prazos, editor TipTap WYSIWYG de matrizes Markdown e dual workspaces (Profissional vs Acadêmico).
+              </p>
+              <ul class="vol-features">
+                <li data-i18n="planexa.feat1">Stack moderna: .NET 10 + C# 14 + Photino.NET (Nativo sem Electron, &lt;40MB RAM)</li>
+                <li data-i18n="planexa.feat2">Frontend reativo: React 19 + TypeScript 5.9 + Tailwind CSS v4 (@theme semântico)</li>
+                <li data-i18n="planexa.feat3">Persistência local relacional em SQLite com auto-migração de schema em runtime</li>
+                <li data-i18n="planexa.feat4">Engenharia de excelência: 146 testes automatizados (100% aprovados) e Uncle Bob Quality Gate 98/100</li>
+              </ul>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-badge-pill" data-i18n="planexa.badge">Aplicação Desktop Nativa · 100% Offline</span>
+            </div>
+          </article>
+
+          <!-- PAINEL 03: FIRSTSTRIKE OPS -->
+          <article class="volume-card volume-card--featured project-tab-panel" id="tab-panel-ops" role="tabpanel" aria-labelledby="tab-btn-ops" tabindex="0" hidden>
+            <div>
+              <div class="project-card-header">
+                <img src="assets/ops-icon.png" alt="FirstStrike Ops Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async">
+                <div class="project-card-header-text">
+                  <div class="vol-tag" data-i18n="ops.tag">Torre de Controle · Observabilidade · Auditoria Matemática</div>
+                  <h3 class="vol-title" data-i18n="ops.title">FirstStrike Ops 🛡️ · Torre de Controle Operacional</h3>
+                </div>
+              </div>
+              <p class="vol-desc" data-i18n="ops.desc">
+                Torre de controle operacional e observabilidade em tempo real do ecossistema FirstStrike Analytics. Pipeline determinístico com 5 regras de integridade analítica e monotonicidade matemática de projeções (Q1 e Full Game), sandbox de staging com diff viewer lado a lado e Render Sentinel anti-cold start.
+              </p>
+              <ul class="vol-features">
+                <li data-i18n="ops.feat1">Arquitetura ultra-leve: .NET 10 + Photino.NET + React 19 + Vite 8 (&lt;80MB RAM)</li>
+                <li data-i18n="ops.feat2">DatabaseValidator: validação estrita de monotonicidade acumulada (Q1 ≤ Q2 ≤ Q3 ≤ Q4)</li>
+                <li data-i18n="ops.feat3">Repositório local em SQLite WAL + auditoria analítica sobre MongoDB Atlas</li>
+                <li data-i18n="ops.feat4">Render Sentinel: monitoramento de CPU/RAM com keepalive e bypass de Cloudflare edge-cache</li>
+              </ul>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-badge-pill" data-i18n="ops.badge">Torre de Controle · Governança de Dados</span>
+            </div>
           </article>
         </div>
 
@@ -474,8 +570,13 @@
   <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
-      <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
-      <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+      <div class="footer-line footer-line--copyright">
+        <span data-i18n="footer.copyright">© 2026 pvduk.dev · Todos os direitos reservados.</span>
+      </div>
+      <div class="footer-line footer-line--tagline">
+        <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
+        <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+      </div>
     </div>
   </footer>
 

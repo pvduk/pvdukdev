@@ -36,7 +36,10 @@ const PRECACHE_ASSETS = [
   './assets/og-image.png',
   './assets/pwa-icon.svg',
   './assets/icon-192.png',
-  './assets/icon-512.png'
+  './assets/icon-512.png',
+  './assets/planexa-icon.png',
+  './assets/ops-icon.png',
+  './assets/analytics-icon.png'
 ];
 
 // 1. Instalação: Pre-cache de todos os recursos essenciais (App Shell)

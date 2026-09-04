@@ -15,6 +15,7 @@ export const en = {
   'btn.theme_toggle': 'Toggle Theme',
   'btn.dev_mode': 'Dev Mode',
   'btn.std_mode': 'Standard Mode',
+  'footer.copyright': '© 2026 pvduk.dev · All rights reserved.',
   'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.',
 
   // ─── Home Hub: Standard Mode (Option 1 · The Architectural Engineer) ───
@@ -39,6 +40,23 @@ export const en = {
   'hub.section_contact': 'Get in Touch',
   'hub.section_connections': 'Connections',
 
+  // Flagship Project Tabs
+  'projects.tab_analytics': 'FirstStrike Analytics',
+  'projects.tab_ops': 'FirstStrike Ops',
+  'projects.tab_planexa': 'Planexa OS',
+  'projects.tab_roadmap': 'Requirements Roadmap',
+
+  // FirstStrike Analytics SaaS
+  'analytics.tag': 'Live in Production · AI & Quantitative Modeling · FullStack .NET 10 / React 19',
+  'analytics.title': 'FirstStrike Analytics ⚡ · NBA Quantitative Platform',
+  'analytics.desc': 'High-precision quantitative SaaS platform engineered to model, predict, and analyze NBA player performance across two analytical scopes: First Quarter (Q1, 12 min) and Full Game (48 min). Combines discrete statistical distributions (Poisson and Negative Binomial), Joint Monte Carlo simulations (10,000 iterations per scenario), and generative AI (Google Gemini) to identify expected value (EV+).',
+  'analytics.feat1': 'Dual-Scope Analytics: Specialized statistical modeling for First Quarter and Full Game',
+  'analytics.feat2': 'Joint Monte Carlo Engine: 10,000 iterations for joint probabilities and volume cannibalization',
+  'analytics.feat3': 'Tactical AI Projections: Contextual insights with automatic Gemini rate-limit fallback chain',
+  'analytics.feat4': 'Docker Compose + Universal PWA: .NET 10 backend, React 19 + Tailwind v4 frontend, and MongoDB Atlas',
+  'analytics.btn': 'Visit FirstStrike Analytics ↗',
+  'analytics.badge': 'Live in Production · firststrikeanalytics.com.br',
+
   // COSTAR Volumes
   'vol1.tag': 'Flagship Project · Process and Case Study',
   'vol1.title': 'Software Engineering and Requirements Roadmap',
@@ -47,6 +65,26 @@ export const en = {
   'vol1.feat2': 'C4 Level 1 diagrams, DDD and NoSQL tables',
   'vol1.feat3': 'Real OpenAPI 3.0 specs and Docker Compose environment',
   'vol1.btn': 'Open Interactive Roadmap ⟶',
+
+  // Planexa OS
+  'planexa.tag': 'Native Desktop · Clean Architecture · 100% Offline-First',
+  'planexa.title': 'Planexa OS 💎⚡ · Executive Workflow & Gantt',
+  'planexa.desc': 'High-density native desktop operating system for freelance engineering, academic studies, and management. Reactive Pomodoro integrated with TanStack Query, interactive vector SVG Gantt chart with proportional deadline dilution, TipTap WYSIWYG Markdown matrix editor, and dual workspaces (Professional vs Academic).',
+  'planexa.feat1': 'Modern stack: .NET 10 + C# 14 + Photino.NET (Native without Electron, <40MB RAM)',
+  'planexa.feat2': 'Reactive frontend: React 19 + TypeScript 5.9 + Tailwind CSS v4 (@theme semantic tokens)',
+  'planexa.feat3': 'Transactional local relational persistence in SQLite with runtime schema auto-migration',
+  'planexa.feat4': 'Excellence engineering: 146 automated tests (100% passing) and Uncle Bob Quality Gate 98/100',
+  'planexa.badge': 'Native Desktop App · 100% Offline',
+
+  // FirstStrike Ops
+  'ops.tag': 'Control Tower · Observability · Mathematical Audit',
+  'ops.title': 'FirstStrike Ops 🛡️ · Operational Control Tower',
+  'ops.desc': 'Real-time operational control tower and observability for the FirstStrike Analytics ecosystem. Deterministic pipeline with 5 analytical integrity and mathematical monotonicity rules for sports projections (Q1 and Full Game), staging sandbox with side-by-side diff viewer, and Render Cloud Sentinel anti-cold start engine.',
+  'ops.feat1': 'Ultra-lightweight architecture: .NET 10 + Photino.NET + React 19 + Vite 8 (<80MB RAM)',
+  'ops.feat2': 'DatabaseValidator: strict accumulated monotonicity validation (Q1 ≤ Q2 ≤ Q3 ≤ Q4)',
+  'ops.feat3': 'Local repository in SQLite WAL + analytical auditing over MongoDB Atlas',
+  'ops.feat4': 'Render Sentinel: CPU/RAM telemetry with keepalive and Cloudflare edge-cache bypass',
+  'ops.badge': 'Control Tower · Data Governance',
 
   'vol2.tag': 'Volume 02 · Architecture and Decisions',
   'vol2.title': 'Decisional System Design COSTAR',
@@ -149,6 +187,18 @@ export const en = {
   'terminal.th_stack': 'STACK',
   'terminal.th_type': 'TYPE',
   'terminal.th_link': 'ACCESS',
+  'terminal.proj_fs_name': 'FirstStrike Analytics 🏀⚡',
+  'terminal.proj_fs_stack': '.NET 10 / React 19 / Tailwind v4 / MongoDB / Gemini AI',
+  'terminal.proj_fs_type': 'Quantitative SaaS & AI (NBA)',
+  'terminal.proj_fs_link': '[firststrikeanalytics.com.br] ↗',
+  'terminal.proj_planexa_name': 'Planexa OS 💎⚡',
+  'terminal.proj_planexa_stack': '.NET 10 / Photino.NET / React 19 / SQLite WAL',
+  'terminal.proj_planexa_type': 'Native Desktop (Offline-First)',
+  'terminal.proj_planexa_status': 'Native Desktop',
+  'terminal.proj_ops_name': 'FirstStrike Ops 🛡️',
+  'terminal.proj_ops_stack': '.NET 10 / Photino.NET / SQLite / MongoDB Atlas',
+  'terminal.proj_ops_type': 'Control Tower & Observability',
+  'terminal.proj_ops_status': 'Audit & Ops',
   'terminal.proj1_name': '01 · Requirements Roadmap',
   'terminal.proj1_stack': 'HTML5 / Vanilla JS / C# .NET 10 / MongoDB NoSQL',
   'terminal.proj1_type': 'Process and Case Study',

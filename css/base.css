@@ -34,6 +34,8 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     interpolate-size: allow-keywords;
+    max-width: 100%;
+    overflow-x: clip;
   }
   body {
     min-height: 100vh;
@@ -43,6 +45,8 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    max-width: 100%;
+    overflow-x: clip;
   }
   img, picture, video, canvas, svg {
     display: block;

@@ -154,6 +154,8 @@ let totalRawBefore = 0;
 let totalRawAfter = 0;
 let totalGzipBefore = 0;
 let totalGzipAfter = 0;
+let totalBrotliBefore = 0;
+let totalBrotliAfter = 0;
 
 console.log('📦 Processando e minificando arquivos:');
 
@@ -183,14 +185,18 @@ filesToProcess.forEach(({ src, dest, type }) => {
   const afterSize = Buffer.byteLength(processedContent, 'utf8');
   const gzipBefore = zlib.gzipSync(Buffer.from(originalContent)).length;
   const gzipAfter = zlib.gzipSync(Buffer.from(processedContent)).length;
+  const brotliBefore = zlib.brotliCompressSync(Buffer.from(originalContent)).length;
+  const brotliAfter = zlib.brotliCompressSync(Buffer.from(processedContent)).length;
 
   totalRawBefore += beforeSize;
   totalRawAfter += afterSize;
   totalGzipBefore += gzipBefore;
   totalGzipAfter += gzipAfter;
+  totalBrotliBefore += brotliBefore;
+  totalBrotliAfter += brotliAfter;
 
   const pct = ((beforeSize - afterSize) / beforeSize * 100).toFixed(1);
-  console.log(`  ✓ ${src.padEnd(28)} ${(beforeSize / 1024).toFixed(1)} KB → ${(afterSize / 1024).toFixed(1)} KB (-${pct}%)`);
+  console.log(`  ✓ ${src.padEnd(28)} ${(beforeSize / 1024).toFixed(1)} KB → ${(afterSize / 1024).toFixed(1)} KB (-${pct}%) [Br: ${(brotliAfter / 1024).toFixed(1)} KB]`);
 });
 
 // 4. Copiar Assets Estáticos (Imagens, Ícones e Fontes WOFF2)
@@ -205,12 +211,13 @@ const duration = Date.now() - startTime;
 const rawSaved = ((totalRawBefore - totalRawAfter) / 1024).toFixed(1);
 const rawPct = (((totalRawBefore - totalRawAfter) / totalRawBefore) * 100).toFixed(1);
 const gzipSaved = ((totalGzipBefore - totalGzipAfter) / 1024).toFixed(1);
+const brotliSaved = ((totalBrotliBefore - totalBrotliAfter) / 1024).toFixed(1);
 
 console.log('\n═══════════════════════════════════════════════════════════');
 console.log(`✨ BUILD CONCLUÍDO COM SUCESSO EM ${duration}ms!`);
 console.log('═══════════════════════════════════════════════════════════');
-console.log(`📊 Peso Original:   ${(totalRawBefore / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipBefore / 1024).toFixed(1)} KB)`);
-console.log(`📦 Peso Minificado: ${(totalRawAfter / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipAfter / 1024).toFixed(1)} KB)`);
+console.log(`📊 Peso Original:   ${(totalRawBefore / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipBefore / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliBefore / 1024).toFixed(1)} KB)`);
+console.log(`📦 Peso Minificado: ${(totalRawAfter / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipAfter / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliAfter / 1024).toFixed(1)} KB)`);
 console.log(`⚡ Economia Bruta:  ${rawSaved} KB (-${rawPct}%)`);
-console.log(`🌐 Economia Rede:   ${gzipSaved} KB`);
+console.log(`🌐 Economia Rede:   Gzip: -${gzipSaved} KB | Brotli: -${brotliSaved} KB (Payload Real: ${(totalBrotliAfter / 1024).toFixed(1)} KB)`);
 console.log('📁 Destino do Build: ./dist/\n');

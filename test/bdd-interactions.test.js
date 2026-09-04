@@ -107,6 +107,30 @@ class DOMNode {
     return null;
   }
 
+  querySelectorAll(selector) {
+    if (globalThis.__currentDOMNodes) {
+      if (selector.startsWith('.')) {
+        const cls = selector.slice(1);
+        return globalThis.__currentDOMNodes.filter(n => n.classList.has(cls));
+      }
+      if (selector.startsWith('[') && selector.endsWith(']')) {
+        const inside = selector.slice(1, -1);
+        if (inside.includes('=')) {
+          const [attr, val] = inside.split('=');
+          const cleanVal = val.replace(/^["']|["']$/g, '');
+          return globalThis.__currentDOMNodes.filter(n => n.getAttribute(attr) === cleanVal);
+        }
+        return globalThis.__currentDOMNodes.filter(n => n.getAttribute(inside) !== null);
+      }
+    }
+    return [];
+  }
+
+  querySelector(selector) {
+    const res = this.querySelectorAll(selector);
+    return res.length ? res[0] : null;
+  }
+
   addEventListener(event, fn) {
     if (!this._listeners[event]) this._listeners[event] = [];
     this._listeners[event].push(fn);
@@ -560,6 +584,18 @@ console.log('\n📦 Scenario 11: Validação de Responsividade Mobile & CSS Desi
     assert.ok(cssRoadmap.includes('@media (max-width: 650px)'), 'Regra mobile para roadmap presente');
     assert.ok(cssRoadmap.includes('.footer-progress-bar'), 'Footer progress bar estilizado para mobile');
   });
+
+  it('Roadmap deve padronizar largura máxima (max-width 1040px) e centralização alinhado ao index.html', () => {
+    const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
+    const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+    const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+
+    assert.ok(roadmapHtml.includes('<main class="roadmap-page" id="main-content">'), 'main da roadmap possui id e classe corretos');
+    assert.ok(cssRoadmap.includes('max-width: 1040px;'), 'roadmap.css define max-width: 1040px');
+    assert.ok(cssRoadmap.includes('margin: 0 auto;'), 'roadmap.css define margin: 0 auto');
+    assert.ok(cssComponents.includes('#main-content.roadmap-page') && cssComponents.includes('max-width: 1040px;'), 'components.css padroniza roadmap para 1040px');
+    assert.ok(cssComponents.includes('#main-content.roadmap-page') && cssComponents.includes('margin: 0 auto;'), 'components.css centraliza roadmap');
+  });
 }
 
 console.log('\n📦 Scenario 12: Topbar Grid Centering & Mobile Fat Finger Protection');
@@ -782,6 +818,13 @@ console.log('\n📦 Scenario 19: Sticky Footer Universal Fixo no Bottom (Standar
   it('home.css deve configurar .view-dev com flex-grow 1 e .dev-terminal-container com centralização vertical', () => {
     assert.ok(cssHome.includes('html[data-view="dev"] .view-dev {') && cssHome.includes('display: flex !important;') && cssHome.includes('flex: 1 0 auto;'), 'view-dev flex-grow 1 no Modo Dev');
     assert.ok(cssHome.includes('.dev-terminal-container {') && cssHome.includes('justify-content: center;'), 'terminal centralizado verticalmente no espaço útil');
+  });
+
+  it('Modo Dev deve padronizar container de largura máxima (max-width 1040px) e centralização alinhado ao index e roadmap', () => {
+    assert.ok(cssComponents.includes('main.dev-terminal-container') && cssComponents.includes('max-width: 1040px;'), 'components.css padroniza dev-terminal-container para 1040px');
+    assert.ok(cssComponents.includes('main.dev-terminal-container') && cssComponents.includes('margin: 0 auto;'), 'components.css centraliza dev-terminal-container');
+    assert.ok(cssHome.includes('.dev-terminal-container {') && cssHome.includes('max-width: 1040px;'), 'home.css define max-width 1040px no terminal');
+    assert.ok(cssHome.includes('.dev-terminal-container {') && cssHome.includes('margin: 0 auto;'), 'home.css define margin 0 auto no terminal');
   });
 }
 
@@ -1208,6 +1251,29 @@ console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas 
     assert.ok(enTranslations.includes("'nav.skip_to_content': 'Skip to main content'"), 'skip_to_content em en.js');
     assert.ok(enTranslations.includes("'footer.author': 'Crafted with Vanilla Web Standards and Clean Architecture.'"), 'footer.author em en.js com Crafted');
   });
+
+  it('Footer deve conter aviso de direitos reservados e propriedade intelectual com suporte a i18n', () => {
+    const expectedCopyrightPt = '© 2026 pvduk.dev · Todos os direitos reservados.';
+    const blogIndexHtml = fs.readFileSync(path.join(__dirname, '../blog/index.html'), 'utf8');
+    const blogTemplateHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/TEMPLATE.html'), 'utf8');
+    const blogPostHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/2025-01-anatomia-do-cache-o-navegador.html'), 'utf8');
+    const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+    [indexHtml, roadmapHtml, errorHtml, blogIndexHtml, blogTemplateHtml, blogPostHtml].forEach((html) => {
+      assert.ok(html.includes('data-i18n="footer.copyright"'), 'data-i18n="footer.copyright" presente no HTML');
+      assert.ok(html.includes(expectedCopyrightPt), 'Texto estático de copyright presente');
+      assert.ok(html.includes('footer-line--copyright'), 'Classe BEM footer-line--copyright presente');
+      assert.ok(html.includes('footer-line--tagline'), 'Classe BEM footer-line--tagline presente');
+    });
+
+    assert.ok(ptTranslations.includes("'footer.copyright': '© 2026 pvduk.dev · Todos os direitos reservados.'"), 'footer.copyright em pt.js');
+    assert.ok(enTranslations.includes("'footer.copyright': '© 2026 pvduk.dev · All rights reserved.'"), 'footer.copyright em en.js');
+    assert.ok(appJs.includes("'footer.copyright': '© 2026 pvduk.dev · Todos os direitos reservados.'"), 'footer.copyright em app.js pt');
+    assert.ok(appJs.includes("'footer.copyright': '© 2026 pvduk.dev · All rights reserved.'"), 'footer.copyright em app.js en');
+
+    assert.ok(cssComponents.includes('.footer-line--copyright'), '.footer-line--copyright estilizado em components.css');
+    assert.ok(cssComponents.includes('.footer-line--tagline'), '.footer-line--tagline estilizado em components.css');
+  });
 }
 
 console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por Tag & Template Semântico');
@@ -1450,6 +1516,153 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt &
         }
       });
     });
+  });
+}
+
+console.log('\n📦 Scenario 34: Abas de Projetos Flagship (FirstStrike Analytics, Planexa OS, FirstStrike Ops e Roadmap)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const homeCss = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const ptTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+  const enTranslations = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+
+  it('index.html deve conter estrutura WAI-ARIA completa de abas de projetos', () => {
+    assert.ok(indexHtml.includes('class="project-tabs-nav"') && indexHtml.includes('role="tablist"'), 'tablist presente');
+    assert.ok(indexHtml.includes('id="tab-btn-analytics"') && indexHtml.includes('aria-controls="tab-panel-analytics"'), 'Tab FirstStrike Analytics presente');
+    assert.ok(indexHtml.includes('id="tab-btn-roadmap"') && indexHtml.includes('aria-controls="tab-panel-roadmap"'), 'Tab Roadmap presente');
+    assert.ok(indexHtml.includes('id="tab-btn-planexa"') && indexHtml.includes('aria-controls="tab-panel-planexa"'), 'Tab Planexa OS presente');
+    assert.ok(indexHtml.includes('id="tab-btn-ops"') && indexHtml.includes('aria-controls="tab-panel-ops"'), 'Tab FirstStrike Ops presente');
+    assert.ok(indexHtml.includes('id="tab-panel-analytics"') && indexHtml.includes('role="tabpanel"'), 'Painel Analytics presente');
+    assert.ok(indexHtml.includes('id="tab-panel-roadmap"') && indexHtml.includes('role="tabpanel"'), 'Painel Roadmap presente');
+    assert.ok(indexHtml.includes('id="tab-panel-planexa"') && indexHtml.includes('role="tabpanel"'), 'Painel Planexa presente');
+    assert.ok(indexHtml.includes('id="tab-panel-ops"') && indexHtml.includes('role="tabpanel"'), 'Painel Ops presente');
+  });
+
+  it('Ícones dos projetos anexados devem existir e estar referenciados corretamente', () => {
+    const analyticsIconPath = path.join(__dirname, '../assets/analytics-icon.png');
+    const planexaIconPath = path.join(__dirname, '../assets/planexa-icon.png');
+    const opsIconPath = path.join(__dirname, '../assets/ops-icon.png');
+
+    assert.ok(fs.existsSync(analyticsIconPath), 'assets/analytics-icon.png existe');
+    assert.ok(fs.existsSync(planexaIconPath), 'assets/planexa-icon.png existe');
+    assert.ok(fs.existsSync(opsIconPath), 'assets/ops-icon.png existe');
+    assert.ok(indexHtml.includes('src="assets/analytics-icon.png"'), 'Analytics icon referenciado no HTML');
+    assert.ok(indexHtml.includes('src="assets/planexa-icon.png"'), 'Planexa icon referenciado no HTML');
+    assert.ok(indexHtml.includes('src="assets/ops-icon.png"'), 'Ops icon referenciado no HTML');
+    assert.ok(swJs.includes('./assets/analytics-icon.png'), 'Analytics icon no precache do sw.js');
+    assert.ok(swJs.includes('./assets/planexa-icon.png'), 'Planexa icon no precache do sw.js');
+    assert.ok(swJs.includes('./assets/ops-icon.png'), 'Ops icon no precache do sw.js');
+  });
+
+  it('CSS e JS devem prover estilização e alternância interativa das abas', () => {
+    assert.ok(homeCss.includes('.project-tabs-nav'), 'CSS project-tabs-nav presente');
+    assert.ok(homeCss.includes('.project-tab-btn.active'), 'CSS active tab presente');
+    assert.ok(homeCss.includes('.project-card-icon'), 'CSS project-card-icon presente');
+    assert.ok(appJs.includes('function initProjectTabs()'), 'Engine initProjectTabs presente em app.js');
+  });
+
+  it('Dicionários i18n devem ter 100% de paridade para as novas chaves de projetos', () => {
+    const projectKeys = [
+      'projects.tab_analytics',
+      'projects.tab_roadmap',
+      'projects.tab_planexa',
+      'projects.tab_ops',
+      'analytics.tag',
+      'analytics.title',
+      'analytics.desc',
+      'analytics.feat1',
+      'analytics.feat2',
+      'analytics.feat3',
+      'analytics.feat4',
+      'analytics.btn',
+      'analytics.badge',
+      'planexa.tag',
+      'planexa.title',
+      'planexa.desc',
+      'planexa.feat1',
+      'planexa.feat2',
+      'planexa.feat3',
+      'planexa.feat4',
+      'planexa.badge',
+      'ops.tag',
+      'ops.title',
+      'ops.desc',
+      'ops.feat1',
+      'ops.feat2',
+      'ops.feat3',
+      'ops.feat4',
+      'ops.badge'
+    ];
+
+    projectKeys.forEach((key) => {
+      assert.ok(ptTranslations.includes(`'${key}':`), `Chave ${key} presente em pt.js`);
+      assert.ok(enTranslations.includes(`'${key}':`), `Chave ${key} presente em en.js`);
+      assert.ok(appJs.includes(`'${key}':`), `Chave ${key} presente em app.js`);
+    });
+
+    const terminalProjectKeys = [
+      'terminal.proj_fs_name',
+      'terminal.proj_fs_stack',
+      'terminal.proj_fs_type',
+      'terminal.proj_fs_link',
+      'terminal.proj_planexa_name',
+      'terminal.proj_planexa_stack',
+      'terminal.proj_planexa_type',
+      'terminal.proj_planexa_status',
+      'terminal.proj_ops_name',
+      'terminal.proj_ops_stack',
+      'terminal.proj_ops_type',
+      'terminal.proj_ops_status'
+    ];
+
+    terminalProjectKeys.forEach((key) => {
+      assert.ok(ptTranslations.includes(`'${key}':`), `Chave terminal ${key} presente em pt.js`);
+      assert.ok(enTranslations.includes(`'${key}':`), `Chave terminal ${key} presente em en.js`);
+      assert.ok(appJs.includes(`'${key}':`), `Chave terminal ${key} presente em app.js`);
+    });
+
+    assert.ok(appJs.includes('terminal.proj_fs_name') && appJs.includes('FirstStrike Analytics'), 'app.js lista FirstStrike Analytics no comando projects');
+    assert.ok(appJs.includes('terminal.proj_planexa_name') && appJs.includes('Planexa OS'), 'app.js lista Planexa OS no comando projects');
+    assert.ok(appJs.includes('terminal.proj_ops_name') && appJs.includes('FirstStrike Ops'), 'app.js lista FirstStrike Ops no comando projects');
+  });
+}
+
+console.log('\n📦 Scenario 35: Conformidade Mobile & Otimização de Assets (Flagship e Especialidades)');
+{
+  const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const homeCss = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
+  const analyticsIconStat = fs.statSync(path.join(__dirname, '../assets/analytics-icon.png'));
+  const opsIconStat = fs.statSync(path.join(__dirname, '../assets/ops-icon.png'));
+  const planexaIconStat = fs.statSync(path.join(__dirname, '../assets/planexa-icon.png'));
+
+  it('Ícones dos projetos devem estar otimizados para transferência ultra-rápida (< 100KB cada)', () => {
+    assert.ok(analyticsIconStat.size < 100 * 1024, `analytics-icon.png (${(analyticsIconStat.size / 1024).toFixed(1)}KB) < 100KB`);
+    assert.ok(opsIconStat.size < 100 * 1024, `ops-icon.png (${(opsIconStat.size / 1024).toFixed(1)}KB) < 100KB`);
+    assert.ok(planexaIconStat.size < 50 * 1024, `planexa-icon.png (${(planexaIconStat.size / 1024).toFixed(1)}KB) < 50KB`);
+  });
+
+  it('index.html deve conter decoding="async" em todas as imagens de cards e abas', () => {
+    assert.ok(indexHtml.includes('src="assets/analytics-icon.png" alt="" class="project-tab-icon" width="18" height="18" loading="lazy" decoding="async"'), 'Tab analytics async decoding');
+    assert.ok(indexHtml.includes('src="assets/analytics-icon.png" alt="FirstStrike Analytics Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async"'), 'Card analytics async decoding');
+  });
+
+  it('home.css deve conter regras de conformidade mobile estritas para Projeto em Destaque e Especialidades', () => {
+    assert.ok(homeCss.includes('.project-card-footer--between'), 'Classe project-card-footer--between definida');
+    assert.ok(homeCss.includes('/* ─── SHOWCASE FLAGSHIP (PROJETO EM DESTAQUE) MOBILE ─── */'), 'Seção de regras mobile flagship presente');
+    assert.ok(homeCss.includes('/* ─── ESPECIALIDADES TÉCNICAS MOBILE ─── */'), 'Seção de regras mobile especialidades presente');
+    assert.ok(homeCss.includes('scroll-snap-type: x mandatory'), 'Scroll snap horizontal para abas mobile');
+  });
+
+  it('Anti-overflow defensivo: base.css, components.css e home.css devem blindar contra quebra lateral no mobile', () => {
+    const baseCss = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+    const componentsCss = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+
+    assert.ok(baseCss.includes('overflow-x: clip;') && baseCss.includes('max-width: 100%;'), 'base.css blinda html e body com overflow-x: clip');
+    assert.ok(componentsCss.includes('min-width: 0;') && componentsCss.includes('max-width: 100%;'), 'components.css blinda #main-content');
+    assert.ok(homeCss.includes('minmax(0, 1fr)'), 'home.css adota minmax(0, 1fr) defensivo em grids');
+    assert.ok(homeCss.includes('overflow-wrap: anywhere;'), 'home.css blinda badge pill contra estouro de URLs longas');
   });
 }
 
