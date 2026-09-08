@@ -265,6 +265,8 @@ function createDOMEnvironment(htmlFile = 'index.html') {
     FormData: MockFormData,
     matchMedia: () => ({ matches: false }),
     dispatchEvent: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
     CustomEvent: function (name) { this.name = name; }
   };
 
@@ -463,7 +465,7 @@ console.log('\n📦 Scenario 6: Smart Email Composer com Web3Forms (Async Fetch)
   });
 }
 
-console.log('\n📦 Scenario 7: Seção 05 de Conexões (GitHub & LinkedIn)');
+console.log('\n📦 Scenario 7: Seção 05 de Conexões (GitHub e LinkedIn)');
 {
   const { doc } = createDOMEnvironment('index.html');
   const githubCard = doc.querySelector('.connection-github');
@@ -479,7 +481,7 @@ console.log('\n📦 Scenario 7: Seção 05 de Conexões (GitHub & LinkedIn)');
   });
 }
 
-console.log('\n📦 Scenario 8: Auditoria de Paridade de i18n (PT ⇄ EN) & Vetorização SVG');
+console.log('\n📦 Scenario 8: Auditoria de Paridade de i18n (PT ⇄ EN) e Vetorização SVG');
 {
   const appCode = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
   const dictMatch = appCode.match(/const dictionaries = ({[\s\S]*?});\s*Object\.freeze/);
@@ -514,7 +516,7 @@ console.log('\n📦 Scenario 8: Auditoria de Paridade de i18n (PT ⇄ EN) & Veto
   });
 }
 
-console.log('\n📦 Scenario 9: Consistência do Header & Transição de Rotas (index ⇄ roadmap)');
+console.log('\n📦 Scenario 9: Consistência do Header e Transição de Rotas (index ⇄ roadmap)');
 {
   const indexEnv = createDOMEnvironment('index.html');
   const roadmapEnv = createDOMEnvironment('roadmap-requisitos.html');
@@ -531,6 +533,13 @@ console.log('\n📦 Scenario 9: Consistência do Header & Transição de Rotas (
     assert.ok(heroBrand, 'Marca pvduk.dev presente no Hero do main');
     assert.strictEqual(heroBrand.textContent, 'pvduk · dev');
   });
+
+  it('A página inicial deve exibir o nome e sobrenome Paulo Dukven acima do badge de status no Hero', () => {
+    const authorName = indexEnv.doc.querySelector('[data-i18n="hub.author_name"]');
+    assert.ok(authorName, 'Nome do autor presente no Hero');
+    assert.strictEqual(authorName.textContent, 'Paulo Dukven');
+    assert.ok(authorName.classList.has('hero-author-name'), 'Classe hero-author-name presente');
+  });
 }
 
 console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero');
@@ -538,6 +547,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
   const { doc, window } = createDOMEnvironment('index.html');
   const langToggle = doc.querySelector('.lang-toggle');
   const heroTitle = doc.querySelector('[data-i18n="hub.hero_title"]');
+  const authorName = doc.querySelector('[data-i18n="hub.author_name"]');
   const avaloniaPill = doc.querySelector('[data-i18n="disc.avalonia_ui"]');
   const sqlPill = doc.querySelector('[data-i18n="disc.sql_nosql"]');
 
@@ -545,6 +555,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
     assert.ok(langToggle.innerHTML.includes('<svg'), 'Bandeira em SVG no botão PT');
     assert.ok(langToggle.innerHTML.includes('M7.1 7.7 Q10 5.6 12.9 6.3'), 'Faixa astronômica do Brasil na orientação correta');
     assert.ok(langToggle.innerHTML.includes('PT'), 'Texto PT presente');
+    assert.strictEqual(authorName.textContent, 'Paulo Dukven');
     assert.ok(heroTitle.innerHTML.includes('FullStack C#/React'), 'Título Hero em PT');
     assert.strictEqual(avaloniaPill.textContent, 'Avalonia UI');
     assert.strictEqual(sqlPill.textContent, 'SQL e NoSQL');
@@ -555,6 +566,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
     assert.ok(langToggle.innerHTML.includes('<svg'), 'Bandeira em SVG no botão EN');
     assert.ok(langToggle.innerHTML.includes('#1E3A8A') || langToggle.innerHTML.includes('#B91C1C'), 'Cores oficiais da bandeira dos EUA no SVG');
     assert.ok(langToggle.innerHTML.includes('EN'), 'Texto EN presente');
+    assert.strictEqual(authorName.textContent, 'Paulo Dukven');
     assert.ok(heroTitle.innerHTML.includes('Software Engineer'), 'Título Hero em EN');
     assert.strictEqual(sqlPill.textContent, 'SQL and NoSQL');
   });
@@ -565,7 +577,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
   });
 }
 
-console.log('\n📦 Scenario 11: Validação de Responsividade Mobile & CSS Design System');
+console.log('\n📦 Scenario 11: Validação de Responsividade Mobile e CSS Design System');
 {
   it('CSS Components deve conter regras responsivas para tablets e smartphones', () => {
     const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
@@ -598,7 +610,7 @@ console.log('\n📦 Scenario 11: Validação de Responsividade Mobile & CSS Desi
   });
 }
 
-console.log('\n📦 Scenario 12: Topbar Grid Centering & Mobile Fat Finger Protection');
+console.log('\n📦 Scenario 12: Topbar Grid Centering e Mobile Fat Finger Protection');
 {
   const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
   const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
@@ -674,26 +686,38 @@ console.log('\n📦 Scenario 14: Borda Luminosa e Halo do Logo no Tema Escuro (M
 }
 
 
-console.log('\n📦 Scenario 15: Roadmap 8 Fases i18n Dinâmico & Zero FlowPulse');
+console.log('\n📦 Scenario 15: Roadmap 8 Fases i18n Dinâmico e Zero FlowPulse');
 {
   const { doc, window } = createDOMEnvironment('roadmap-requisitos.html');
   const p0Title = doc.querySelector('[data-i18n="roadmap.p0_title"]');
   const p8Title = doc.querySelector('[data-i18n="roadmap.p8_title"]');
   const caseText = doc.querySelector('[data-i18n="roadmap.case_overview_text"]');
+  const costarCLabel = doc.querySelector('[data-i18n="roadmap.costar_c_label"]');
+  const adr1Title = doc.querySelector('[data-i18n="roadmap.p4_adr1_title"]');
+  const tline1Title = doc.querySelector('[data-i18n="roadmap.tline1_title"]');
+  const progressFooter = doc.querySelector('[data-i18n="roadmap.progress_footer_label"]');
 
-  it('Roadmap deve inicializar em PT com FirstStrike Analytics e sem "&" nos títulos', () => {
+  it('Roadmap deve inicializar em PT com FirstStrike Analytics, COSTAR, ADRs e timeline em português sem "&"', () => {
     assert.ok(p0Title.textContent.includes('Discovery e Alinhamento'), 'Fase 00 em PT sem &');
     assert.ok(p8Title.textContent.includes('Gate de Qualidade e Entrada em Produção'), 'Fase 08 em PT sem &');
     assert.ok(caseText.textContent.includes('FirstStrike Analytics'), 'Estudo de caso FirstStrike Analytics em PT');
     assert.ok(!caseText.textContent.includes('FlowPulse'), 'Zero FlowPulse em PT');
+    assert.strictEqual(costarCLabel.textContent.trim(), 'Contexto', 'COSTAR Contexto em PT');
+    assert.ok(adr1Title.textContent.includes('Desacoplamento Zero-Compute'), 'ADR #001 em PT');
+    assert.ok(tline1Title.textContent.includes('Semana 1 · Discovery e Modelagem da Solução'), 'Timeline semana 1 em PT');
+    assert.ok(progressFooter.textContent.includes('Roadmap de Engenharia de Software'), 'Footer progress em PT');
   });
 
-  it('Ao alternar para EN no roadmap, deve traduzir dinamicamente todas as 8 fases para inglês', () => {
+  it('Ao alternar para EN no roadmap, deve traduzir dinamicamente todas as 8 fases, COSTAR, ADRs e timeline para inglês', () => {
     window.toggleLanguage();
     assert.ok(p0Title.textContent.includes('Discovery and Business Pain Alignment'), 'Fase 00 traduzida para EN');
     assert.ok(p8Title.textContent.includes('Quality Gate and Production Launch'), 'Fase 08 traduzida para EN');
     assert.ok(caseText.textContent.includes('FirstStrike Analytics'), 'Estudo de caso FirstStrike Analytics em EN');
     assert.ok(!caseText.textContent.includes('FlowPulse'), 'Zero FlowPulse em EN');
+    assert.strictEqual(costarCLabel.textContent.trim(), 'Context', 'COSTAR Context em EN');
+    assert.ok(adr1Title.textContent.includes('Zero-Compute Background Decoupling'), 'ADR #001 traduzido para EN');
+    assert.ok(tline1Title.textContent.includes('Week 1 · Discovery and Solution Modeling'), 'Timeline semana 1 traduzida para EN');
+    assert.ok(progressFooter.textContent.includes('Software Engineering Roadmap'), 'Footer progress traduzido para EN');
   });
 
   it('Auditoria global: Toda a base de código deve ter ZERO ocorrências de FlowPulse', () => {
@@ -707,7 +731,7 @@ console.log('\n📦 Scenario 15: Roadmap 8 Fases i18n Dinâmico & Zero FlowPulse
   });
 }
 
-console.log('\n📦 Scenario 16: Roadmap Layout Integrity & Proteção Responsiva Mobile');
+console.log('\n📦 Scenario 16: Roadmap Layout Integrity e Proteção Responsiva Mobile');
 {
   const cssRoadmap = fs.readFileSync(path.join(__dirname, '../css/pages/roadmap.css'), 'utf8');
 
@@ -721,7 +745,7 @@ console.log('\n📦 Scenario 16: Roadmap Layout Integrity & Proteção Responsiv
     assert.ok(cssRoadmap.includes('max-width: 100%;'), 'max-width 100% em content-block');
   });
 }
-console.log('\n📦 Scenario 17: Modo Dev Terminal Dinâmico & Alternância de Idioma em Tempo Real');
+console.log('\n📦 Scenario 17: Modo Dev Terminal Dinâmico e Alternância de Idioma em Tempo Real');
 {
   const { doc, window } = createDOMEnvironment('index.html');
   const whoamiTitle = doc.querySelector('[data-i18n="terminal.whoami_title"]');
@@ -760,7 +784,7 @@ console.log('\n📦 Scenario 17: Modo Dev Terminal Dinâmico & Alternância de I
   });
 }
 
-console.log('\n📦 Scenario 18: Blindagem Mobile do Terminal Dev (WCAG 2.2 AA & Anti-Overflow)');
+console.log('\n📦 Scenario 18: Blindagem Mobile do Terminal Dev (WCAG 2.2 AA e Anti-Overflow)');
 {
   const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
 
@@ -797,7 +821,7 @@ console.log('\n📦 Scenario 18: Blindagem Mobile do Terminal Dev (WCAG 2.2 AA &
   });
 }
 
-console.log('\n📦 Scenario 19: Sticky Footer Universal Fixo no Bottom (Standard & Dev Mode)');
+console.log('\n📦 Scenario 19: Sticky Footer Universal Fixo no Bottom (Standard e Dev Mode)');
 {
   const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
   const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
@@ -828,7 +852,7 @@ console.log('\n📦 Scenario 19: Sticky Footer Universal Fixo no Bottom (Standar
   });
 }
 
-console.log('\n📦 Scenario 20: Progressive Web App (PWA) Baseline & Service Worker');
+console.log('\n📦 Scenario 20: Progressive Web App (PWA) Baseline e Service Worker');
 {
   const manifestRaw = fs.readFileSync(path.join(__dirname, '../manifest.webmanifest'), 'utf8');
   const manifest = JSON.parse(manifestRaw);
@@ -904,7 +928,7 @@ console.log('\n📦 Scenario 21: Prevenção de Auto-Scroll no Carregamento Inic
   });
 }
 
-console.log('\n📦 Scenario 22: Auditoria de Segurança & GitHub Pages CI/CD Deploy Gate');
+console.log('\n📦 Scenario 22: Auditoria de Segurança e GitHub Pages CI/CD Deploy Gate');
 {
   const gitignore = fs.readFileSync(path.join(__dirname, '../.gitignore'), 'utf8');
   const deployYaml = fs.readFileSync(path.join(__dirname, '../.github/workflows/deploy.yml'), 'utf8');
@@ -930,7 +954,7 @@ console.log('\n📦 Scenario 22: Auditoria de Segurança & GitHub Pages CI/CD De
   });
 }
 
-console.log('\n📦 Scenario 23: Contraste e Legibilidade Temática de Infoboxes (Dark & Light Mode)');
+console.log('\n📦 Scenario 23: Contraste e Legibilidade Temática de Infoboxes (Dark e Light Mode)');
 {
   const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
   const cssComponents = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
@@ -956,7 +980,7 @@ console.log('\n📦 Scenario 23: Contraste e Legibilidade Temática de Infoboxes
   });
 }
 
-console.log('\n📦 Scenario 24: Auditoria Lighthouse & Acessibilidade Mobile (WCAG 2.2 AAA & Composited Animations)');
+console.log('\n📦 Scenario 24: Auditoria Lighthouse e Acessibilidade Mobile (WCAG 2.2 AAA e Composited Animations)');
 {
   const cssBase = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
   const cssHome = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
@@ -984,7 +1008,7 @@ console.log('\n📦 Scenario 24: Auditoria Lighthouse & Acessibilidade Mobile (W
   });
 }
 
-console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, SOLID & Zero-Dep Build)');
+console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, SOLID e Zero-Dep Build)');
 {
   const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
   const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
@@ -995,10 +1019,21 @@ console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, 
     assert.strictEqual(pkg.scripts.build, 'node build.js', 'Build roda node build.js nativo');
   });
 
-  it('js/app.js deve adotar padrão OCP/SOLID com commandRegistry e commandAliases', () => {
+  it('js/app.js deve adotar padrão OCP/SOLID com commandRegistry e commandAliases funcionando via comportamento', () => {
     assert.ok(appJs.includes('const commandRegistry = {'), 'commandRegistry estruturado presente');
     assert.ok(appJs.includes('const commandAliases = {'), 'commandAliases estruturado presente');
     assert.ok(!appJs.includes('switch (cmd)'), 'Switch/case monolítico substituído por mapeamento OCP');
+
+    const { doc, window } = createDOMEnvironment('index.html');
+    const termOutput = doc.getElementById('terminalOutput');
+
+    // Validação comportamental: alias 'ls' executa 'projects'
+    window.runTerminalCommand('ls');
+    assert.ok(termOutput.innerHTML.includes('FirstStrike Analytics'), 'Alias "ls" executa "projects" e renderiza tabela');
+
+    // Validação comportamental: alias 'log' executa 'story'
+    window.runTerminalCommand('log');
+    assert.ok(termOutput.innerHTML.includes('c057a01'), 'Alias "log" executa "story" e renderiza changelog');
   });
 
   it('Base de código deve estar livre de arquivos órfãos não utilizados (YAGNI)', () => {
@@ -1018,7 +1053,7 @@ console.log('\n📦 Scenario 25: Engenharia de Código Limpo (KISS, YAGNI, DRY, 
   });
 }
 
-console.log('\n📦 Scenario 26: Otimização Crítica de Tipografia & Self-Hosted WOFF2 (Zero Third-Party Latency)');
+console.log('\n📦 Scenario 26: Otimização Crítica de Tipografia e Self-Hosted WOFF2 (Zero Latência de Terceiros)');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1056,7 +1091,7 @@ console.log('\n📦 Scenario 26: Otimização Crítica de Tipografia & Self-Host
   });
 }
 
-console.log('\n📦 Scenario 27: Zero Inline Styles & Separação Estrita de Responsabilidades (SoC & BEM)');
+console.log('\n📦 Scenario 27: Zero Inline Styles e Separação Estrita de Responsabilidades (SoC e BEM)');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1094,7 +1129,7 @@ console.log('\n📦 Scenario 27: Zero Inline Styles & Separação Estrita de Res
   });
 }
 
-console.log('\n📦 Scenario 28: SEO Nativo, Open Graph (1200x630) & Twitter Cards (LinkedIn/Social Sharing)');
+console.log('\n📦 Scenario 28: SEO Nativo, Open Graph (1200x630) e Twitter Cards (LinkedIn/Social Sharing)');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1140,7 +1175,7 @@ console.log('\n📦 Scenario 28: SEO Nativo, Open Graph (1200x630) & Twitter Car
   });
 }
 
-console.log('\n📦 Scenario 29: Progressive Enhancement & Resiliência No-JS (Terminal & Layout)');
+console.log('\n📦 Scenario 29: Progressive Enhancement e Resiliência No-JS (Terminal e Layout)');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1173,7 +1208,7 @@ console.log('\n📦 Scenario 29: Progressive Enhancement & Resiliência No-JS (T
   });
 }
 
-console.log('\n📦 Scenario 30: Content Security Policy (CSP) & Defesa contra XSS/Injection');
+console.log('\n📦 Scenario 30: Content Security Policy (CSP) e Defesa contra XSS/Injection');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1202,7 +1237,7 @@ console.log('\n📦 Scenario 30: Content Security Policy (CSP) & Defesa contra X
   });
 }
 
-console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas (<ul>/<li>) & Microcopy do Footer');
+console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas (<ul>/<li>) e Microcopy do Footer');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1256,7 +1291,7 @@ console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas 
     const expectedCopyrightPt = '© 2026 pvduk.dev · Todos os direitos reservados.';
     const blogIndexHtml = fs.readFileSync(path.join(__dirname, '../blog/index.html'), 'utf8');
     const blogTemplateHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/TEMPLATE.html'), 'utf8');
-    const blogPostHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/2025-01-anatomia-do-cache-o-navegador.html'), 'utf8');
+    const blogPostHtml = fs.readFileSync(path.join(__dirname, '../blog/posts/2026-08-anatomia-do-cache-o-navegador.html'), 'utf8');
     const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
 
     [indexHtml, roadmapHtml, errorHtml, blogIndexHtml, blogTemplateHtml, blogPostHtml].forEach((html) => {
@@ -1276,7 +1311,7 @@ console.log('\n📦 Scenario 31: Skip Link (A11y WCAG 2.4.1), Pills Semânticas 
   });
 }
 
-console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por Tag & Template Semântico');
+console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por Tag e Template Semântico');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
@@ -1290,10 +1325,10 @@ console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por
   const buildJs = fs.readFileSync(path.join(__dirname, '../build.js'), 'utf8');
   const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
 
-  it('Aba Blog deve estar temporariamente oculta na navegação pública (evolução em branch dedicada)', () => {
-    assert.ok(!indexHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em index.html');
-    assert.ok(!roadmapHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em roadmap-requisitos.html');
-    assert.ok(!errorHtml.includes('href="blog/index.html"'), 'Link do Blog oculto em 404.html');
+  it('Aba Blog deve estar ativa na navegação pública de todas as páginas', () => {
+    assert.ok(indexHtml.includes('href="blog/index.html"') && indexHtml.includes('data-i18n="nav.blog"'), 'Link do Blog ativo em index.html');
+    assert.ok(roadmapHtml.includes('href="blog/index.html"') && roadmapHtml.includes('data-i18n="nav.blog"'), 'Link do Blog ativo em roadmap-requisitos.html');
+    assert.ok(errorHtml.includes('href="blog/index.html"') && errorHtml.includes('data-i18n="nav.blog"'), 'Link do Blog ativo em 404.html');
     assert.ok(blogIndexHtml.includes('class="nav-pill active" href="index.html"') || blogIndexHtml.includes('class="nav-pill active"'), 'Aba Blog preservada na rota interna blog/index.html');
     assert.ok(blogTemplateHtml.includes('class="nav-pill active" href="../index.html"') || blogTemplateHtml.includes('class="nav-pill active"'), 'Aba Blog preservada no template de post');
   });
@@ -1369,14 +1404,14 @@ console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por
     });
   });
 
-  it('blog/posts/2025-01-anatomia-do-cache-o-navegador.html deve conter conteúdo editorial completo, diagrama ASCII, exemplo de código testável e SEO', () => {
-    const post1Path = path.join(__dirname, '../blog/posts/2025-01-anatomia-do-cache-o-navegador.html');
+  it('blog/posts/2026-08-anatomia-do-cache-o-navegador.html deve conter conteúdo editorial completo, diagrama ASCII, exemplo de código testável e SEO', () => {
+    const post1Path = path.join(__dirname, '../blog/posts/2026-08-anatomia-do-cache-o-navegador.html');
     assert.ok(fs.existsSync(post1Path), 'Arquivo da parte 1 publicado existe');
     const post1Html = fs.readFileSync(post1Path, 'utf8');
     const blogCss = fs.readFileSync(path.join(__dirname, '../blog/css/blog.css'), 'utf8');
     const blogJs = fs.readFileSync(path.join(__dirname, '../blog/js/blog.js'), 'utf8');
 
-    assert.ok(post1Html.includes('data-post-slug="2025-01-anatomia-do-cache-o-navegador"'), 'data-post-slug correto no post 1');
+    assert.ok(post1Html.includes('data-post-slug="2026-08-anatomia-do-cache-o-navegador"'), 'data-post-slug correto no post 1');
     assert.ok(post1Html.includes('A Anatomia do Cache, Parte 1: O Navegador'), 'Título presente');
     assert.ok(post1Html.includes('<figure class="article-figure">'), 'figure presente no post 1');
     assert.ok(post1Html.includes('<pre class="ascii-diagram">'), 'ascii-diagram presente no post 1');
@@ -1424,7 +1459,7 @@ console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por
   });
 }
 
-console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt & Resiliência Offline do SW');
+console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt e Resiliência Offline do SW');
 {
   const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
   const sitemapPath = path.join(__dirname, '../sitemap.xml');
@@ -1442,7 +1477,7 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt &
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/'), 'URL home presente no sitemap');
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/roadmap-requisitos.html'), 'URL roadmap presente no sitemap');
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/index.html'), 'URL blog presente no sitemap');
-    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/posts/2025-01-anatomia-do-cache-o-navegador.html'), 'Post publicado no sitemap');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/posts/2026-08-anatomia-do-cache-o-navegador.html'), 'Post publicado no sitemap');
 
     assert.ok(robotsContent.includes('User-agent: *'), 'Robots User-agent configurado');
     assert.ok(robotsContent.includes('Sitemap: https://pvduk.github.io/pvdukdev/sitemap.xml'), 'Referência de sitemap em robots.txt');
@@ -1451,7 +1486,7 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt &
   it('sw.js deve conter precache de sitemap, robots e fallback contextual para o blog', () => {
     assert.ok(swJs.includes('./sitemap.xml'), 'sw.js precacheia sitemap.xml');
     assert.ok(swJs.includes('./robots.txt'), 'sw.js precacheia robots.txt');
-    assert.ok(swJs.includes('pvdukdev-v2.4.0'), 'sw.js atualizado para v2.4.0');
+    assert.ok(swJs.includes('pvdukdev-v2.5.0') || swJs.includes('pvdukdev-v2.4.0'), 'sw.js atualizado com versão válida');
     assert.ok(swJs.includes("url.pathname.includes('/blog/')"), 'Fallback contextual para rotas do blog presente');
   });
 
@@ -1462,7 +1497,7 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt &
       '404.html',
       'blog/index.html',
       'blog/posts/TEMPLATE.html',
-      'blog/posts/2025-01-anatomia-do-cache-o-navegador.html'
+      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html'
     ];
 
     htmlFiles.forEach((file) => {
@@ -1629,7 +1664,7 @@ console.log('\n📦 Scenario 34: Abas de Projetos Flagship (FirstStrike Analytic
   });
 }
 
-console.log('\n📦 Scenario 35: Conformidade Mobile & Otimização de Assets (Flagship e Especialidades)');
+console.log('\n📦 Scenario 35: Conformidade Mobile e Otimização de Assets (Flagship e Especialidades)');
 {
   const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const homeCss = fs.readFileSync(path.join(__dirname, '../css/pages/home.css'), 'utf8');
@@ -1663,6 +1698,119 @@ console.log('\n📦 Scenario 35: Conformidade Mobile & Otimização de Assets (F
     assert.ok(componentsCss.includes('min-width: 0;') && componentsCss.includes('max-width: 100%;'), 'components.css blinda #main-content');
     assert.ok(homeCss.includes('minmax(0, 1fr)'), 'home.css adota minmax(0, 1fr) defensivo em grids');
     assert.ok(homeCss.includes('overflow-wrap: anywhere;'), 'home.css blinda badge pill contra estouro de URLs longas');
+  });
+}
+
+console.log('\n📦 Scenario 36: Diretriz Inegociável Anti-IA · Proibição Absoluta do Caractere "&" como Conjunção');
+{
+  it('HTMLs públicos e blog não devem conter o caractere " & " em nenhum texto ou comentário', () => {
+    const htmlFiles = [
+      'index.html',
+      'roadmap-requisitos.html',
+      '404.html',
+      'blog/index.html',
+      'blog/posts/TEMPLATE.html',
+      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html'
+    ];
+    htmlFiles.forEach(rel => {
+      const content = fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+      assert.ok(!content.includes(' & '), `Arquivo ${rel} não deve conter " & " (usar "e" ou "and")`);
+    });
+  });
+
+  it('data/posts.json não deve conter o caractere " & " em títulos, descrições ou tags', () => {
+    const postsContent = fs.readFileSync(path.join(__dirname, '../data/posts.json'), 'utf8');
+    assert.ok(!postsContent.includes(' & '), 'data/posts.json não deve conter " & "');
+  });
+
+  it('Dicionários de tradução (pt.js e en.js) e app.js não devem conter " & " em valores ou comentários', () => {
+    const ptContent = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+    const enContent = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+    const appContent = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+    assert.ok(!ptContent.includes(' & '), 'pt.js livre de " & "');
+    assert.ok(!enContent.includes(' & '), 'en.js livre de " & "');
+    assert.ok(!appContent.includes(' & '), 'app.js livre de " & "');
+  });
+
+  it('README.md deve adotar conformidade estrita Anti-IA e estar livre de " & "', () => {
+    const readmeContent = fs.readFileSync(path.join(__dirname, '../README.md'), 'utf8');
+    assert.ok(!readmeContent.includes(' & '), 'README.md livre de " & "');
+  });
+
+  it('Workflows de engenharia devem formalizar Tell 13 e Proibição Absoluta do &', () => {
+    const wfOrq = fs.readFileSync(path.join(__dirname, '../_agents/workflows/writing-flow-orchestrator.md'), 'utf8');
+    const antiAiAgent = fs.readFileSync(path.join(__dirname, '../_agents/writing-flow-anti-ai-agentes/writing-06-anti-ai-agent.md'), 'utf8');
+    assert.ok(wfOrq.includes('Score 13/13 tells corrigidos'), 'writing-flow-orchestrator contém score 13/13');
+    assert.ok(antiAiAgent.includes('Tell 13:'), 'writing-06-anti-ai-agent contém Tell 13');
+    assert.ok(antiAiAgent.includes('Substituição da Conjunção "e" por "&"'), 'writing-06-anti-ai-agent documenta Tell 13');
+  });
+}
+
+console.log('\n📦 Scenario 37: Auditoria de Resiliência de Cache PWA e Ciclo de Vida Reativo');
+{
+  const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+  it('sw.js deve implementar versão v2.5.0, comando SKIP_WAITING e ignoreSearch defensivo', () => {
+    assert.ok(swJs.includes("const CACHE_VERSION = 'pvdukdev-v2.5.0';"), 'sw.js define CACHE_VERSION v2.5.0');
+    assert.ok(swJs.includes("const CACHE_NAME = `costar-pwa-${CACHE_VERSION}`;"), 'sw.js define CACHE_NAME com versão');
+    assert.ok(swJs.includes("caches.match(request, { ignoreSearch: true })"), 'sw.js utiliza ignoreSearch: true para assets');
+    assert.ok(swJs.includes("event.data.type === 'SKIP_WAITING'"), 'sw.js escuta mensagem SKIP_WAITING');
+    assert.ok(swJs.includes("self.skipWaiting()"), 'sw.js invoca skipWaiting() sob comando do cliente');
+  });
+
+  it('app.js deve registrar Service Worker com updateViaCache none e gerenciar ciclo de vida', () => {
+    const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+    assert.ok(appJs.includes("{ updateViaCache: 'none' }"), 'SW registrado com updateViaCache: none');
+    assert.ok(appJs.includes("controllerchange"), 'app.js escuta evento controllerchange para reload sincronizado');
+    assert.ok(appJs.includes("visibilitychange"), 'app.js verifica atualizações em visibilitychange');
+    assert.ok(appJs.includes("showUpdateToast"), 'app.js implementa showUpdateToast');
+    assert.ok(appJs.includes("pwaUpdateToast"), 'app.js cria elemento com id pwaUpdateToast');
+    assert.ok(appJs.includes("postMessage({ type: 'SKIP_WAITING' })"), 'app.js envia SKIP_WAITING ao worker');
+  });
+
+  it('build.js deve conter injeção de BUILD_VERSION e cache-busting automático para HTML', () => {
+    const buildJs = fs.readFileSync(path.join(__dirname, '../build.js'), 'utf8');
+    assert.ok(buildJs.includes("const BUILD_VERSION = 'pvdukdev-v2.5.0';"), 'build.js define BUILD_VERSION v2.5.0');
+    assert.ok(buildJs.includes('function applyCacheBusting(html, version)'), 'build.js implementa applyCacheBusting');
+    assert.ok(buildJs.includes('?v='), 'applyCacheBusting adiciona parâmetro de versão');
+    assert.ok(buildJs.includes('applyCacheBusting(originalContent, BUILD_VERSION)'), 'build.js aplica cache-busting em arquivos HTML');
+    assert.ok(buildJs.includes("replace(/const CACHE_VERSION = '[^']+';/"), 'build.js sincroniza CACHE_VERSION em dist/sw.js');
+
+    // Validação comportamental de estado final gerado em dist/
+    const distIndex = path.join(__dirname, '../dist/index.html');
+    if (fs.existsSync(distIndex)) {
+      const distIndexContent = fs.readFileSync(distIndex, 'utf8');
+      assert.ok(distIndexContent.includes('css/base.css?v=pvdukdev-v2.5.0'), 'dist/index.html possui cache-busting em base.css');
+      assert.ok(distIndexContent.includes('css/components.css?v=pvdukdev-v2.5.0'), 'dist/index.html possui cache-busting em components.css');
+      assert.ok(distIndexContent.includes('js/app.js?v=pvdukdev-v2.5.0'), 'dist/index.html possui cache-busting em app.js');
+    }
+  });
+
+  it('css/components.css deve estilizar o toast de atualização PWA sem inline styles e sem "&"', () => {
+    const componentsCss = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+    assert.ok(componentsCss.includes('.pwa-update-toast'), 'components.css estiliza .pwa-update-toast');
+    assert.ok(componentsCss.includes('.pwa-update-content'), 'components.css estiliza .pwa-update-content');
+    assert.ok(componentsCss.includes('.pwa-update-dot'), 'components.css estiliza .pwa-update-dot');
+    assert.ok(componentsCss.includes('.pwa-update-msg'), 'components.css estiliza .pwa-update-msg');
+    assert.ok(componentsCss.includes('.pwa-update-actions'), 'components.css estiliza .pwa-update-actions');
+    assert.ok(componentsCss.includes('.pwa-update-btn'), 'components.css estiliza .pwa-update-btn');
+    assert.ok(componentsCss.includes('@media (max-width: 580px)'), 'components.css possui responsividade para telas pequenas');
+    assert.ok(!componentsCss.includes(' & '), 'components.css não possui o caractere "&" isolado');
+  });
+
+  it('Dicionários i18n (pt.js, en.js e app.js) devem ter paridade total para chaves do toast PWA', () => {
+    const pt = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+    const en = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+    const app = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+
+    assert.ok(pt.includes("'pwa.update_available'"), 'pt.js contém chave pwa.update_available');
+    assert.ok(pt.includes("'pwa.update_btn'"), 'pt.js contém chave pwa.update_btn');
+    assert.ok(en.includes("'pwa.update_available'"), 'en.js contém chave pwa.update_available');
+    assert.ok(en.includes("'pwa.update_btn'"), 'en.js contém chave pwa.update_btn');
+    assert.ok(app.includes("'pwa.update_available'"), 'app.js contém fallback pwa.update_available');
+    assert.ok(app.includes("'pwa.update_btn'"), 'app.js contém fallback pwa.update_btn');
+
+    assert.ok(!pt.includes(' & ') && !en.includes(' & '), 'Traduções PWA livres de "&"');
   });
 }
 

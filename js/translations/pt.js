@@ -19,6 +19,7 @@ export const pt = {
   'footer.author': 'Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site',
 
   // ─── Home Hub: Modo Padrão (Opção 1 · The Architectural Engineer) ───
+  'hub.author_name': 'Paulo Dukven',
   'hub.badge_status': 'Disponível para projetos e consultoria',
   'hub.hero_title': 'Engenheiro de Software e<br><em>FullStack C#/React</em>',
   'hub.hero_tagline': 'Especialista em arquitetura limpa, sistemas distribuídos, performance web e desenvolvimento frontend puro.',
@@ -47,9 +48,9 @@ export const pt = {
   'projects.tab_roadmap': 'Roadmap de Requisitos',
 
   // FirstStrike Analytics SaaS
-  'analytics.tag': 'Produção Live · IA & Modelagem Quantitativa · FullStack .NET 10 / React 19',
+  'analytics.tag': 'Produção Live · IA e Modelagem Quantitativa · FullStack .NET 10 / React 19',
   'analytics.title': 'FirstStrike Analytics ⚡ · Plataforma Quantitativa da NBA',
-  'analytics.desc': 'Plataforma SaaS quantitativa de alta precisão projetada para modelar, prever e analisar o desempenho de atletas da NBA em dois escopos: Primeiro Quarto (Q1, 12 min) e Jogo Completo (Full Game, 48 min). Combina distribuições estatísticas discretas (Poisson e Binomial Negativa), simulações conjuntas de Monte Carlo (10.000 iterações por cenário) e IA generativa (Google Gemini) para identificar valor esperado (EV+).',
+  'analytics.desc': 'Engine analítica que roda 10.000 simulações de Monte Carlo por cenário para precificar probabilidades e valor esperado (EV+) na NBA. Desenhada para eliminar a latência computacional: cálculo pesado em background (.NET 10 assíncrono) e entrega instantânea em React 19 na borda.',
   'analytics.feat1': 'Dual-Scope Analytics: Modelagem estatística especializada para 1º Quarto e Jogo Completo',
   'analytics.feat2': 'Joint Monte Carlo Engine: 10.000 iterações para cálculo de probabilidades conjuntas e canibalização de volume',
   'analytics.feat3': 'Projeções Táticas com Gemini: Análise contextual com cadeia de contingência automática de rate limits',
@@ -68,7 +69,7 @@ export const pt = {
 
   // Planexa OS
   'planexa.tag': 'Desktop Nativo · Clean Architecture · 100% Offline-First',
-  'planexa.title': 'Planexa OS 💎⚡ · Executive Workflow & Gantt',
+  'planexa.title': 'Planexa OS 💎⚡ · Fluxo Executivo e Gantt Nativo',
   'planexa.desc': 'Sistema operacional desktop de alta densidade para engenharia PJ, estudos e gestão. Pomodoro reativo integrado ao TanStack Query, cronograma Gantt vetorial SVG com diluição proporcional de prazos, editor TipTap WYSIWYG de matrizes Markdown e dual workspaces (Profissional vs Acadêmico).',
   'planexa.feat1': 'Stack moderna: .NET 10 + C# 14 + Photino.NET (Nativo sem Electron, <40MB RAM)',
   'planexa.feat2': 'Frontend reativo: React 19 + TypeScript 5.9 + Tailwind CSS v4 (@theme semântico)',
@@ -189,7 +190,7 @@ export const pt = {
   'terminal.th_link': 'ACESSO',
   'terminal.proj_fs_name': 'FirstStrike Analytics 🏀⚡',
   'terminal.proj_fs_stack': '.NET 10 / React 19 / Tailwind v4 / MongoDB / Gemini IA',
-  'terminal.proj_fs_type': 'SaaS Quantitativo & IA (NBA)',
+  'terminal.proj_fs_type': 'SaaS Quantitativo e IA (NBA)',
   'terminal.proj_fs_link': '[firststrikeanalytics.com.br] ↗',
   'terminal.proj_planexa_name': 'Planexa OS 💎⚡',
   'terminal.proj_planexa_stack': '.NET 10 / Photino.NET / React 19 / SQLite WAL',
@@ -197,8 +198,8 @@ export const pt = {
   'terminal.proj_planexa_status': 'Desktop Nativo',
   'terminal.proj_ops_name': 'FirstStrike Ops 🛡️',
   'terminal.proj_ops_stack': '.NET 10 / Photino.NET / SQLite / MongoDB Atlas',
-  'terminal.proj_ops_type': 'Torre de Controle & Observabilidade',
-  'terminal.proj_ops_status': 'Auditoria & Ops',
+  'terminal.proj_ops_type': 'Torre de Controle e Observabilidade',
+  'terminal.proj_ops_status': 'Auditoria e Operações',
   'terminal.proj1_name': '01 · Roadmap de Requisitos',
   'terminal.proj1_stack': 'HTML5 / Vanilla JS / C# .NET 10 / MongoDB NoSQL',
   'terminal.proj1_type': 'Processo e Estudo de Caso',
@@ -270,6 +271,158 @@ export const pt = {
   'roadmap.p8_title': 'Fase 08 · Gate de Qualidade e Entrada em Produção',
   'roadmap.p8_desc': 'Checklist de prontidão técnica aprovado e operação contínua com alta performance',
 
+  // COSTAR Framework
+  'roadmap.costar_c_label': 'Contexto',
+  'roadmap.costar_c_text': 'O processamento síncrono de modelos estatísticos e chamadas de IA sob demanda gerava alto tempo de resposta (TTFB > 2s), sobrecarga de CPU no servidor e risco de estouro de cotas de APIs externas.',
+  'roadmap.costar_o_label': 'Objetivo',
+  'roadmap.costar_o_text': 'Garantir tempo de resposta sub-35ms para o usuário final, desacoplar 100% da computação pesada para background workers e blindar o backend contra picos de tráfego.',
+  'roadmap.costar_s_label': 'Style',
+  'roadmap.costar_s_text': 'Estudo de caso focado em fundamentos de engenharia: trade-offs arquiteturais, padrões de resiliência e boas práticas de código limpo.',
+  'roadmap.costar_t_label': 'Tom',
+  'roadmap.costar_t_text': 'Técnico, objetivo e orientado a resultados de engenharia de software (DDD, SOLID, concorrência e alta disponibilidade).',
+  'roadmap.costar_a_label': 'Audiência',
+  'roadmap.costar_a_text': 'Tech Leads, Arquitetos de Software, Engenheiros e Recrutadores Técnicos avaliando maturidade de design e execução.',
+  'roadmap.costar_r_label': 'Resposta',
+  'roadmap.costar_r_text': '8 fases estruturadas demonstrando a evolução desde a análise da dor do usuário até a entrada em produção contínua.',
+
+  // Fase 00
+  'roadmap.p0_tag1': 'Problema Validado',
+  'roadmap.p0_tag2': '1–3 dias',
+  'roadmap.p0_b1_title': 'O Problema e a Causa Raiz',
+  'roadmap.p0_b1_item1': '<strong>A Dor do Usuário:</strong> Tomada de decisão baseada em métricas estáticas e agregadas, ignorando a volatilidade temporal e a dispersão dos dados.',
+  'roadmap.p0_b1_item2': '<strong>Inconsistência Analítica:</strong> Plataformas existentes calculam projeções de forma síncrona e lenta, ou fornecem visões genéricas sem granularidade.',
+  'roadmap.p0_b1_item3': '<strong>Fundamento Aplicado:</strong> Análise de Causa Raiz (5 Porquês) para mapear o comportamento do usuário e isolar o escopo essencial do MVP.',
+  'roadmap.p0_b1_item4': '<strong>Abordagem Técnica:</strong> Arquitetura orientada a processamento em lote em background, eliminando cálculos pesados da experiência de navegação.',
+  'roadmap.p0_b2_title': 'Critérios de Sucesso e KPIs de Engenharia',
+  'roadmap.p0_b2_item1': '<strong>Latência no Client:</strong> Servir visualizações e dados em menos de 35ms a partir da borda.',
+  'roadmap.p0_b2_item2': '<strong>Carga no Servidor:</strong> Zero custo computacional pesado acionado por cliques de leitura do usuário.',
+  'roadmap.p0_b2_item3': '<strong>Atualização Contínua:</strong> Pipeline assíncrono mantendo dados e status de contexto sempre sincronizados.',
+  'roadmap.p0_b2_item4': '<strong>Resiliência de Integração:</strong> 100% de disponibilidade de pareceres mesmo sob instabilidade em serviços externos.',
+  'roadmap.p0_artifact': '<strong>Artefato Entregue na Fase 00:</strong> <em>Documento de Visão de Produto e Escopo Técnico</em>, formalizando a arquitetura assíncrona orientada a eventos para mitigar o gargalo de latência na experiência do usuário.',
+
+  // Fase 01
+  'roadmap.p1_tag1': 'C4 Nível 1',
+  'roadmap.p1_tag2': '2–4 dias',
+  'roadmap.p1_b1_title': 'Atores e Papéis',
+  'roadmap.p1_b1_item1': '<strong>Usuário Final (Web / PWA):</strong> Navega por dados consolidados, aplica filtros e consome resumos analíticos em tempo real.',
+  'roadmap.p1_b1_item2': '<strong>Hosted Background Workers:</strong> Processos assíncronos autônomos que realizam tarefas periódicas de ingestão e modelagem.',
+  'roadmap.p1_b1_item3': '<strong>Serviços Externos:</strong> APIs de dados brutos e provedores de IA integrados com camadas de proteção e contingência.',
+  'roadmap.p1_b2_title': 'Fundamentos de Integração',
+  'roadmap.p1_b2_item1': '<strong>Isolamento de Responsabilidades:</strong> O cliente web nunca se comunica diretamente com serviços externos lentos.',
+  'roadmap.p1_b2_item2': '<strong>Topologia Desacoplada:</strong> O backend centraliza a persistência atômica, servindo dados prontos para a camada de borda.',
+  'roadmap.p1_b2_item3': '<strong>Comunicação Resiliente:</strong> Circuit breakers e retries automáticos com backoff exponencial.',
+  'roadmap.p1_c4_title': 'Diagrama C4 Nível 1 · Fluxo Arquitetural do Sistema',
+  'roadmap.p1_c4_diagram': '[ Usuário / Cliente ] ──(HTTPS/PWA)──> [ Serviço Front / Edge CDN ] ──(Cache Miss)──> [ Backend API (C# .NET) ]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Leituras O(1))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>[ Feeds Externos de Dados ] ──> [ Background Hosted Workers (.NET) ] ──(Write)──> [ Banco de Dados NoSQL ] <──(Read)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Assíncrono)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Provedores de IA Generativa ]',
+
+  // Fase 02
+  'roadmap.p2_tag1': 'Gherkin BDD',
+  'roadmap.p2_tag2': '3–5 dias',
+  'roadmap.p2_spec_title': 'Especificação Comportamental em Gherkin',
+  'roadmap.p2_spec_content': '<strong class="text-accent3">História: Consulta Analítica com Resposta de Baixa Latência</strong><br><em>Como um</em> analista ou usuário da plataforma<br><em>Quero</em> acessar os relatórios e métricas consolidadas da rodada<br><em>Para</em> obter insumos decisórios instantâneos sem aguardar reprocessamento de cálculos pesados.<br><br><strong class="text-green">Cenário BDD: Resposta Otimizada a Partir da Camada Consolidada</strong><br><strong>Given (Dado)</strong> que o pipeline assíncrono de background concluiu a geração das análises diárias<br><strong>When (Quando)</strong> eu solicito os dados consolidados pelo dashboard ou API<br><strong>Then (Então)</strong> o sistema deve retornar as projeções e resumos em menos de 35ms<br><strong>And (E)</strong> nenhuma computação estatística pesada deve ser executada de forma síncrona na thread da requisição.',
+  'roadmap.p2_moscow_title': 'Priorização de Escopo (MoSCoW)',
+  'roadmap.p2_moscow_must': '<strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.',
+  'roadmap.p2_moscow_should': '<strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.',
+  'roadmap.p2_moscow_could': '<strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.',
+  'roadmap.p2_moscow_wont': '<strong>Won\'t Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.',
+  'roadmap.p2_nfr_title': 'Requisitos Não-Funcionais',
+  'roadmap.p2_nfr_item1': '<strong>Performance:</strong> Time to First Byte (TTFB) < 35ms para rotas de leitura em cache.',
+  'roadmap.p2_nfr_item2': '<strong>Eficiência de Recursos:</strong> Backend enxuto com baixo footprint de memória e CPU.',
+  'roadmap.p2_nfr_item3': '<strong>Alta Disponibilidade:</strong> Resiliência a falhas parciais em integrações externas.',
+
+  // Fase 03
+  'roadmap.p3_tag1': 'DDD e NoSQL',
+  'roadmap.p3_tag2': '3–6 dias',
+  'roadmap.p3_b1_title': 'O Problema e os Fundamentos DDD',
+  'roadmap.p3_b1_item1': '<strong>O Problema:</strong> Modelos relacionais altamente normalizados exigiam múltiplos JOINs sob alta concorrência de leitura, degradando o tempo de resposta.',
+  'roadmap.p3_b1_item2': '<strong>Fundamento Aplicado:</strong> Domain-Driven Design (DDD) com Aggregate Roots auto-contidos e consistência eventual.',
+  'roadmap.p3_b1_item3': '<strong>Decisão de Modelagem:</strong> Estruturar agregados que consolidam metadados, métricas e análises pré-calculadas em um único documento atômico.',
+  'roadmap.p3_b1_item4': '<strong>Benefício:</strong> Leituras em tempo O(1) diretamente indexadas, eliminando consultas N+1.',
+  'roadmap.p3_b2_title': 'Bounded Contexts e Índices',
+  'roadmap.p3_b2_item1': '<strong>Contexto de Ingestão:</strong> Coleta e saneamento de dados de fontes externas.',
+  'roadmap.p3_b2_item2': '<strong>Contexto Analítico:</strong> Execução de modelos estatísticos e agregações em lote.',
+  'roadmap.p3_b2_item3': '<strong>Contexto de Consulta:</strong> Resolução rápida de queries com índices compostos estratégicos.',
+  'roadmap.p3_b2_item4': '<strong>Idempotência:</strong> Provisionamento automático de índices na inicialização do serviço.',
+  'roadmap.p3_artifact': '<strong>Artefato Entregue na Fase 03:</strong> <em>Modelo de Domínio em C# e Mapeamento de Persistência NoSQL</em>, consolidando agregados de leitura atômica sem sobrecarga relacional.',
+
+  // Fase 04
+  'roadmap.p4_tag1': 'Clean Architecture (.NET)',
+  'roadmap.p4_tag2': '4–7 dias',
+  'roadmap.p4_adr1_title': 'ADR #001 · Clean Architecture com Desacoplamento Zero-Compute em Background (.NET 10)',
+  'roadmap.p4_adr1_content': '<strong class="text-orange">Status:</strong> APROVADO E IMPLEMENTADO<br><strong class="text-blue">Contexto:</strong> Cálculos matemáticos estocásticos e requisições para LLMs possuem tempo de execução imprevisível (800ms a 3s). Bloquear requisições HTTP síncronas degradaria a experiência do usuário e saturaria o pool de threads do servidor.<br><strong class="text-green">Decisão:</strong> Adotar <strong>Clean Architecture</strong> em C# (.NET 10) com separação estrita de camadas (<em>Domain, Application, Infrastructure, WebApi</em>) e padrão CQRS (MediatR). 100% das tarefas pesadas foram movidas para <code class="inline-code">HostedService</code> de background. As rotas HTTP realizam apenas leituras em O(1) de documentos consolidados.<br><strong class="text-amber">Consequências:</strong> Resposta instantânea da API, separação clara de responsabilidades, previsibilidade de consumo de CPU e facilidade de manutenção e testes.',
+  'roadmap.p4_adr2_title': 'ADR #002 · Cadeia de Resiliência e Fallback para Serviços Externos',
+  'roadmap.p4_adr2_content': '<strong class="text-orange">Status:</strong> APROVADO E IMPLEMENTADO<br><strong class="text-blue">Contexto:</strong> Serviços de IA e APIs externas de dados podem apresentar instabilidade pontual, picos de latência ou rate limiting (HTTP 429).<br><strong class="text-green">Decisão:</strong> Implementar uma <strong>Cadeia de Contingência Resiliente</strong> no adaptador de infraestrutura, com fallback automático em cascata entre múltiplos modelos e estratégias de cache.<br><strong class="text-amber">Consequências:</strong> Garantia de continuidade de serviço para o usuário final, com degradação suave e logs transparentes de chaveamento.',
+
+  // Fase 05
+  'roadmap.p5_tag1': 'RFC-7234 + Segurança',
+  'roadmap.p5_tag2': '3–5 dias',
+  'roadmap.p5_b1_title': 'Proteção e Defesa em Profundidade',
+  'roadmap.p5_b1_item1': '<strong>Rate Limiting no ASP.NET Core:</strong> Middleware com limite de taxa por IP para evitar abusos e scraping automatizado.',
+  'roadmap.p5_b1_item2': '<strong>Autenticação de Origem:</strong> Validação de requisições de clientes autorizados via headers criptográficos.',
+  'roadmap.p5_b1_item3': '<strong>Gestão Segura de Configurações:</strong> Segredos e credenciais isolados do repositório e injetados via variáveis de ambiente em runtime.',
+  'roadmap.p5_b2_title': 'Estratégia de Cacheamento na Borda',
+  'roadmap.p5_b2_item1': '<strong>Headers Declarativos:</strong> Utilização do padrão <code class="inline-code">stale-while-revalidate</code> na camada de controllers.',
+  'roadmap.p5_b2_item2': '<strong>Desafogamento do Backend:</strong> Requisições subsequentes são atendidas pela CDN global, reduzindo hits ao banco.',
+  'roadmap.p5_b2_item3': '<strong>Sanitização de Payload:</strong> Filtros de saída garantem que apenas dados pertinentes ao estado atual sejam expostos.',
+
+  // Fase 06
+  'roadmap.p6_tag1': 'Docker Compose',
+  'roadmap.p6_tag2': '3–5 dias',
+  'roadmap.p6_b1_title': 'Stack de Produção Selecionada',
+  'roadmap.p6_b1_item1': '<strong>Backend:</strong> C# .NET 10 (ASP.NET Core Web API, MediatR, Hosted Services).',
+  'roadmap.p6_b1_item2': '<strong>Frontend:</strong> React 19, TypeScript, Vite, Tailwind CSS e PWA Standalone.',
+  'roadmap.p6_b1_item3': '<strong>Banco de Dados:</strong> MongoDB (NoSQL atômico com índices compostos).',
+  'roadmap.p6_b1_item4': '<strong>Borda e Deploy:</strong> Edge CDN com cacheamento HTTP RFC-7234.',
+  'roadmap.p6_b2_title': 'Fundamentos de Containerização',
+  'roadmap.p6_b2_item1': '<strong>Isolamento de Recursos:</strong> Limites explícitos de memória (<code class="inline-code">mem_limit</code>) configurados para cada serviço.',
+  'roadmap.p6_b2_item2': '<strong>Produtividade com Hot Reload:</strong> Bind mounts e watchers otimizados para compilação contínua em C# e Frontend.',
+  'roadmap.p6_b2_item3': '<strong>Healthchecks Ativos:</strong> Serviços aguardam prontidão dos bancos antes de iniciar a inicialização da aplicação.',
+  'roadmap.p6_artifact': '<strong>Artefato Entregue na Fase 06:</strong> <em>Orquestração Docker Compose Multi-Container</em>, garantindo paridade total entre ambiente local e produção com subida de 1 comando.',
+
+  // Fase 07
+  'roadmap.p7_tag1': 'Testes e OpenAPI',
+  'roadmap.p7_tag2': '2–3 dias',
+  'roadmap.p7_b1_title': 'Estratégia de Contratos e Testes Automatizados',
+  'roadmap.p7_b1_item1': '<strong>Contratos de Interface (OpenAPI 3.0 / Swagger):</strong> Rotas padronizadas para consulta de datas, agregados de partidas, simulações e status do sistema.',
+  'roadmap.p7_b1_item2': '<strong>Testes Unitários e de Domínio (C# .NET xUnit):</strong> Cobertura extensiva de regras de negócio, cálculos matemáticos e resiliência de fallback.',
+  'roadmap.p7_b1_item3': '<strong>Testes de Componentes e Hooks (Frontend Vitest):</strong> Validação de renderização, gerenciamento de estado global e compatibilidade PWA.',
+  'roadmap.p7_b1_item4': '<strong>Testes End-to-End BDD (Playwright):</strong> Simulação da jornada real do usuário cobrindo primeiro acesso, navegação e filtros.',
+
+  // Fase 08
+  'roadmap.p8_tag1': 'Live in Production',
+  'roadmap.p8_tag2': '1–2 dias',
+  'roadmap.p8_gate_title': 'Status do Gate de Entrada em Produção',
+  'roadmap.p8_col1_title': '✓ FUNDAMENTOS E BACKEND (100%)',
+  'roadmap.p8_col1_item1': 'Clean Architecture em C# .NET 10 implementada',
+  'roadmap.p8_col1_item2': 'Desacoplamento Zero-Compute em Background Workers',
+  'roadmap.p8_col1_item3': 'Persistência NoSQL atômica em tempo O(1)',
+  'roadmap.p8_col1_item4': '100% da suíte de testes xUnit aprovada',
+  'roadmap.p8_col2_title': '✓ FRONTEND E PERFORMANCE (100%)',
+  'roadmap.p8_col2_item1': 'Edge Caching com TTFB sub-35ms',
+  'roadmap.p8_col2_item2': 'Stale-while-revalidate RFC-7234',
+  'roadmap.p8_col2_item3': 'PWA com modo Offline First nativo',
+  'roadmap.p8_col2_item4': 'Core Web Vitals em faixa verde (100/100)',
+  'roadmap.p8_col3_title': '✓ QUALIDADE E RESILIÊNCIA (100%)',
+  'roadmap.p8_col3_item1': 'Contratos OpenAPI 3.0 documentados',
+  'roadmap.p8_col3_item2': 'Fallback em cascata entre LLMs',
+  'roadmap.p8_col3_item3': 'Testes E2E cobrindo 100% dos fluxos BDD',
+  'roadmap.p8_col3_item4': 'Docker Multi-Container reproduzível',
+  'roadmap.p8_verdict': '<strong>Veredito do Gate: [LIVE IN PRODUCTION]</strong> A plataforma foi homologada e está operando em produção contínua. Os workers assíncronos em C# .NET realizam o processamento prévio dos dados, entregando uma experiência instantânea e estável para o usuário final com custo operacional enxuto.',
+
+  // Linha do Tempo
+  'roadmap.tline1_title': 'Semana 1 · Discovery e Modelagem da Solução',
+  'roadmap.tline1_desc': 'Análise de Causa Raiz da dor de negócio · Definição de KPIs de Engenharia · Estratégia de Processamento Assíncrono',
+  'roadmap.tline2_title': 'Semana 2 · Domínio DDD e Persistência NoSQL',
+  'roadmap.tline2_desc': 'Modelagem de Agregados Atômicos em C# · Eliminação de queries N+1 · Índices compostos e leitura em O(1)',
+  'roadmap.tline3_title': 'Semana 3 · Clean Architecture e Hosted Workers (.NET 10)',
+  'roadmap.tline3_desc': 'ADR #001 Desacoplamento Zero-Compute · ADR #002 Cadeia de Resiliência de IA · Ingestão e Processamento em Background',
+  'roadmap.tline4_title': 'Semana 4 · Frontend Moderno, Edge Caching e Testes',
+  'roadmap.tline4_desc': 'React 19 + PWA · Headers de Cache RFC-7234 (stale-while-revalidate) · Suíte de Testes Automatizados (xUnit, Vitest, E2E)',
+  'roadmap.tline5_title': 'Produção · Live in Production',
+  'roadmap.tline5_desc': 'Plataforma operando em produção com alta disponibilidade, custo otimizado e resposta instantânea para o usuário.',
+
+  // Footer Progress Bar
+  'roadmap.progress_footer_label': 'COSTAR · Roadmap de Engenharia de Software (Estudo de Caso SaaS)',
+
   // ─── Volume 02: System Design ───
   'sd.brand': 'System Design',
   'sd.series': 'vol. 2 / 2',
@@ -297,8 +450,8 @@ export const pt = {
 
   // ─── Blog de Engenharia e Artigos ───
   'blog.badge': '// Publicações e Artigos Técnicos',
-  'blog.title': 'Blog de Engenharia & Artigos',
-  'blog.subtitle': 'Reflexões sobre Clean Architecture, System Design, Web Performance e Engenharia de Software.',
+  'blog.title': 'Blog de Engenharia e Artigos',
+  'blog.subtitle': 'Artigos de trincheira sobre Clean Architecture, System Design, performance web e padrões sem dependências pesadas.',
   'blog.all': 'Todas',
   'blog.filter_label': 'Filtrar por Assunto:',
   'blog.empty': 'Nenhum artigo encontrado para a tag selecionada.',
@@ -317,5 +470,18 @@ export const pt = {
   'series.upcoming': 'em breve',
   'blog.post.series_part': 'Série: {series} · Parte {part} de {total}',
   'blog.post.next': 'Próxima',
-  'blog.post.back': 'Voltar ao blog'
+  'blog.post.back': 'Voltar ao blog',
+
+  // ─── PWA e Ciclo de Vida ───
+  'pwa.update_available': 'Nova versão disponível com melhorias de layout e performance.',
+  'pwa.update_btn': 'Atualizar agora',
+
+  // ─── Detalhes do Artigo e Autor ───
+  'blog.post.breadcrumbs_home': 'Início',
+  'blog.post.breadcrumbs_blog': 'Blog',
+  'blog.post.author_role': 'Engenheiro de Software e FullStack C#/React',
+  'blog.post.about_author': 'Sobre o Autor',
+  'blog.post.about_author_bio': 'Engenheiro de Software e FullStack C#/React especializado em Clean Architecture, Performance Web, DDD e arquitetura sem dependências pesadas.',
+  'blog.post.view_roadmap': 'Ver Roadmap SaaS',
+  'blog.post.noscript': '⚡ Modo Estático (Sem JavaScript): Este artigo é 100% legível e acessível sem JavaScript. A alternância de temas e recursos interativos requerem JavaScript.'
 };

@@ -6,6 +6,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "build": "node build.js",
+    "sync:i18n": "node build.js",
     "test": "node test/bdd-interactions.test.js"
   },
   "keywords": [

@@ -1,6 +1,6 @@
 /* ═════════════════════════════════════════════════════════════════════
    COSTAR DESIGN SYSTEM · BASE CSS
-   Reset, Typography, Tokens Universais & Cascade Layers
+   Reset, Typography, Tokens Universais e Cascade Layers
    ═════════════════════════════════════════════════════════════════════ */
 
 /* ─── Self-Hosted Font Faces (Performance Budget: 2 Famílias / Zero Terceiros) ─── */
@@ -103,7 +103,7 @@
     --win-bg: #eff6ff;
     --win-border: #bfdbfe;
 
-    /* Typography · High-Performance Big Tech & Engineering (Inter + JetBrains Mono) */
+    /* Typography · High-Performance Big Tech and Engineering (Inter + JetBrains Mono) */
     --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-serif: Georgia, serif;
@@ -126,7 +126,7 @@
     --radius-xl: 16px;
     --radius-full: 9999px;
 
-    /* Elevation & Shadows */
+    /* Elevation and Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);

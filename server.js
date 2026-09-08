@@ -88,6 +88,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\n🚀 Servidor local ativo em: http://localhost:${PORT}`);
-  console.log(`📱 PWA & Service Worker prontos para teste local`);
+  console.log(`📱 PWA e Service Worker prontos para teste local`);
   console.log(`⌨️  Pressione Ctrl+C para encerrar\n`);
 });

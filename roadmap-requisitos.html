@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <!-- Content Security Policy (CSP · Zero-Trust e Defesa contra Injeção/XSS) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
   <script>
@@ -61,7 +61,7 @@
   <!-- Favicon com a Marca Visual SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 
-  <!-- PWA & Mobile Web App Capabilities -->
+  <!-- Recursos de PWA e Mobile Web App -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
@@ -71,7 +71,7 @@
   <meta name="apple-mobile-web-app-title" content="pvduk.dev">
   <link rel="apple-touch-icon" href="assets/logo.svg">
 
-  <!-- Self-Hosted WOFF2 Fonts Preload (Zero Third-Party Latency · Inter & JetBrains Mono) -->
+  <!-- Preload de Fontes WOFF2 Locais (Latência Zero de Terceiros · Inter e JetBrains Mono) -->
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -84,7 +84,7 @@
   <!-- Skip Link (Acessibilidade WCAG 2.1 AA · 2.4.1 Bypass Blocks) -->
   <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
 
-  <!-- Progressive Enhancement Fallback (No-JS: Auto-expand 8 phases & static banner) -->
+  <!-- Fallback de Melhoria Progressiva (Sem JS: 8 fases expandidas e banner estático) -->
   <noscript>
     <style>
       .phase-body { display: block !important; }
@@ -113,6 +113,7 @@
     <nav class="topbar-nav" aria-label="Navegação Principal">
       <a class="nav-pill" href="index.html" data-i18n="nav.home">Início</a>
       <a class="nav-pill active" href="roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="nav-pill" href="blog/index.html" data-i18n="nav.blog">Blog</a>
     </nav>
 
     <div class="topbar-controls">
@@ -154,44 +155,44 @@
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--c">C</span>
-            Contexto
+            <span data-i18n="roadmap.costar_c_label">Contexto</span>
           </div>
-          <div class="roadmap-costar-text">O processamento síncrono de modelos estatísticos e chamadas de IA sob demanda gerava alto tempo de resposta (TTFB &gt; 2s), sobrecarga de CPU no servidor e risco de estouro de cotas de APIs externas.</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_c_text">O processamento síncrono de modelos estatísticos e chamadas de IA sob demanda gerava alto tempo de resposta (TTFB &gt; 2s), sobrecarga de CPU no servidor e risco de estouro de cotas de APIs externas.</div>
         </div>
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--o">O</span>
-            Objetivo
+            <span data-i18n="roadmap.costar_o_label">Objetivo</span>
           </div>
-          <div class="roadmap-costar-text">Garantir tempo de resposta sub-35ms para o usuário final, desacoplar 100% da computação pesada para background workers e blindar o backend contra picos de tráfego.</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_o_text">Garantir tempo de resposta sub-35ms para o usuário final, desacoplar 100% da computação pesada para background workers e blindar o backend contra picos de tráfego.</div>
         </div>
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--s">S</span>
-            Style
+            <span data-i18n="roadmap.costar_s_label">Style</span>
           </div>
-          <div class="roadmap-costar-text">Estudo de caso focado em fundamentos de engenharia: trade-offs arquiteturais, padrões de resiliência e boas práticas de código limpo.</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_s_text">Estudo de caso focado em fundamentos de engenharia: trade-offs arquiteturais, padrões de resiliência e boas práticas de código limpo.</div>
         </div>
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--t">T</span>
-            Tom
+            <span data-i18n="roadmap.costar_t_label">Tom</span>
           </div>
-          <div class="roadmap-costar-text">Técnico, objetivo e orientado a resultados de engenharia de software (DDD, SOLID, concorrência e alta disponibilidade).</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_t_text">Técnico, objetivo e orientado a resultados de engenharia de software (DDD, SOLID, concorrência e alta disponibilidade).</div>
         </div>
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--a">A</span>
-            Audiência
+            <span data-i18n="roadmap.costar_a_label">Audiência</span>
           </div>
-          <div class="roadmap-costar-text">Tech Leads, Arquitetos de Software, Engenheiros e Recrutadores Técnicos avalando maturidade de design e execução.</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_a_text">Tech Leads, Arquitetos de Software, Engenheiros e Recrutadores Técnicos avalando maturidade de design e execução.</div>
         </div>
         <div class="roadmap-costar-cell">
           <div class="roadmap-costar-label">
             <span class="roadmap-costar-letter roadmap-costar-letter--r">R</span>
-            Resposta
+            <span data-i18n="roadmap.costar_r_label">Resposta</span>
           </div>
-          <div class="roadmap-costar-text">8 fases estruturadas demonstrando a evolução desde a análise da dor do usuário até a entrada em produção contínua.</div>
+          <div class="roadmap-costar-text" data-i18n="roadmap.costar_r_text">8 fases estruturadas demonstrando a evolução desde a análise da dor do usuário até a entrada em produção contínua.</div>
         </div>
       </div>
     </section>
@@ -210,33 +211,33 @@
               <div class="phase-desc" data-i18n="roadmap.p0_desc">Onde o produto ataca a dor real do usuário antes de qualquer linha de código</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-blue">Problema Validado</li>
-              <li class="tag tag--muted">1–3 dias</li>
+              <li class="tag badge-blue" data-i18n="roadmap.p0_tag1">Problema Validado</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p0_tag2">1–3 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block">
-                <div class="block-title">O Problema e a Causa Raiz</div>
+                <div class="block-title" data-i18n="roadmap.p0_b1_title">O Problema e a Causa Raiz</div>
                 <ul class="checklist">
-                  <li><strong>A Dor do Usuário:</strong> Tomada de decisão baseada em métricas estáticas e agregadas, ignorando a volatilidade temporal e a dispersão dos dados.</li>
-                  <li><strong>Inconsistência Analítica:</strong> Plataformas existentes calculam projeções de forma síncrona e lenta, ou fornecem visões genéricas sem granularidade.</li>
-                  <li><strong>Fundamento Aplicado:</strong> Análise de Causa Raiz (5 Porquês) para mapear o comportamento do usuário e isolar o escopo essencial do MVP.</li>
-                  <li><strong>Abordagem Técnica:</strong> Arquitetura orientada a processamento em lote em background, eliminando cálculos pesados da experiência de navegação.</li>
+                  <li data-i18n="roadmap.p0_b1_item1"><strong>A Dor do Usuário:</strong> Tomada de decisão baseada em métricas estáticas e agregadas, ignorando a volatilidade temporal e a dispersão dos dados.</li>
+                  <li data-i18n="roadmap.p0_b1_item2"><strong>Inconsistência Analítica:</strong> Plataformas existentes calculam projeções de forma síncrona e lenta, ou fornecem visões genéricas sem granularidade.</li>
+                  <li data-i18n="roadmap.p0_b1_item3"><strong>Fundamento Aplicado:</strong> Análise de Causa Raiz (5 Porquês) para mapear o comportamento do usuário e isolar o escopo essencial do MVP.</li>
+                  <li data-i18n="roadmap.p0_b1_item4"><strong>Abordagem Técnica:</strong> Arquitetura orientada a processamento em lote em background, eliminando cálculos pesados da experiência de navegação.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Critérios de Sucesso e KPIs de Engenharia</div>
+                <div class="block-title" data-i18n="roadmap.p0_b2_title">Critérios de Sucesso e KPIs de Engenharia</div>
                 <ul class="checklist">
-                  <li><strong>Latência no Client:</strong> Servir visualizações e dados em menos de 35ms a partir da borda.</li>
-                  <li><strong>Carga no Servidor:</strong> Zero custo computacional pesado acionado por cliques de leitura do usuário.</li>
-                  <li><strong>Atualização Contínua:</strong> Pipeline assíncrono mantendo dados e status de contexto sempre sincronizados.</li>
-                  <li><strong>Resiliência de Integração:</strong> 100% de disponibilidade de pareceres mesmo sob instabilidade em serviços externos.</li>
+                  <li data-i18n="roadmap.p0_b2_item1"><strong>Latência no Client:</strong> Servir visualizações e dados em menos de 35ms a partir da borda.</li>
+                  <li data-i18n="roadmap.p0_b2_item2"><strong>Carga no Servidor:</strong> Zero custo computacional pesado acionado por cliques de leitura do usuário.</li>
+                  <li data-i18n="roadmap.p0_b2_item3"><strong>Atualização Contínua:</strong> Pipeline assíncrono mantendo dados e status de contexto sempre sincronizados.</li>
+                  <li data-i18n="roadmap.p0_b2_item4"><strong>Resiliência de Integração:</strong> 100% de disponibilidade de pareceres mesmo sob instabilidade em serviços externos.</li>
                 </ul>
               </div>
               <div class="content-block full">
-                <div class="infobox ib-green">
+                <div class="infobox ib-green" data-i18n="roadmap.p0_artifact">
                   <strong>Artefato Entregue na Fase 00:</strong> <em>Documento de Visão de Produto e Escopo Técnico</em>, formalizando a arquitetura assíncrona orientada a eventos para mitigar o gargalo de latência na experiência do usuário.
                 </div>
               </div>
@@ -253,32 +254,32 @@
               <div class="phase-desc" data-i18n="roadmap.p1_desc">Mapeamento de atores, serviços externos e fluxo macro do sistema</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-blue">C4 Nível 1</li>
-              <li class="tag tag--muted">2–4 dias</li>
+              <li class="tag badge-blue" data-i18n="roadmap.p1_tag1">C4 Nível 1</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p1_tag2">2–4 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block">
-                <div class="block-title">Atores e Papéis</div>
+                <div class="block-title" data-i18n="roadmap.p1_b1_title">Atores e Papéis</div>
                 <ul class="checklist">
-                  <li><strong>Usuário Final (Web / PWA):</strong> Navega por dados consolidados, aplica filtros e consome resumos analíticos em tempo real.</li>
-                  <li><strong>Hosted Background Workers:</strong> Processos assíncronos autônomos que realizam tarefas periódicas de ingestão e modelagem.</li>
-                  <li><strong>Serviços Externos:</strong> APIs de dados brutos e provedores de IA integrados com camadas de proteção e contingência.</li>
+                  <li data-i18n="roadmap.p1_b1_item1"><strong>Usuário Final (Web / PWA):</strong> Navega por dados consolidados, aplica filtros e consome resumos analíticos em tempo real.</li>
+                  <li data-i18n="roadmap.p1_b1_item2"><strong>Hosted Background Workers:</strong> Processos assíncronos autônomos que realizam tarefas periódicas de ingestão e modelagem.</li>
+                  <li data-i18n="roadmap.p1_b1_item3"><strong>Serviços Externos:</strong> APIs de dados brutos e provedores de IA integrados com camadas de proteção e contingência.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Fundamentos de Integração</div>
+                <div class="block-title" data-i18n="roadmap.p1_b2_title">Fundamentos de Integração</div>
                 <ul class="checklist">
-                  <li><strong>Isolamento de Responsabilidades:</strong> O cliente web nunca se comunica diretamente com serviços externos lentos.</li>
-                  <li><strong>Topologia Desacoplada:</strong> O backend centraliza a persistência atômica, servindo dados prontos para a camada de borda.</li>
-                  <li><strong>Comunicação Resiliente:</strong> Circuit breakers e retries automáticos com backoff exponencial.</li>
+                  <li data-i18n="roadmap.p1_b2_item1"><strong>Isolamento de Responsabilidades:</strong> O cliente web nunca se comunica diretamente com serviços externos lentos.</li>
+                  <li data-i18n="roadmap.p1_b2_item2"><strong>Topologia Desacoplada:</strong> O backend centraliza a persistência atômica, servindo dados prontos para a camada de borda.</li>
+                  <li data-i18n="roadmap.p1_b2_item3"><strong>Comunicação Resiliente:</strong> Circuit breakers e retries automáticos com backoff exponencial.</li>
                 </ul>
               </div>
               <div class="content-block full">
-                <div class="block-title">Diagrama C4 Nível 1 · Fluxo Arquitetural do Sistema</div>
-                <div class="spec-box spec-box--accent2">
+                <div class="block-title" data-i18n="roadmap.p1_c4_title">Diagrama C4 Nível 1 · Fluxo Arquitetural do Sistema</div>
+                <div class="spec-box spec-box--accent2" data-i18n="roadmap.p1_c4_diagram">
                   [ Usuário / Cliente ] ──(HTTPS/PWA)──&gt; [ Serviço Front / Edge CDN ] ──(Cache Miss)──&gt; [ Backend API (C# .NET) ]<br>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Leituras O(1))<br>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
@@ -301,16 +302,16 @@
               <div class="phase-desc" data-i18n="roadmap.p2_desc">Especificação precisa com critérios de aceite testáveis e priorização clara</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-purple">Gherkin BDD</li>
-              <li class="tag tag--muted">3–5 dias</li>
+              <li class="tag badge-purple" data-i18n="roadmap.p2_tag1">Gherkin BDD</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p2_tag2">3–5 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block full">
-                <div class="block-title">Especificação Comportamental em Gherkin</div>
-                <div class="spec-box">
+                <div class="block-title" data-i18n="roadmap.p2_spec_title">Especificação Comportamental em Gherkin</div>
+                <div class="spec-box" data-i18n="roadmap.p2_spec_content">
                   <strong class="text-accent3">História: Consulta Analítica com Resposta de Baixa Latência</strong><br>
                   <em>Como um</em> analista ou usuário da plataforma<br>
                   <em>Quero</em> acessar os relatórios e métricas consolidadas da rodada<br>
@@ -323,20 +324,20 @@
                 </div>
               </div>
               <div class="content-block">
-                <div class="block-title">Priorização de Escopo (MoSCoW)</div>
+                <div class="block-title" data-i18n="roadmap.p2_moscow_title">Priorização de Escopo (MoSCoW)</div>
                 <ul class="checklist">
-                  <li><strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.</li>
-                  <li><strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.</li>
-                  <li><strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.</li>
-                  <li><strong>Won't Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.</li>
+                  <li data-i18n="roadmap.p2_moscow_must"><strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.</li>
+                  <li data-i18n="roadmap.p2_moscow_should"><strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.</li>
+                  <li data-i18n="roadmap.p2_moscow_could"><strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.</li>
+                  <li data-i18n="roadmap.p2_moscow_wont"><strong>Won't Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Requisitos Não-Funcionais</div>
+                <div class="block-title" data-i18n="roadmap.p2_nfr_title">Requisitos Não-Funcionais</div>
                 <ul class="checklist">
-                  <li><strong>Performance:</strong> Time to First Byte (TTFB) &lt; 35ms para rotas de leitura em cache.</li>
-                  <li><strong>Eficiência de Recursos:</strong> Backend enxuto com baixo footprint de memória e CPU.</li>
-                  <li><strong>Alta Disponibilidade:</strong> Resiliência a falhas parciais em integrações externas.</li>
+                  <li data-i18n="roadmap.p2_nfr_item1"><strong>Performance:</strong> Time to First Byte (TTFB) &lt; 35ms para rotas de leitura em cache.</li>
+                  <li data-i18n="roadmap.p2_nfr_item2"><strong>Eficiência de Recursos:</strong> Backend enxuto com baixo footprint de memória e CPU.</li>
+                  <li data-i18n="roadmap.p2_nfr_item3"><strong>Alta Disponibilidade:</strong> Resiliência a falhas parciais em integrações externas.</li>
                 </ul>
               </div>
             </div>
@@ -352,33 +353,33 @@
               <div class="phase-desc" data-i18n="roadmap.p3_desc">Linguagem ubíqua, aggregate roots e persistência atômica de alta performance</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-green">DDD e NoSQL</li>
-              <li class="tag tag--muted">3–6 dias</li>
+              <li class="tag badge-green" data-i18n="roadmap.p3_tag1">DDD e NoSQL</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p3_tag2">3–6 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block">
-                <div class="block-title">O Problema e os Fundamentos DDD</div>
+                <div class="block-title" data-i18n="roadmap.p3_b1_title">O Problema e os Fundamentos DDD</div>
                 <ul class="checklist">
-                  <li><strong>O Problema:</strong> Modelos relacionais altamente normalizados exigiam múltiplos JOINs sob alta concorrência de leitura, degradando o tempo de resposta.</li>
-                  <li><strong>Fundamento Aplicado:</strong> Domain-Driven Design (DDD) com Aggregate Roots auto-contidos e consistência eventual.</li>
-                  <li><strong>Decisão de Modelagem:</strong> Estruturar agregados que consolidam metadados, métricas e análises pré-calculadas em um único documento atômico.</li>
-                  <li><strong>Benefício:</strong> Leituras em tempo $O(1)$ diretamente indexadas, eliminando consultas N+1.</li>
+                  <li data-i18n="roadmap.p3_b1_item1"><strong>O Problema:</strong> Modelos relacionais altamente normalizados exigiam múltiplos JOINs sob alta concorrência de leitura, degradando o tempo de resposta.</li>
+                  <li data-i18n="roadmap.p3_b1_item2"><strong>Fundamento Aplicado:</strong> Domain-Driven Design (DDD) com Aggregate Roots auto-contidos e consistência eventual.</li>
+                  <li data-i18n="roadmap.p3_b1_item3"><strong>Decisão de Modelagem:</strong> Estruturar agregados que consolidam metadados, métricas e análises pré-calculadas em um único documento atômico.</li>
+                  <li data-i18n="roadmap.p3_b1_item4"><strong>Benefício:</strong> Leituras em tempo $O(1)$ diretamente indexadas, eliminando consultas N+1.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Bounded Contexts e Índices</div>
+                <div class="block-title" data-i18n="roadmap.p3_b2_title">Bounded Contexts e Índices</div>
                 <ul class="checklist">
-                  <li><strong>Contexto de Ingestão:</strong> Coleta e saneamento de dados de fontes externas.</li>
-                  <li><strong>Contexto Analítico:</strong> Execução de modelos estatísticos e agregações em lote.</li>
-                  <li><strong>Contexto de Consulta:</strong> Resolução rápida de queries com índices compostos estratégicos.</li>
-                  <li><strong>Idempotência:</strong> Provisionamento automático de índices na inicialização do serviço.</li>
+                  <li data-i18n="roadmap.p3_b2_item1"><strong>Contexto de Ingestão:</strong> Coleta e saneamento de dados de fontes externas.</li>
+                  <li data-i18n="roadmap.p3_b2_item2"><strong>Contexto Analítico:</strong> Execução de modelos estatísticos e agregações em lote.</li>
+                  <li data-i18n="roadmap.p3_b2_item3"><strong>Contexto de Consulta:</strong> Resolução rápida de queries com índices compostos estratégicos.</li>
+                  <li data-i18n="roadmap.p3_b2_item4"><strong>Idempotência:</strong> Provisionamento automático de índices na inicialização do serviço.</li>
                 </ul>
               </div>
               <div class="content-block full">
-                <div class="infobox ib-green">
+                <div class="infobox ib-green" data-i18n="roadmap.p3_artifact">
                   <strong>Artefato Entregue na Fase 03:</strong> <em>Modelo de Domínio em C# e Mapeamento de Persistência NoSQL</em>, consolidando agregados de leitura atômica sem sobrecarga relacional.
                 </div>
               </div>
@@ -395,25 +396,25 @@
               <div class="phase-desc" data-i18n="roadmap.p4_desc">Clean Architecture em 4 camadas, desacoplamento assíncrono e resiliência</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-amber">Clean Architecture (.NET)</li>
-              <li class="tag tag--muted">4–7 dias</li>
+              <li class="tag badge-amber" data-i18n="roadmap.p4_tag1">Clean Architecture (.NET)</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p4_tag2">4–7 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block full">
-                <div class="block-title">ADR #001 · Clean Architecture com Desacoplamento Zero-Compute em Background (.NET 10)</div>
-                <div class="spec-box">
+                <div class="block-title" data-i18n="roadmap.p4_adr1_title">ADR #001 · Clean Architecture com Desacoplamento Zero-Compute em Background (.NET 10)</div>
+                <div class="spec-box" data-i18n="roadmap.p4_adr1_content">
                   <strong class="text-orange">Status:</strong> APROVADO E IMPLEMENTADO<br>
                   <strong class="text-blue">Contexto:</strong> Cálculos matemáticos estocásticos e requisições para LLMs possuem tempo de execução imprevisível (800ms a 3s). Bloquear requisições HTTP síncronas degradaria a experiência do usuário e saturaria o pool de threads do servidor.<br>
-                  <strong class="text-green">Decisão:</strong> Adotar <strong>Clean Architecture</strong> em C# (.NET 10) com separação estrita de camadas (<em>Domain, Application, Infrastructure, WebApi</em>) e padrão CQRS (MediatR). 100% das tarefas pesadas foram movidas para <code class="inline-code">HostedService</code> de background. As rotas HTTP realizam apenas leituras em $O(1)$ de documentos consolidados.<br>
+                  <strong class="text-green">Decisão:</strong> Adotar <strong>Clean Architecture</strong> em C# (.NET 10) com separação estrita de camadas (<em>Domain, Application, Infrastructure, WebApi</em>) e padrão CQRS (MediatR). 100% das tarefas pesadas foram movidas para <code class="inline-code">HostedService</code> de background. As rotas HTTP realizam apenas leituras em O(1) de documentos consolidados.<br>
                   <strong class="text-amber">Consequências:</strong> Resposta instantânea da API, separação clara de responsabilidades, previsibilidade de consumo de CPU e facilidade de manutenção e testes.
                 </div>
               </div>
               <div class="content-block full">
-                <div class="block-title">ADR #002 · Cadeia de Resiliência e Fallback para Serviços Externos</div>
-                <div class="spec-box">
+                <div class="block-title" data-i18n="roadmap.p4_adr2_title">ADR #002 · Cadeia de Resiliência e Fallback para Serviços Externos</div>
+                <div class="spec-box" data-i18n="roadmap.p4_adr2_content">
                   <strong class="text-orange">Status:</strong> APROVADO E IMPLEMENTADO<br>
                   <strong class="text-blue">Contexto:</strong> Serviços de IA e APIs externas de dados podem apresentar instabilidade pontual, picos de latência ou rate limiting (HTTP 429).<br>
                   <strong class="text-green">Decisão:</strong> Implementar uma <strong>Cadeia de Contingência Resiliente</strong> no adaptador de infraestrutura, com fallback automático em cascata entre múltiplos modelos e estratégias de cache.<br>
@@ -433,27 +434,27 @@
               <div class="phase-desc" data-i18n="roadmap.p5_desc">Proteção de borda, controle de abuso e entrega acelerada via CDN</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-red">RFC-7234 + Segurança</li>
-              <li class="tag tag--muted">3–5 dias</li>
+              <li class="tag badge-red" data-i18n="roadmap.p5_tag1">RFC-7234 + Segurança</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p5_tag2">3–5 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block">
-                <div class="block-title">Proteção e Defesa em Profundidade</div>
+                <div class="block-title" data-i18n="roadmap.p5_b1_title">Proteção e Defesa em Profundidade</div>
                 <ul class="checklist">
-                  <li><strong>Rate Limiting no ASP.NET Core:</strong> Middleware com limite de taxa por IP para evitar abusos e scraping automatizado.</li>
-                  <li><strong>Autenticação de Origem:</strong> Validação de requisições de clientes autorizados via headers criptográficos.</li>
-                  <li><strong>Gestão Segura de Configurações:</strong> Segredos e credenciais isolados do repositório e injetados via variáveis de ambiente em runtime.</li>
+                  <li data-i18n="roadmap.p5_b1_item1"><strong>Rate Limiting no ASP.NET Core:</strong> Middleware com limite de taxa por IP para evitar abusos e scraping automatizado.</li>
+                  <li data-i18n="roadmap.p5_b1_item2"><strong>Autenticação de Origem:</strong> Validação de requisições de clientes autorizados via headers criptográficos.</li>
+                  <li data-i18n="roadmap.p5_b1_item3"><strong>Gestão Segura de Configurações:</strong> Segredos e credenciais isolados do repositório e injetados via variáveis de ambiente em runtime.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Estratégia de Cacheamento na Borda</div>
+                <div class="block-title" data-i18n="roadmap.p5_b2_title">Estratégia de Cacheamento na Borda</div>
                 <ul class="checklist">
-                  <li><strong>Headers Declarativos:</strong> Utilização do padrão <code class="inline-code">stale-while-revalidate</code> na camada de controllers.</li>
-                  <li><strong>Desafogamento do Backend:</strong> Requisições subsequentes são atendidas pela CDN global, reduzindo hits ao banco.</li>
-                  <li><strong>Sanitização de Payload:</strong> Filtros de saída garantem que apenas dados pertinentes ao estado atual sejam expostos.</li>
+                  <li data-i18n="roadmap.p5_b2_item1"><strong>Headers Declarativos:</strong> Utilização do padrão <code class="inline-code">stale-while-revalidate</code> na camada de controllers.</li>
+                  <li data-i18n="roadmap.p5_b2_item2"><strong>Desafogamento do Backend:</strong> Requisições subsequentes são atendidas pela CDN global, reduzindo hits ao banco.</li>
+                  <li data-i18n="roadmap.p5_b2_item3"><strong>Sanitização de Payload:</strong> Filtros de saída garantem que apenas dados pertinentes ao estado atual sejam expostos.</li>
                 </ul>
               </div>
             </div>
@@ -469,32 +470,32 @@
               <div class="phase-desc" data-i18n="roadmap.p6_desc">Ambiente 100% reproduzível com Hot Reload e controle rigoroso de recursos</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-blue">Docker Compose</li>
-              <li class="tag tag--muted">3–5 dias</li>
+              <li class="tag badge-blue" data-i18n="roadmap.p6_tag1">Docker Compose</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p6_tag2">3–5 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block">
-                <div class="block-title">Stack de Produção Selecionada</div>
+                <div class="block-title" data-i18n="roadmap.p6_b1_title">Stack de Produção Selecionada</div>
                 <ul class="checklist">
-                  <li><strong>Backend:</strong> C# .NET 10 (ASP.NET Core Web API, MediatR, Hosted Services).</li>
-                  <li><strong>Frontend:</strong> React 19, TypeScript, Vite, Tailwind CSS e PWA Standalone.</li>
-                  <li><strong>Banco de Dados:</strong> MongoDB (NoSQL atômico com índices compostos).</li>
-                  <li><strong>Borda e Deploy:</strong> Edge CDN com cacheamento HTTP RFC-7234.</li>
+                  <li data-i18n="roadmap.p6_b1_item1"><strong>Backend:</strong> C# .NET 10 (ASP.NET Core Web API, MediatR, Hosted Services).</li>
+                  <li data-i18n="roadmap.p6_b1_item2"><strong>Frontend:</strong> React 19, TypeScript, Vite, Tailwind CSS e PWA Standalone.</li>
+                  <li data-i18n="roadmap.p6_b1_item3"><strong>Banco de Dados:</strong> MongoDB (NoSQL atômico com índices compostos).</li>
+                  <li data-i18n="roadmap.p6_b1_item4"><strong>Borda e Deploy:</strong> Edge CDN com cacheamento HTTP RFC-7234.</li>
                 </ul>
               </div>
               <div class="content-block">
-                <div class="block-title">Fundamentos de Containerização</div>
+                <div class="block-title" data-i18n="roadmap.p6_b2_title">Fundamentos de Containerização</div>
                 <ul class="checklist">
-                  <li><strong>Isolamento de Recursos:</strong> Limites explícitos de memória (<code class="inline-code">mem_limit</code>) configurados para cada serviço.</li>
-                  <li><strong>Produtividade com Hot Reload:</strong> Bind mounts e watchers otimizados para compilação contínua em C# e Frontend.</li>
-                  <li><strong>Healthchecks Ativos:</strong> Serviços aguardam prontidão dos bancos antes de iniciar a inicialização da aplicação.</li>
+                  <li data-i18n="roadmap.p6_b2_item1"><strong>Isolamento de Recursos:</strong> Limites explícitos de memória (<code class="inline-code">mem_limit</code>) configurados para cada serviço.</li>
+                  <li data-i18n="roadmap.p6_b2_item2"><strong>Produtividade com Hot Reload:</strong> Bind mounts e watchers otimizados para compilação contínua em C# e Frontend.</li>
+                  <li data-i18n="roadmap.p6_b2_item3"><strong>Healthchecks Ativos:</strong> Serviços aguardam prontidão dos bancos antes de iniciar a inicialização da aplicação.</li>
                 </ul>
               </div>
               <div class="content-block full">
-                <div class="infobox ib-blue">
+                <div class="infobox ib-blue" data-i18n="roadmap.p6_artifact">
                   <strong>Artefato Entregue na Fase 06:</strong> <em>Orquestração Docker Compose Multi-Container</em>, garantindo paridade total entre ambiente local e produção com subida de 1 comando.
                 </div>
               </div>
@@ -511,20 +512,20 @@
               <div class="phase-desc" data-i18n="roadmap.p7_desc">Design formal de contratos de API e garantia de qualidade em 3 camadas de testes</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-blue">Testes e OpenAPI</li>
-              <li class="tag tag--muted">2–3 dias</li>
+              <li class="tag badge-blue" data-i18n="roadmap.p7_tag1">Testes e OpenAPI</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p7_tag2">2–3 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block full">
-                <div class="block-title">Estratégia de Contratos e Testes Automatizados</div>
+                <div class="block-title" data-i18n="roadmap.p7_b1_title">Estratégia de Contratos e Testes Automatizados</div>
                 <ul class="checklist">
-                  <li><strong>Contratos de Interface (OpenAPI 3.0 / Swagger):</strong> Rotas padronizadas para consulta de datas, agregados de partidas, simulações e status do sistema.</li>
-                  <li><strong>Testes Unitários e de Domínio (C# .NET xUnit):</strong> Cobertura extensiva de regras de negócio, cálculos matemáticos e resiliência de fallback.</li>
-                  <li><strong>Testes de Componentes e Hooks (Frontend Vitest):</strong> Validação de renderização, gerenciamento de estado global e compatibilidade PWA.</li>
-                  <li><strong>Testes End-to-End BDD (Playwright):</strong> Simulação da jornada real do usuário cobrindo primeiro acesso, navegação e filtros.</li>
+                  <li data-i18n="roadmap.p7_b1_item1"><strong>Contratos de Interface (OpenAPI 3.0 / Swagger):</strong> Rotas padronizadas para consulta de datas, agregados de partidas, simulações e status do sistema.</li>
+                  <li data-i18n="roadmap.p7_b1_item2"><strong>Testes Unitários e de Domínio (C# .NET xUnit):</strong> Cobertura extensiva de regras de negócio, cálculos matemáticos e resiliência de fallback.</li>
+                  <li data-i18n="roadmap.p7_b1_item3"><strong>Testes de Componentes e Hooks (Frontend Vitest):</strong> Validação de renderização, gerenciamento de estado global e compatibilidade PWA.</li>
+                  <li data-i18n="roadmap.p7_b1_item4"><strong>Testes End-to-End BDD (Playwright):</strong> Simulação da jornada real do usuário cobrindo primeiro acesso, navegação e filtros.</li>
                 </ul>
               </div>
             </div>
@@ -540,45 +541,45 @@
               <div class="phase-desc" data-i18n="roadmap.p8_desc">Checklist de prontidão técnica aprovado e operação contínua com alta performance</div>
             </div>
             <ul class="phase-tags" aria-label="Tags da Fase">
-              <li class="tag badge-green">Live in Production</li>
-              <li class="tag tag--muted">1–2 dias</li>
+              <li class="tag badge-green" data-i18n="roadmap.p8_tag1">Live in Production</li>
+              <li class="tag tag--muted" data-i18n="roadmap.p8_tag2">1–2 dias</li>
             </ul>
             <svg class="chevron-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
           </div>
           <div class="phase-body">
             <div class="content-grid">
               <div class="content-block full">
-                <div class="block-title">Status do Gate de Entrada em Produção</div>
+                <div class="block-title" data-i18n="roadmap.p8_gate_title">Status do Gate de Entrada em Produção</div>
                 <div class="gate-status-grid">
                   <div>
-                    <div class="gate-column-title text-green">✓ FUNDAMENTOS E BACKEND (100%)</div>
+                    <div class="gate-column-title text-green" data-i18n="roadmap.p8_col1_title">✓ FUNDAMENTOS E BACKEND (100%)</div>
                     <ul class="checklist">
-                      <li>Clean Architecture em C# .NET 10 implementada</li>
-                      <li>Desacoplamento Zero-Compute em Background Workers</li>
-                      <li>Persistência NoSQL atômica em tempo O(1)</li>
-                      <li>100% da suíte de testes xUnit aprovada</li>
+                      <li data-i18n="roadmap.p8_col1_item1">Clean Architecture em C# .NET 10 implementada</li>
+                      <li data-i18n="roadmap.p8_col1_item2">Desacoplamento Zero-Compute em Background Workers</li>
+                      <li data-i18n="roadmap.p8_col1_item3">Persistência NoSQL atômica em tempo O(1)</li>
+                      <li data-i18n="roadmap.p8_col1_item4">100% da suíte de testes xUnit aprovada</li>
                     </ul>
                   </div>
                   <div>
-                    <div class="gate-column-title text-accent2">✓ FRONTEND E PERFORMANCE (100%)</div>
+                    <div class="gate-column-title text-accent2" data-i18n="roadmap.p8_col2_title">✓ FRONTEND E PERFORMANCE (100%)</div>
                     <ul class="checklist">
-                      <li>Edge Caching com TTFB sub-35ms</li>
-                      <li>Stale-while-revalidate RFC-7234</li>
-                      <li>PWA com modo Offline First nativo</li>
-                      <li>Core Web Vitals em faixa verde (100/100)</li>
+                      <li data-i18n="roadmap.p8_col2_item1">Edge Caching com TTFB sub-35ms</li>
+                      <li data-i18n="roadmap.p8_col2_item2">Stale-while-revalidate RFC-7234</li>
+                      <li data-i18n="roadmap.p8_col2_item3">PWA com modo Offline First nativo</li>
+                      <li data-i18n="roadmap.p8_col2_item4">Core Web Vitals em faixa verde (100/100)</li>
                     </ul>
                   </div>
                   <div>
-                    <div class="gate-column-title text-purple">✓ QUALIDADE E RESILIÊNCIA (100%)</div>
+                    <div class="gate-column-title text-purple" data-i18n="roadmap.p8_col3_title">✓ QUALIDADE E RESILIÊNCIA (100%)</div>
                     <ul class="checklist">
-                      <li>Contratos OpenAPI 3.0 documentados</li>
-                      <li>Fallback em cascata entre LLMs</li>
-                      <li>Testes E2E cobrindo 100% dos fluxos BDD</li>
-                      <li>Docker Multi-Container reproduzível</li>
+                      <li data-i18n="roadmap.p8_col3_item1">Contratos OpenAPI 3.0 documentados</li>
+                      <li data-i18n="roadmap.p8_col3_item2">Fallback em cascata entre LLMs</li>
+                      <li data-i18n="roadmap.p8_col3_item3">Testes E2E cobrindo 100% dos fluxos BDD</li>
+                      <li data-i18n="roadmap.p8_col3_item4">Docker Multi-Container reproduzível</li>
                     </ul>
                   </div>
                 </div>
-                <div class="infobox ib-green">
+                <div class="infobox ib-green" data-i18n="roadmap.p8_verdict">
                   <strong>Veredito do Gate: [LIVE IN PRODUCTION]</strong> A plataforma foi homologada e está operando em produção contínua. Os workers assíncronos em C# .NET realizam o processamento prévio dos dados, entregando uma experiência instantânea e estável para o usuário final com custo operacional enxuto.
                 </div>
               </div>
@@ -596,23 +597,23 @@
         <div class="timeline">
           <div class="tline-item">
             <div class="tline-line"><div class="tline-dot tline-dot--accent"></div><div class="tline-connector"></div></div>
-            <div class="tline-content"><div class="tline-title">Semana 1 · Discovery e Modelagem da Solução</div><div class="tline-desc">Análise de Causa Raiz da dor de negócio · Definição de KPIs de Engenharia · Estratégia de Processamento Assíncrono</div></div>
+            <div class="tline-content"><div class="tline-title" data-i18n="roadmap.tline1_title">Semana 1 · Discovery e Modelagem da Solução</div><div class="tline-desc" data-i18n="roadmap.tline1_desc">Análise de Causa Raiz da dor de negócio · Definição de KPIs de Engenharia · Estratégia de Processamento Assíncrono</div></div>
           </div>
           <div class="tline-item">
             <div class="tline-line"><div class="tline-dot tline-dot--accent2"></div><div class="tline-connector"></div></div>
-            <div class="tline-content"><div class="tline-title">Semana 2 · Domínio DDD e Persistência NoSQL</div><div class="tline-desc">Modelagem de Agregados Atômicos em C# · Eliminação de queries N+1 · Índices compostos e leitura em O(1)</div></div>
+            <div class="tline-content"><div class="tline-title" data-i18n="roadmap.tline2_title">Semana 2 · Domínio DDD e Persistência NoSQL</div><div class="tline-desc" data-i18n="roadmap.tline2_desc">Modelagem de Agregados Atômicos em C# · Eliminação de queries N+1 · Índices compostos e leitura em O(1)</div></div>
           </div>
           <div class="tline-item">
             <div class="tline-line"><div class="tline-dot tline-dot--accent3"></div><div class="tline-connector"></div></div>
-            <div class="tline-content"><div class="tline-title">Semana 3 · Clean Architecture e Hosted Workers (.NET 10)</div><div class="tline-desc">ADR #001 Desacoplamento Zero-Compute · ADR #002 Cadeia de Resiliência de IA · Ingestão e Processamento em Background</div></div>
+            <div class="tline-content"><div class="tline-title" data-i18n="roadmap.tline3_title">Semana 3 · Clean Architecture e Hosted Workers (.NET 10)</div><div class="tline-desc" data-i18n="roadmap.tline3_desc">ADR #001 Desacoplamento Zero-Compute · ADR #002 Cadeia de Resiliência de IA · Ingestão e Processamento em Background</div></div>
           </div>
           <div class="tline-item">
             <div class="tline-line"><div class="tline-dot tline-dot--green"></div><div class="tline-connector"></div></div>
-            <div class="tline-content"><div class="tline-title">Semana 4 · Frontend Moderno, Edge Caching e Testes</div><div class="tline-desc">React 19 + PWA · Headers de Cache RFC-7234 (stale-while-revalidate) · Suíte de Testes Automatizados (xUnit, Vitest, E2E)</div></div>
+            <div class="tline-content"><div class="tline-title" data-i18n="roadmap.tline4_title">Semana 4 · Frontend Moderno, Edge Caching e Testes</div><div class="tline-desc" data-i18n="roadmap.tline4_desc">React 19 + PWA · Headers de Cache RFC-7234 (stale-while-revalidate) · Suíte de Testes Automatizados (xUnit, Vitest, E2E)</div></div>
           </div>
           <div class="tline-item">
             <div class="tline-line"><div class="tline-dot tline-dot--orange"></div></div>
-            <div class="tline-content"><div class="tline-title">Produção · Live in Production</div><div class="tline-desc">Plataforma operando em produção com alta disponibilidade, custo otimizado e resposta instantânea para o usuário.</div></div>
+            <div class="tline-content"><div class="tline-title" data-i18n="roadmap.tline5_title">Produção · Live in Production</div><div class="tline-desc" data-i18n="roadmap.tline5_desc">Plataforma operando em produção com alta disponibilidade, custo otimizado e resposta instantânea para o usuário.</div></div>
           </div>
         </div>
       </div>
@@ -620,7 +621,7 @@
 
     <!-- ── FOOTER PROGRESS BAR ── -->
     <div class="footer-progress-bar">
-      <span>COSTAR · Roadmap de Engenharia de Software (Estudo de Caso SaaS)</span>
+      <span data-i18n="roadmap.progress_footer_label">COSTAR · Roadmap de Engenharia de Software (Estudo de Caso SaaS)</span>
       <div class="progress-wrap">
         <span id="progress-text">0 / 8 fases abertas</span>
         <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>

@@ -1,6 +1,6 @@
 /**
  * COSTAR · BLOG ENGINE (Vanilla ES2026 Module)
- * Client-side manifest consumer, tag filter, series navigator & localized renderer.
+ * Client-side manifest consumer, tag filter, series navigator and localized renderer.
  * Zero external dependencies.
  */
 
@@ -67,7 +67,7 @@
   }
 
   // ═════════════════════════════════════════════════════════════════════
-  // 1. MODO INDEX (LISTAGEM & FILTROS)
+  // 1. MODO INDEX (LISTAGEM e FILTROS)
   // ═════════════════════════════════════════════════════════════════════
   function renderTagsFilter() {
     if (!tagsFilterEl) return;

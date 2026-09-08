@@ -11,11 +11,12 @@ const zlib = require('zlib');
 
 const ROOT_DIR = __dirname;
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
+const BUILD_VERSION = 'pvdukdev-v2.5.0';
 
 const startTime = Date.now();
 
 console.log('═══════════════════════════════════════════════════════════');
-console.log('🚀 INICIANDO BUILD DE PRODUÇÃO (ZERO-DEPENDENCY)...');
+console.log(`🚀 INICIANDO BUILD DE PRODUÇÃO (${BUILD_VERSION} · ZERO-DEP)...`);
 console.log('═══════════════════════════════════════════════════════════\n');
 
 // 1. Limpeza e criação da pasta dist/
@@ -33,6 +34,19 @@ fs.mkdirSync(path.join(DIST_DIR, 'blog'), { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'blog/css'), { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'blog/js'), { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'blog/posts'), { recursive: true });
+
+// 1.1 Cache-Busting de Assets Estáticos
+function applyCacheBusting(html, version) {
+  return html
+    .replace(/(href=")([^"]+\.css)(")/g, (match, prefix, url, suffix) => {
+      if (url.startsWith('http') || url.startsWith('//') || url.includes('?v=')) return match;
+      return `${prefix}${url}?v=${version}${suffix}`;
+    })
+    .replace(/(src=")([^"]+\.js)(")/g, (match, prefix, url, suffix) => {
+      if (url.startsWith('http') || url.startsWith('//') || url.includes('?v=') || url.includes('sw.js')) return match;
+      return `${prefix}${url}?v=${version}${suffix}`;
+    });
+}
 
 // 2. Utilitários de Minificação Pura (Sem dependências npm)
 function minifyCSS(css) {
@@ -122,7 +136,37 @@ Sitemap: ${BASE_URL}/sitemap.xml
   fs.writeFileSync(path.join(ROOT_DIR, 'robots.txt'), robotsTxt, 'utf8');
 }
 
+// 2.2 Sincronizador de Dicionários i18n (Single Source of Truth)
+function syncTranslations() {
+  const ptPath = path.join(ROOT_DIR, 'js/translations/pt.js');
+  const enPath = path.join(ROOT_DIR, 'js/translations/en.js');
+  const appPath = path.join(ROOT_DIR, 'js/app.js');
+
+  if (!fs.existsSync(ptPath) || !fs.existsSync(enPath) || !fs.existsSync(appPath)) return;
+
+  const ptContent = fs.readFileSync(ptPath, 'utf8');
+  const enContent = fs.readFileSync(enPath, 'utf8');
+  const appContent = fs.readFileSync(appPath, 'utf8');
+
+  const ptMatch = ptContent.match(/export const pt = ({[\s\S]*?});/);
+  const enMatch = enContent.match(/export const en = ({[\s\S]*?});/);
+
+  if (!ptMatch || !enMatch) return;
+
+  const dictPattern = /const dictionaries = {[\s\S]*?};\s*Object\.freeze\(dictionaries\.pt\);\s*Object\.freeze\(dictionaries\.en\);\s*Object\.freeze\(dictionaries\);/;
+  const newDictBlock = `const dictionaries = {\n    pt: ${ptMatch[1]},\n    en: ${enMatch[1]}\n  };\n\n  Object.freeze(dictionaries.pt);\n  Object.freeze(dictionaries.en);\n  Object.freeze(dictionaries);`;
+
+  if (dictPattern.test(appContent)) {
+    const updatedApp = appContent.replace(dictPattern, newDictBlock);
+    if (updatedApp !== appContent) {
+      fs.writeFileSync(appPath, updatedApp, 'utf8');
+      console.log('  ✓ js/app.js sincronizado automaticamente a partir de js/translations/ (Single Source of Truth)');
+    }
+  }
+}
+
 // 3. Arquivos para Processar
+syncTranslations();
 generateSitemapAndRobots();
 
 const filesToProcess = [
@@ -131,6 +175,7 @@ const filesToProcess = [
   { src: '404.html', dest: '404.html', type: 'html' },
   { src: 'blog/index.html', dest: 'blog/index.html', type: 'html' },
   { src: 'blog/posts/TEMPLATE.html', dest: 'blog/posts/TEMPLATE.html', type: 'html' },
+  { src: 'blog/posts/2026-08-anatomia-do-cache-o-navegador.html', dest: 'blog/posts/2026-08-anatomia-do-cache-o-navegador.html', type: 'html' },
   { src: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', dest: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', type: 'html' },
   { src: 'data/posts.json', dest: 'data/posts.json', type: 'json' },
   { src: 'sitemap.xml', dest: 'sitemap.xml', type: 'raw' },
@@ -168,10 +213,17 @@ filesToProcess.forEach(({ src, dest, type }) => {
   const originalContent = fs.readFileSync(srcPath, 'utf8');
   let processedContent = originalContent;
 
-  if (type === 'html') processedContent = minifyHTML(originalContent);
-  else if (type === 'css') processedContent = minifyCSS(originalContent);
-  else if (type === 'js') processedContent = minifyJS(originalContent);
-  else if (type === 'json') {
+  if (type === 'html') {
+    processedContent = applyCacheBusting(originalContent, BUILD_VERSION);
+    processedContent = minifyHTML(processedContent);
+  } else if (type === 'css') {
+    processedContent = minifyCSS(originalContent);
+  } else if (type === 'js') {
+    if (src === 'sw.js') {
+      processedContent = originalContent.replace(/const CACHE_VERSION = '[^']+';/, `const CACHE_VERSION = '${BUILD_VERSION}';`);
+    }
+    processedContent = minifyJS(processedContent);
+  } else if (type === 'json') {
     try {
       processedContent = JSON.stringify(JSON.parse(originalContent));
     } catch (e) {

@@ -1,11 +1,11 @@
 /**
  * ═════════════════════════════════════════════════════════════════════
  * COSTAR PWA SERVICE WORKER · VANILLA ES2026
- * Offline-First App Shell & Stale-While-Revalidate Engine
+ * Offline-First App Shell e Stale-While-Revalidate Engine
  * ═════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'pvdukdev-v2.4.0';
+const CACHE_VERSION = 'pvdukdev-v2.5.0';
 const CACHE_NAME = `costar-pwa-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -15,6 +15,7 @@ const PRECACHE_ASSETS = [
   './404.html',
   './blog/index.html',
   './blog/posts/TEMPLATE.html',
+  './blog/posts/2026-08-anatomia-do-cache-o-navegador.html',
   './blog/posts/2025-01-anatomia-do-cache-o-navegador.html',
   './data/posts.json',
   './sitemap.xml',
@@ -111,9 +112,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets Estáticos (CSS, JS, SVGs, Imagens): Stale-While-Revalidate
+  // Assets Estáticos (CSS, JS, SVGs, Imagens): Stale-While-Revalidate com ignoreSearch
   event.respondWith(
-    caches.match(request).then((cachedResponse) => {
+    caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
       const fetchPromise = fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
@@ -129,4 +130,11 @@ self.addEventListener('fetch', (event) => {
       return cachedResponse || fetchPromise;
     })
   );
+});
+
+// 4. Mensagens de Controle (SKIP_WAITING disparado a partir do cliente)
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

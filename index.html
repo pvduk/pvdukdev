@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <!-- Content Security Policy (CSP · Zero-Trust e Defesa contra XSS/Injection) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
   <script>
@@ -30,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pvduk · Engenheiro de Software e FullStack C#/React</title>
   <meta name="title" content="pvduk · Engenheiro de Software e FullStack C#/React">
-  <meta name="description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta name="description" content="Engenheiro de Software e FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
   <meta name="author" content="pvdukdev">
   <link rel="canonical" href="https://pvduk.github.io/pvdukdev/">
 
@@ -38,7 +38,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pvduk.github.io/pvdukdev/">
   <meta property="og:title" content="pvduk · Engenheiro de Software e FullStack C#/React">
-  <meta property="og:description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta property="og:description" content="Engenheiro de Software e FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
   <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta property="og:image:secure_url" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -53,7 +53,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://pvduk.github.io/pvdukdev/">
   <meta name="twitter:title" content="pvduk · Engenheiro de Software e FullStack C#/React">
-  <meta name="twitter:description" content="Engenheiro de Software & FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
+  <meta name="twitter:description" content="Engenheiro de Software e FullStack C#/React especializado em Clean Architecture, Performance Web (CWV), DDD e Estudo de Caso SaaS de alta performance.">
   <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta name="twitter:image:alt" content="pvduk · Engenheiro de Software - Preview do Portfólio e Roadmap SaaS">
   <meta name="twitter:creator" content="@pvduk">
@@ -61,7 +61,7 @@
   <!-- Favicon com a Marca Visual SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 
-  <!-- PWA & Mobile Web App Capabilities -->
+  <!-- PWA e Recursos Mobile Web App -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
@@ -71,7 +71,7 @@
   <meta name="apple-mobile-web-app-title" content="pvduk.dev">
   <link rel="apple-touch-icon" href="assets/logo.svg">
 
-  <!-- Self-Hosted WOFF2 Fonts Preload (Zero Third-Party Latency · Inter & JetBrains Mono) -->
+  <!-- Preload de Fontes WOFF2 Self-Hosted (Zero Latência Externa · Inter e JetBrains Mono) -->
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -108,6 +108,7 @@
     <nav class="topbar-nav" aria-label="Navegação Principal">
       <a class="nav-pill active" href="index.html" data-i18n="nav.home">Início</a>
       <a class="nav-pill" href="roadmap-requisitos.html" data-i18n="nav.roadmap">Roadmap</a>
+      <a class="nav-pill" href="blog/index.html" data-i18n="nav.blog">Blog</a>
     </nav>
 
     <div class="topbar-controls">
@@ -136,7 +137,7 @@
       <!-- ─── HERO SECTION ─── -->
       <section class="hero-engineer" aria-labelledby="hero-title">
         <!-- Emblema de Marca e Nome no Hero -->
-        <div class="hero-brand-lockup" aria-label="pvduk.dev">
+        <div class="hero-brand-lockup" aria-label="Paulo Dukven · pvduk.dev">
           <div class="hero-brand-logo" aria-hidden="true">
             <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="pvduk logo">
               <rect width="100" height="100" rx="16" fill="#000000"/>
@@ -145,7 +146,10 @@
               <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
             </svg>
           </div>
-          <span class="hero-brand-name" data-i18n="nav.brand">pvduk · dev</span>
+          <div class="hero-brand-text">
+            <span class="hero-author-name" data-i18n="hub.author_name">Paulo Dukven</span>
+            <span class="hero-brand-name" data-i18n="nav.brand">pvduk · dev</span>
+          </div>
         </div>
 
         <div class="status-badge">
@@ -205,12 +209,12 @@
               <div class="project-card-header">
                 <img src="assets/analytics-icon.png" alt="FirstStrike Analytics Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async">
                 <div class="project-card-header-text">
-                  <div class="vol-tag" data-i18n="analytics.tag">Produção Live · IA & Modelagem Quantitativa · FullStack .NET 10 / React 19</div>
+                  <div class="vol-tag" data-i18n="analytics.tag">Produção Live · IA e Modelagem Quantitativa · FullStack .NET 10 / React 19</div>
                   <h3 class="vol-title" data-i18n="analytics.title">FirstStrike Analytics ⚡ · Plataforma Quantitativa da NBA</h3>
                 </div>
               </div>
               <p class="vol-desc" data-i18n="analytics.desc">
-                Plataforma SaaS quantitativa de alta precisão projetada para modelar, prever e analisar o desempenho de atletas da NBA em dois escopos: Primeiro Quarto (Q1, 12 min) e Jogo Completo (Full Game, 48 min). Combina distribuições estatísticas discretas (Poisson e Binomial Negativa), simulações conjuntas de Monte Carlo (10.000 iterações por cenário) e IA generativa (Google Gemini) para identificar valor esperado (EV+).
+                Engine analítica que roda 10.000 simulações de Monte Carlo por cenário para precificar probabilidades e valor esperado (EV+) na NBA. Desenhada para eliminar a latência computacional: cálculo pesado em background (.NET 10 assíncrono) e entrega instantânea em React 19 na borda.
               </p>
               <ul class="vol-features">
                 <li data-i18n="analytics.feat1">Dual-Scope Analytics: Modelagem estatística especializada para 1º Quarto e Jogo Completo</li>
@@ -251,7 +255,7 @@
                 <img src="assets/planexa-icon.png" alt="Planexa OS Logo" class="project-card-icon" width="64" height="64" loading="lazy" decoding="async">
                 <div class="project-card-header-text">
                   <div class="vol-tag" data-i18n="planexa.tag">Desktop Nativo · Clean Architecture · 100% Offline-First</div>
-                  <h3 class="vol-title" data-i18n="planexa.title">Planexa OS 💎⚡ · Executive Workflow & Gantt</h3>
+                  <h3 class="vol-title" data-i18n="planexa.title">Planexa OS 💎⚡ · Fluxo Executivo e Gantt Nativo</h3>
                 </div>
               </div>
               <p class="vol-desc" data-i18n="planexa.desc">

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <!-- Content Security Policy (CSP · Zero-Trust & XSS/Injection Defense) -->
+  <!-- Content Security Policy (CSP · Zero-Trust e Defesa contra XSS/Injection) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
   <!-- Anti-FOUC (Flash of Unstyled Theme / Mode / Lang) Instant Execution Engine -->
   <script>
@@ -27,7 +27,7 @@
   <title>Clean Architecture e Web Standards · Artigo | pvduk dev</title>
   <meta name="title" content="Clean Architecture e Web Standards · Artigo | pvduk dev">
   <meta name="description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
-  <meta name="author" content="pvdukdev">
+  <meta name="author" content="pvduk">
   <link rel="canonical" href="https://pvduk.github.io/pvdukdev/blog/posts/TEMPLATE.html">
 
   <!-- Open Graph Article Metadata -->
@@ -36,8 +36,16 @@
   <meta property="og:title" content="Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências">
   <meta property="og:description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
   <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:secure_url" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Clean Architecture e Web Standards - Preview do Artigo Técnico · pvduk.dev">
+  <meta property="og:site_name" content="pvduk.dev">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="article:published_time" content="2025-01-15T00:00:00Z">
-  <meta property="article:author" content="pvdukdev">
+  <meta property="article:author" content="Paulo Dukven">
   <meta property="article:tag" content="arquitetura">
   <meta property="article:tag" content="clean-code">
   <meta property="article:tag" content="web-standards">
@@ -48,13 +56,19 @@
   <meta name="twitter:title" content="Clean Architecture e Web Standards · pvduk dev">
   <meta name="twitter:description" content="Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.">
   <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
-  <meta name="twitter:creator" content="@pvdukdev">
+  <meta name="twitter:image:alt" content="Clean Architecture e Web Standards - Preview do Artigo Técnico · pvduk.dev">
+  <meta name="twitter:creator" content="@pvduk">
 
   <!-- Favicon e Ícones PWA -->
   <link rel="icon" type="image/svg+xml" href="../../assets/logo.svg">
   <link rel="apple-touch-icon" href="../../assets/logo.svg">
   <link rel="manifest" href="../../manifest.webmanifest">
-  <meta name="theme-color" content="#0a0c10">
+  <meta name="theme-color" content="#0c0e12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="pvduk.dev">
 
   <!-- Preload Tipografia Crítica Self-Hosted -->
   <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -68,6 +82,13 @@
 <body data-post-slug="2025-01-clean-architecture-vanilla-web">
   <!-- A11y Skip Link (WCAG 2.4.1) -->
   <a href="#main-content" class="skip-link" data-i18n="nav.skip_to_content">Pular para o conteúdo principal</a>
+
+  <!-- Fallback No-JS Padronizado do Projeto -->
+  <noscript>
+    <div class="noscript-banner" role="status">
+      ⚡ <strong>Modo Estático (Sem JavaScript):</strong> Este artigo é 100% legível e acessível sem JavaScript. A alternância de temas e recursos interativos requerem JavaScript.
+    </div>
+  </noscript>
 
   <!-- ═══════════ TOPBAR UNIFICADA ═══════════ -->
   <header class="topbar" role="banner">
@@ -103,59 +124,152 @@
 
   <!-- ═══════════ CONTEÚDO DO ARTIGO ═══════════ -->
   <main class="post-article-container" id="main-content">
-    <a href="../index.html" class="post-back-link" data-i18n="blog.back">← Voltar para o Blog</a>
+    <!-- Barra Superior: Breadcrumbs Estruturais e Botão de Retorno -->
+    <div class="post-nav-bar">
+      <nav class="post-breadcrumbs" aria-label="Navegação estrutural">
+        <a href="../../index.html" class="breadcrumb-item" data-i18n="blog.post.breadcrumbs_home">Início</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <a href="../index.html" class="breadcrumb-item" data-i18n="blog.post.breadcrumbs_blog">Blog</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current" aria-current="page">Clean Architecture e Web Standards</span>
+      </nav>
+
+      <a href="../index.html" class="post-back-link">
+        <svg class="post-back-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span data-i18n="blog.back">← Voltar para o Blog</span>
+      </a>
+    </div>
 
     <article class="post-article">
       <header class="article-header">
+        <div class="article-eyebrow">// Artigo Técnico · Web Standards e Arquitetura Limpa</div>
+        <h1 class="article-title">Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências</h1>
+        <p class="article-lead">
+          Por que frameworks são apenas detalhes de entrega e como aplicar os princípios de Uncle Bob na plataforma nativa para ter 100 de Lighthouse sem carregar 50MB de dependências.
+        </p>
+
         <div class="article-meta">
           <time datetime="2025-01-15">15 de Janeiro de 2025</time>
           <span class="post-reading-time">8 min de leitura</span>
+          <ul class="article-tags-list" aria-label="Tags do artigo">
+            <li class="post-tag">#arquitetura</li>
+            <li class="post-tag">#clean-code</li>
+            <li class="post-tag">#web-standards</li>
+          </ul>
         </div>
 
-        <h1 class="article-title">Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências</h1>
-        <p class="article-lead">
-          Como aplicar os princípios de Robert C. Martin (Uncle Bob) e padrões nativos da W3C/ECMA para desenvolver aplicações web rápidas, manuteníveis e sem dependência de ecossistemas instáveis.
-        </p>
+        <!-- Byline do Autor com Emblema Visual e Cargo -->
+        <div class="article-author-byline">
+          <div class="author-avatar-wrap" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="36" height="36" role="img" aria-label="Paulo Dukven">
+              <rect width="100" height="100" rx="16" fill="#000000"/>
+              <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+              <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+              <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+            </svg>
+          </div>
+          <div class="author-meta">
+            <span class="author-name" data-i18n="hub.author_name">Paulo Dukven</span>
+            <span class="author-role" data-i18n="blog.post.author_role">Engenheiro de Software e FullStack C#/React</span>
+          </div>
+        </div>
       </header>
 
       <div class="article-body">
-        <h2>1. O Paradoxo dos Frameworks Modernos</h2>
         <p>
-          No desenvolvimento frontend contemporâneo, tornou-se comum importar árvores inteiras de dependências para tarefas que a plataforma web nativa já resolve com primazia. Ao adotarmos <strong>Clean Architecture</strong>, o objetivo primordial é manter as regras de negócio e a experiência do usuário isoladas dos detalhes de infraestrutura.
+          Se você precisa baixar 800MB de dependências para centralizar uma div e disparar uma requisição assíncrona, a sua arquitetura tem um problema sério.
         </p>
 
-        <blockquote>
-          "A arquitetura não deve ser sobre frameworks. Frameworks são opções de entrega, não o coração do seu sistema." — Robert C. Martin (Uncle Bob)
-        </blockquote>
-
-        <h2>2. Princípios SOLID Aplicados à Web Pura</h2>
         <p>
-          Quando escrevemos HTML5 semântico, CSS com Cascade Layers e JavaScript modular ES2026, estamos aplicando diretamente os princípios fundamentais de engenharia de software:
+          Alguns anos atrás, vi um pipeline de CI travar por 25 minutos porque um pacote transitório de formatação de string quebrou uma compilação na sexta-feira à tarde. Uma linha de código utilitária que qualquer desenvolvedor escreveria em dois minutos arrastou catorze serviços para o chão.
         </p>
 
-        <ul>
-          <li><strong>Single Responsibility Principle (SRP):</strong> HTML cuida exclusivamente da estrutura semântica; CSS governa a apresentação e temas; JavaScript orquestra o comportamento assíncrono.</li>
-          <li><strong>Open/Closed Principle (OCP):</strong> Novos recursos e dicionários de tradução são adicionados por extensão de tabelas/objetos, sem modificar o motor central de execução.</li>
-          <li><strong>Dependency Inversion (DIP):</strong> A interface do usuário consome dados desacoplados através de contratos JSON claros (`data/posts.json`), sem acoplamento direto com bancos de dados ou pipelines complexos.</li>
-        </ul>
+        <p>
+          Esse é o custo real da dependência cega: você troca o domínio do seu produto pelos caprichos de ecossistemas instáveis.
+        </p>
 
-        <h2>3. Exemplo Prático: Isolamento de Contratos</h2>
-        <pre><code>// Contrato limpo para consumo de dados desacoplados
-async function fetchPostManifest() {
-  const res = await fetch('../data/posts.json');
-  if (!res.ok) throw new Error('Falha ao carregar manifesto');
-  return await res.json();
+        <!-- Infobox Semântica Alinhada ao Design System -->
+        <div class="infobox ib-blue">
+          <div class="infobox-title">Princípio Fundamental da Arquitetura Limpa</div>
+          <p>
+            "A arquitetura não deve ser sobre frameworks. Frameworks são opções de entrega, não o coração do seu sistema." — Robert C. Martin (Uncle Bob)
+          </p>
+        </div>
+
+        <h2>O erro de confundir ferramenta com arquitetura</h2>
+        <p>
+          Quando Uncle Bob formalizou a Clean Architecture, a premissa era direta: as regras de negócio vivem no centro; o banco de dados, a rede e a interface gráfica são meros detalhes de borda.
+        </p>
+        <p>
+          No frontend, o mercado inverteu essa lógica. Criou-se o hábito perigoso de acoplar o modelo de domínio aos hooks de uma biblioteca específica ou à sintaxe proprietária do bundler da moda. Quando a ferramenta decide lançar uma versão com quebra de contrato, o software inteiro envelhece da noite para o dia.
+        </p>
+
+        <h2>Contratos limpos na web nativa</h2>
+        <p>
+          A plataforma web moderna (HTML5 semântico, CSS Cascade Layers e ES2026 modular) já resolve a imensa maioria dos desafios que antes justificavam pilhas colossais de bibliotecas.
+        </p>
+        <p>
+          Separar responsabilidades de verdade não exige dependências pesadas de terceiros:
+        </p>
+
+        <pre><code>// Contrato explícito: o modelo de dados não conhece quem o consome
+export async function loadPostManifest(fetcher = fetch) {
+  const response = await fetcher('../data/posts.json');
+  if (!response.ok) {
+    throw new Error(`Falha ao carregar manifesto: HTTP ${response.status}`);
+  }
+  return await response.json();
 }</code></pre>
 
-        <h2>4. Conclusão</h2>
         <p>
-          Adotar os padrões da web não significa rejeitar a modernidade; significa abraçar a durabilidade e o respeito aos recursos da máquina do usuário. O resultado é um sistema com <strong>Score 100 no Lighthouse</strong>, zero latência e total autonomia.
+          Ao injetar o <code>fetcher</code> e isolar o contrato de dados em um manifesto puro, a interface fica 100% desacoplada de detalhes de rede. Testar essa rotina no Node.js leva 3 milissegundos: sem mock complexo, sem jsdom e sem emulador de navegador.
+        </p>
+
+        <h2>Menos camadas, mais controle</h2>
+        <p>
+          Adotar os padrões nativos da web não é preciosismo. É respeito à bateria, à memória RAM e à conexão do usuário.
+        </p>
+        <p>
+          Quando você remove as camadas artificiais, o resultado é direto: zero latência, carregamento instantâneo e um sistema que continua funcionando daqui a dez anos sem quebrar a cada atualização de dependências.
         </p>
       </div>
     </article>
 
     <!-- Navegação de Série (Ativada dinamicamente via blog.js se o post pertencer a uma série) -->
     <aside id="seriesNav" class="series-nav" hidden aria-label="Navegação da Série"></aside>
+
+    <!-- Card Sobre o Autor e Conexões Técnicas -->
+    <section class="post-author-box" aria-labelledby="author-box-title">
+      <div class="author-box-avatar" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="52" height="52" role="img" aria-label="Paulo Dukven">
+          <rect width="100" height="100" rx="16" fill="#000000"/>
+          <path d="M18 18 H68 C80 18 84 26 84 38 C84 50 80 58 68 58 H42 V82 H18 Z" fill="#FFFFFF"/>
+          <rect x="42" y="34" width="22" height="10" rx="3" fill="#000000"/>
+          <path d="M52 64 H82 C82 74 74 82 64 82 H52 Z" fill="#3B82F6"/>
+        </svg>
+      </div>
+      <div class="author-box-content">
+        <div class="author-box-eyebrow" data-i18n="blog.post.about_author">Sobre o Autor</div>
+        <h3 class="author-box-name" id="author-box-title" data-i18n="hub.author_name">Paulo Dukven</h3>
+        <p class="author-box-bio" data-i18n="blog.post.about_author_bio">
+          Engenheiro de Software e FullStack C#/React especializado em Clean Architecture, Performance Web, DDD e arquitetura sem dependências pesadas.
+        </p>
+        <div class="author-box-links">
+          <a href="https://github.com/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="GitHub @pvduk">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="LinkedIn in/pvduk">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="../../roadmap-requisitos.html" class="btn btn-secondary btn-sm">
+            <span data-i18n="blog.post.view_roadmap">Ver Roadmap SaaS</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ═══════════ FOOTER UNIVERSAL ═══════════ -->

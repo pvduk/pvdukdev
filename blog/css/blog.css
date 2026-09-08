@@ -1,11 +1,11 @@
 /* ═════════════════════════════════════════════════════════════════════
    COSTAR · BLOG MODULE CSS
    Layout unificado com Home/Roadmap, Cards com Leitura Natural (Left-aligned),
-   Badges Ajustadas & Tipografia Alinhada ao Design System
+   Badges Ajustadas e Tipografia Alinhada ao Design System
    ═════════════════════════════════════════════════════════════════════ */
 
 @layer components {
-  /* ─── BLOG LISTING PAGE LAYOUT (UNIFICADO COM HOME & ROADMAP) ─── */
+  /* ─── BLOG LISTING PAGE LAYOUT (UNIFICADO COM HOME E ROADMAP) ─── */
   .blog-page {
     width: 100%;
     max-width: 1040px;
@@ -250,7 +250,7 @@
     flex-shrink: 0;
   }
 
-  /* ─── TITULO DO ARTIGO (PADRÃO DISPLAY & LEFT-ALIGNED) ─── */
+  /* ─── TITULO DO ARTIGO (PADRÃO DISPLAY E LEFT-ALIGNED) ─── */
   .post-card-title {
     font-family: var(--font-display);
     font-size: 17.5px;
@@ -319,7 +319,7 @@
     line-height: 1.2;
   }
 
-  /* ─── FOOTER DO CARD & LINK DE AÇÃO ─── */
+  /* ─── FOOTER DO CARD E LINK DE AÇÃO ─── */
   .post-card-footer {
     display: flex;
     align-items: center;
@@ -347,7 +347,7 @@
     color: var(--color-accent2);
   }
 
-  /* ─── ESTADOS VAZIOS & ERROS ─── */
+  /* ─── ESTADOS VAZIOS E ERROS ─── */
   .blog-status-box {
     grid-column: 1 / -1;
     text-align: center;
@@ -382,6 +382,49 @@
     text-align: left;
   }
 
+  /* ─── NAVEGAÇÃO SUPERIOR DO ARTIGO (BREADCRUMBS E VOLTAR) ─── */
+  .post-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .post-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  .breadcrumb-item {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb-item:hover {
+    color: var(--color-blue);
+  }
+
+  .breadcrumb-sep {
+    color: var(--border-m);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--text-main);
+    font-weight: 600;
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .post-back-link {
     display: inline-flex;
     align-items: center;
@@ -390,7 +433,6 @@
     font-size: 12.5px;
     font-weight: 700;
     color: var(--color-blue);
-    margin-bottom: var(--space-xl);
     text-decoration: none;
     padding: 8px 14px;
     background: var(--bg-surface);
@@ -405,10 +447,58 @@
     transform: translateX(-3px);
   }
 
+  .post-back-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+  }
+
+  .post-back-link:hover .post-back-icon {
+    transform: translateX(-2px);
+  }
+
+  /* ─── CABEÇALHO DO ARTIGO (PADRÃO UNIFICADO COM ROADMAP E HERO) ─── */
   .article-header {
     margin-bottom: var(--space-2xl);
     padding-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border);
+  }
+
+  .article-eyebrow {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .article-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--text-main) 0%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-md);
+    text-align: left;
+  }
+
+  [data-theme="light"] .article-title {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .article-lead {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--text-muted);
+    text-align: left;
+    margin-bottom: var(--space-lg);
   }
 
   .article-meta {
@@ -422,22 +512,57 @@
     margin-bottom: var(--space-md);
   }
 
-  .article-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 4vw, 36px);
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    color: var(--text-main);
-    margin-bottom: var(--space-md);
+  .article-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ─── BYLINE DE AUTORIA (PAULO DUKVEN · IDENTIFICAÇÃO FORMAL) ─── */
+  .article-author-byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .author-avatar-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .author-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     text-align: left;
   }
 
-  .article-lead {
-    font-size: 16.5px;
-    line-height: 1.65;
+  .author-name {
+    font-family: var(--font-display);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .author-role {
+    font-family: var(--font-sans);
+    font-size: 12px;
     color: var(--text-muted);
-    text-align: left;
   }
 
   /* ─── PROSE / CORPO DO ARTIGO (LEITURA NATURAL) ─── */
@@ -764,7 +889,81 @@
     color: var(--text-dim);
   }
 
-  /* ─── RESPONSIVIDADE MOBILE (WCAG 2.2 AA & FAT FINGER) ─── */
+  /* ─── CARD SOBRE O AUTOR E CONEXÕES (RODAPÉ DO ARTIGO) ─── */
+  .post-author-box {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: var(--space-2xl) 0 var(--space-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .author-box-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .author-box-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .author-box-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    margin-bottom: 4px;
+  }
+
+  .author-box-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .author-box-bio {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-wrap: pretty;
+  }
+
+  .author-box-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ─── INTEGRAÇÃO DE INFOBOXES NO CORPO DO ARTIGO ─── */
+  .article-body .infobox {
+    margin: var(--space-xl) 0;
+    text-align: left;
+  }
+
+  /* ─── RESPONSIVIDADE MOBILE (WCAG 2.2 AA E FAT FINGER) ─── */
   @media (max-width: 768px) {
     .blog-page {
       padding: 32px 16px 64px;
@@ -797,9 +996,22 @@
     .post-article-container {
       padding: 32px 16px 64px;
     }
+    .post-nav-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .breadcrumb-current {
+      max-width: 180px;
+    }
     .post-back-link {
       min-height: 44px;
       padding: 10px 16px;
+    }
+    .post-author-box {
+      flex-direction: column;
+      padding: 20px;
+      gap: 16px;
     }
     .series-nav-btn {
       min-height: 44px;

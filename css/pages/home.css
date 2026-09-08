@@ -1,5 +1,5 @@
 /* ═════════════════════════════════════════════════════════════════════
-   COSTAR · HOME HUB STYLING (DUAL-MODE: STANDARD & DEV TERMINAL)
+   COSTAR · HOME HUB STYLING (DUAL-MODE: STANDARD e DEV TERMINAL)
    Opção 1 (Architectural Engineer) + Opção 2 (Interactive Terminal)
    ═════════════════════════════════════════════════════════════════════ */
 
@@ -97,13 +97,31 @@
     transform: scale(1.05);
   }
 
-  .hero-brand-name {
+  .hero-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-author-name {
     font-family: var(--font-display);
     font-size: 26px;
     font-weight: 800;
     color: var(--text-main);
     letter-spacing: -0.03em;
+    line-height: 1.15;
     user-select: none;
+  }
+
+  .hero-brand-name {
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+    user-select: none;
+    margin-top: 2px;
   }
 
   .status-badge {
@@ -905,7 +923,7 @@
     display: inline-block;
   }
 
-  /* ─── 05 · CONEXÃO & REDES PROFISSIONAIS ─── */
+  /* ─── 05 · CONEXÃO e REDES PROFISSIONAIS ─── */
   .connections-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -997,7 +1015,7 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════════
-     MODO DEV (OPÇÃO 2 · INTERACTIVE TERMINAL & CLI WORKBENCH)
+     MODO DEV (OPÇÃO 2 · INTERACTIVE TERMINAL e CLI WORKBENCH)
      ═══════════════════════════════════════════════════════════════════ */
 
   .dev-terminal-container {
@@ -1243,7 +1261,7 @@
   .term-btn-submit { padding: 6px 14px; font-size: 11.5px; }
   .term-row-spaced { margin: 8px 0; }
 
-  /* ─── RESPONSIVIDADE & FAT FINGER PROTECTION (WCAG 2.2 AA) ─── */
+  /* ─── RESPONSIVIDADE e FAT FINGER PROTECTION (WCAG 2.2 AA) ─── */
   @media (max-width: 860px) {
     .home-section {
       width: 100%;
@@ -1319,8 +1337,11 @@
       width: 48px;
       height: 48px;
     }
+    .hero-author-name {
+      font-size: 21px;
+    }
     .hero-brand-name {
-      font-size: 22px;
+      font-size: 12px;
     }
     .hero-title {
       font-size: 26px;
