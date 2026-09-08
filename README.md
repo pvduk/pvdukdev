@@ -142,17 +142,9 @@ pvdukdev/
 ├── test/
 │   └── bdd-interactions.test.js  # Suíte automatizada de testes BDD/TDD (35 Cenários / 121 Testes)
 │
-├── docs/
-│   ├── vision-document.md        # Documento de Visão do Produto (Fase 00)
-│   └── uncle-bob-audit-report.md # Relatório da Auditoria de Qualidade Uncle Bob
-│
-└── _agents/                      # Workflows de engenharia e orquestração
-    └── workflows/
-        ├── master-orchestrator.md       # Orquestrador mestre dos perfis P1-P4
-        ├── writing-flow-orchestrator.md # Fluxo de escrita Anti-IA e voz humana
-        ├── frontend-orq.md              # Diretrizes de design e padrões de frontend
-        ├── brainstorning-orq.md         # Validação de regras de negócio e PO
-        └── uncle-bob-audit.md           # Quality Gate Clean Code e Clean Architecture
+└── docs/
+    ├── vision-document.md        # Documento de Visão do Produto (Fase 00)
+    └── uncle-bob-audit-report.md # Relatório da Auditoria de Qualidade Uncle Bob
 ```
 
 ---
@@ -191,7 +183,7 @@ Criada através do framework de brainstorming ([_agents/workflows/brainstorning-
 - **YAGNI (You Aren't Gonna Need It):** Expurgados módulos órfãos não utilizados (`js/i18n.js` e `js/theme.js`) e limpas as referências correspondentes no Service Worker.
 - **SOLID (Open/Closed Principle):** O terminal interativo em `js/app.js` foi refatorado de um bloco monolítico `switch/case` de 250 linhas para um **`commandRegistry` declarativo**. Novos comandos podem ser adicionados sem alterar o motor central.
 - **KISS e Minificação Zero-Dependency ([build.js](build.js)):** Compilador nativo em Node.js puro sem dependências pesadas de terceiros (Webpack/Vite), gerando a pasta `dist/` com **50 KB de economia (-22.5%)** em **~30 milissegundos**.
-- **Regra Inegociável Anti-IA (Abolição Absoluta do &):** No português, o uso do caractere `&` substituindo a conjunção "e" em títulos, subtítulos, tags e textos em geral é uma assinatura imediata de texto gerado por IA. O ecossistema pvduk.dev adota a eliminação total de `&` em toda a interface e cópia editorial, exigindo a conjunção humana natural "e" (ou "and" em inglês).
+- **Diretriz Inegociável Anti-IA (Tell 13 · Abolição Absoluta do &):** No português, o uso do caractere `&` substituindo a conjunção "e" em títulos, subtítulos, tags e textos em geral é o Tell 13 de IA: uma assinatura imediata de texto gerado por máquina. O ecossistema pvduk.dev adota a eliminação total de `&` em toda a interface, código e cópia editorial, exigindo a conjunção humana natural "e" (ou "and" em inglês).
 
 ---
 

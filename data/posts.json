@@ -14,23 +14,6 @@
   ],
   "posts": [
     {
-      "id": "clean-architecture-vanilla-web",
-      "slug": "2025-01-clean-architecture-vanilla-web",
-      "file": "posts/TEMPLATE.html",
-      "date": "2025-01-15",
-      "readingTime": 8,
-      "published": false,
-      "tags": ["arquitetura", "clean-code", "web-standards"],
-      "title": {
-        "pt": "Clean Architecture e Web Standards: Construindo Software Resiliente Sem Dependências",
-        "en": "Clean Architecture and Web Standards: Building Resilient Software Without Dependencies"
-      },
-      "description": {
-        "pt": "Como aplicar os princípios de Uncle Bob e arquitetura limpa em projetos web modernos sem depender de frameworks pesados de 50MB.",
-        "en": "How to apply Uncle Bob's Clean Architecture principles in modern web applications without relying on 50MB heavyweight frameworks."
-      }
-    },
-    {
       "id": "anatomia-do-cache-1-navegador",
       "slug": "2026-08-anatomia-do-cache-o-navegador",
       "file": "posts/2026-08-anatomia-do-cache-o-navegador.html",
@@ -53,10 +36,7 @@
     },
     {
       "id": "anatomia-do-cache-2-borda",
-      "slug": "2025-03-anatomia-do-cache-2-borda",
-      "file": "posts/TEMPLATE.html",
-      "date": "2025-03-08",
-      "readingTime": 7,
+      "slug": "anatomia-do-cache-2-borda",
       "published": false,
       "series": {
         "id": "anatomia-do-cache",
@@ -74,10 +54,7 @@
     },
     {
       "id": "anatomia-do-cache-3-servidor",
-      "slug": "2025-03-anatomia-do-cache-3-servidor",
-      "file": "posts/TEMPLATE.html",
-      "date": "2025-03-15",
-      "readingTime": 8,
+      "slug": "anatomia-do-cache-3-servidor",
       "published": false,
       "series": {
         "id": "anatomia-do-cache",
@@ -95,10 +72,7 @@
     },
     {
       "id": "anatomia-do-cache-4-fonte-da-verdade",
-      "slug": "2025-03-anatomia-do-cache-4-fonte-da-verdade",
-      "file": "posts/TEMPLATE.html",
-      "date": "2025-03-22",
-      "readingTime": 9,
+      "slug": "anatomia-do-cache-4-fonte-da-verdade",
       "published": false,
       "series": {
         "id": "anatomia-do-cache",

@@ -176,7 +176,6 @@ const filesToProcess = [
   { src: 'blog/index.html', dest: 'blog/index.html', type: 'html' },
   { src: 'blog/posts/TEMPLATE.html', dest: 'blog/posts/TEMPLATE.html', type: 'html' },
   { src: 'blog/posts/2026-08-anatomia-do-cache-o-navegador.html', dest: 'blog/posts/2026-08-anatomia-do-cache-o-navegador.html', type: 'html' },
-  { src: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', dest: 'blog/posts/2025-01-anatomia-do-cache-o-navegador.html', type: 'html' },
   { src: 'data/posts.json', dest: 'data/posts.json', type: 'json' },
   { src: 'sitemap.xml', dest: 'sitemap.xml', type: 'raw' },
   { src: 'robots.txt', dest: 'robots.txt', type: 'raw' },
