@@ -375,9 +375,10 @@
   /* ─── ARTIGO INDIVIDUAL (POST DETAIL) ─── */
   .post-article-container {
     width: 100%;
-    max-width: 820px;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 40px 24px 80px;
+    padding: 48px 24px 80px;
+    box-sizing: border-box;
     flex: 1 0 auto;
     text-align: left;
   }
@@ -444,16 +445,11 @@
   .post-back-link:hover {
     color: var(--text-main);
     border-color: var(--color-blue);
-    transform: translateX(-3px);
+    background: var(--bg-surface-alt);
   }
 
   .post-back-icon {
     flex-shrink: 0;
-    transition: transform var(--transition-fast);
-  }
-
-  .post-back-link:hover .post-back-icon {
-    transform: translateX(-2px);
   }
 
   /* ─── CABEÇALHO DO ARTIGO (PADRÃO UNIFICADO COM ROADMAP E HERO) ─── */
@@ -476,21 +472,13 @@
 
   .article-title {
     font-family: var(--font-display);
-    font-size: clamp(26px, 4vw, 36px);
+    font-size: clamp(26px, 4vw, 38px);
     font-weight: 800;
     line-height: 1.18;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--text-main) 0%, var(--text-muted) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
     margin-bottom: var(--space-md);
     text-align: left;
-  }
-
-  [data-theme="light"] .article-title {
-    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   .article-lead {
@@ -498,6 +486,8 @@
     line-height: 1.65;
     color: var(--text-muted);
     text-align: left;
+    max-width: 840px;
+    text-wrap: pretty;
     margin-bottom: var(--space-lg);
   }
 
@@ -542,7 +532,7 @@
     justify-content: center;
     background: #000000;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-sm);
   }
 
   .author-meta {
@@ -596,6 +586,7 @@
     margin-bottom: var(--space-lg);
     color: var(--text-main);
     text-align: left;
+    max-width: 840px;
     text-wrap: pretty;
   }
 
@@ -609,6 +600,7 @@
     margin-bottom: var(--space-xs);
     line-height: 1.7;
     text-align: left;
+    max-width: 840px;
   }
 
   .article-body blockquote {
@@ -620,6 +612,7 @@
     font-style: italic;
     color: var(--text-muted);
     text-align: left;
+    max-width: 840px;
   }
 
   .article-body pre {
@@ -768,7 +761,7 @@
   .series-part-link:hover {
     border-color: var(--color-blue);
     color: var(--color-blue);
-    transform: translateX(4px);
+    background: var(--bg-surface-elevated);
   }
 
   .series-part-link:focus-visible {
@@ -914,7 +907,7 @@
     justify-content: center;
     background: #000000;
     overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-sm);
   }
 
   .author-box-content {

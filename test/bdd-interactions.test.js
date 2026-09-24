@@ -548,7 +548,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
   const langToggle = doc.querySelector('.lang-toggle');
   const heroTitle = doc.querySelector('[data-i18n="hub.hero_title"]');
   const authorName = doc.querySelector('[data-i18n="hub.author_name"]');
-  const avaloniaPill = doc.querySelector('[data-i18n="disc.avalonia_ui"]');
+  const photinoPill = doc.querySelector('[data-i18n="disc.photino"]');
   const sqlPill = doc.querySelector('[data-i18n="disc.sql_nosql"]');
 
   it('Deve iniciar em PT com bandeira do Brasil em SVG, título FullStack C#/React e pills corretas', () => {
@@ -557,7 +557,7 @@ console.log('\n📦 Scenario 10: Bandeiras em SVG e Tradução Dinâmica no Hero
     assert.ok(langToggle.innerHTML.includes('PT'), 'Texto PT presente');
     assert.strictEqual(authorName.textContent, 'Paulo Dukven');
     assert.ok(heroTitle.innerHTML.includes('FullStack C#/React'), 'Título Hero em PT');
-    assert.strictEqual(avaloniaPill.textContent, 'Avalonia UI');
+    assert.strictEqual(photinoPill.textContent, 'Photino');
     assert.strictEqual(sqlPill.textContent, 'SQL e NoSQL');
   });
 
@@ -1433,6 +1433,22 @@ console.log('\n📦 Scenario 32: Aba Blog Estática, Manifesto JSON, Filtros por
     assert.ok(blogJs.includes('card.addEventListener(\'click\''), 'blog.js inclui navegação por clique em qualquer área do card');
   });
 
+  it('blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html deve conter conteúdo editorial completo, diagrama ASCII, exemplo de código testável e SEO', () => {
+    const post2Path = path.join(__dirname, '../blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html');
+    assert.ok(fs.existsSync(post2Path), 'Arquivo da parte 2 publicado existe');
+    const post2Html = fs.readFileSync(post2Path, 'utf8');
+
+    assert.ok(post2Html.includes('data-post-slug="2026-09-a-borda-dns-tls-e-a-revolucao-edge"'), 'data-post-slug correto no post 2');
+    assert.ok(post2Html.includes('A Borda: DNS, TLS e a revolução Edge'), 'Título presente');
+    assert.ok(post2Html.includes('<figure class="article-figure">'), 'figure presente no post 2');
+    assert.ok(post2Html.includes('<pre class="ascii-diagram">'), 'ascii-diagram presente no post 2');
+    assert.ok(post2Html.includes('applyEdgeCacheHeaders'), 'Exemplo prático de middleware e headers de edge presente');
+    assert.ok(post2Html.includes('<figcaption>'), 'figcaption presente no post 2');
+    assert.ok(post2Html.includes('id="seriesNav"'), 'aside#seriesNav presente no post 2');
+    assert.ok(post2Html.includes('application/ld+json'), 'JSON-LD structured data presente no post 2');
+    assert.ok(post2Html.includes('property="og:type" content="article"'), 'Open Graph article type presente');
+  });
+
   it('blog/index.html e TEMPLATE.html devem conter estrutura semântica, seriesNav e SEO completo', () => {
     assert.ok(blogIndexHtml.includes('id="blogTagsFilter"'), 'Filtros de tag presentes');
     assert.ok(blogIndexHtml.includes('id="blogPostsGrid"'), 'Grid de posts presente');
@@ -1484,6 +1500,7 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt e
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/roadmap-requisitos.html'), 'URL roadmap presente no sitemap');
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/index.html'), 'URL blog presente no sitemap');
     assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/posts/2026-08-anatomia-do-cache-o-navegador.html'), 'Post publicado no sitemap');
+    assert.ok(sitemapContent.includes('https://pvduk.github.io/pvdukdev/blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html'), 'Post 2 publicado no sitemap');
 
     assert.ok(robotsContent.includes('User-agent: *'), 'Robots User-agent configurado');
     assert.ok(robotsContent.includes('Sitemap: https://pvduk.github.io/pvdukdev/sitemap.xml'), 'Referência de sitemap em robots.txt');
@@ -1503,7 +1520,8 @@ console.log('\n📦 Scenario 33: Integridade de Links, Sitemap XML, Robots.txt e
       '404.html',
       'blog/index.html',
       'blog/posts/TEMPLATE.html',
-      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html'
+      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html',
+      'blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html'
     ];
 
     htmlFiles.forEach((file) => {
@@ -1716,7 +1734,8 @@ console.log('\n📦 Scenario 36: Diretriz Inegociável Anti-IA · Proibição Ab
       '404.html',
       'blog/index.html',
       'blog/posts/TEMPLATE.html',
-      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html'
+      'blog/posts/2026-08-anatomia-do-cache-o-navegador.html',
+      'blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html'
     ];
     htmlFiles.forEach(rel => {
       const content = fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');

@@ -245,15 +245,14 @@
 
   .metric-card {
     background: var(--bg-surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     padding: 18px 16px;
     text-align: center;
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
   }
 
   .metric-card:hover {
-    transform: translateY(-2px);
     border-color: var(--color-blue);
   }
 
@@ -325,13 +324,13 @@
 
   .volume-card {
     background: var(--bg-surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all var(--transition-normal);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -346,24 +345,22 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 3px;
     background: var(--card-accent, var(--color-blue));
-    opacity: 0.8;
+    opacity: 0.85;
   }
 
   .volume-card:hover {
     border-color: var(--card-accent, var(--color-blue));
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px -6px rgba(0,0,0,0.12);
   }
 
   .vol-header { margin-bottom: 16px; }
 
   .vol-tag {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: 0;
     color: var(--card-accent, var(--color-blue));
     margin-bottom: 8px;
   }
@@ -426,8 +423,8 @@
   .volume-card--featured {
     --card-accent: var(--color-accent);
     padding: 32px;
-    border: 1px solid rgba(91, 111, 255, 0.3);
-    background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(91, 111, 255, 0.03) 100%);
+    border: 1px solid var(--border-m);
+    background: var(--bg-surface);
     width: 100%;
     max-width: 100%;
     min-width: 0;
@@ -487,7 +484,7 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    border-radius: 9999px;
+    border-radius: var(--radius-md);
     font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 600;
@@ -501,7 +498,7 @@
 
   .project-tab-btn:hover {
     color: var(--text-main);
-    border-color: var(--border-focus);
+    border-color: var(--border-hover);
     background: var(--bg-surface);
   }
 
@@ -514,7 +511,7 @@
     background: var(--color-blue);
     color: #ffffff;
     border-color: var(--color-blue);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
   }
 
   .project-tab-indicator {
@@ -555,9 +552,9 @@
   .project-card-icon {
     width: 64px;
     height: 64px;
-    border-radius: 14px;
-    border: 1.5px solid var(--border);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-m);
+    box-shadow: var(--shadow-sm);
     background: #0d1117;
     object-fit: contain;
     flex-shrink: 0;

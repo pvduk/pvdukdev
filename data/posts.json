@@ -36,20 +36,23 @@
     },
     {
       "id": "anatomia-do-cache-2-borda",
-      "slug": "anatomia-do-cache-2-borda",
-      "published": false,
+      "slug": "2026-09-a-borda-dns-tls-e-a-revolucao-edge",
+      "file": "posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html",
+      "date": "2026-09-24",
+      "readingTime": 9,
+      "published": true,
       "series": {
         "id": "anatomia-do-cache",
         "part": 2
       },
-      "tags": ["cache", "performance", "web"],
+      "tags": ["cache", "performance", "web", "edge", "redes"],
       "title": {
         "pt": "A Borda: DNS, TLS e a revolução Edge",
         "en": "The Edge: DNS, TLS, and the Edge revolution"
       },
       "description": {
-        "pt": "Parte 2 da série A Anatomia do Cache: CDNs, Edge Compute e terminação TLS.",
-        "en": "Part 2 of The Anatomy of Caching: CDNs, Edge Compute, and TLS termination."
+        "pt": "Do Anycast DNS ao handshake TLS 1.3 e V8 Isolates: o que acontece quando a requisição sai do navegador e encontra a borda da rede.",
+        "en": "From Anycast DNS to TLS 1.3 handshake and V8 Isolates: what happens when a request leaves the browser and meets the edge."
       }
     },
     {

@@ -29,7 +29,7 @@
   <title>A Anatomia do Cache, Parte 1: O Navegador · pvduk</title>
   <meta name="title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
   <meta name="description"
-    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser e como elas decidem a latência que o usuário sente.">
   <meta name="author" content="pvduk">
   <link rel="canonical" href="https://pvduk.github.io/pvdukdev/blog/posts/2026-08-anatomia-do-cache-o-navegador.html">
 
@@ -39,7 +39,7 @@
     content="https://pvduk.github.io/pvdukdev/blog/posts/2026-08-anatomia-do-cache-o-navegador.html">
   <meta property="og:title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
   <meta property="og:description"
-    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser e como elas decidem a latência que o usuário sente.">
   <meta property="og:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta property="og:image:secure_url" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -62,7 +62,7 @@
     content="https://pvduk.github.io/pvdukdev/blog/posts/2026-08-anatomia-do-cache-o-navegador.html">
   <meta name="twitter:title" content="A Anatomia do Cache, Parte 1: O Navegador · pvduk">
   <meta name="twitter:description"
-    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.">
+    content="Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser e como elas decidem a latência que o usuário sente.">
   <meta name="twitter:image" content="https://pvduk.github.io/pvdukdev/assets/og-image.png">
   <meta name="twitter:image:alt"
     content="A Anatomia do Cache, Parte 1: O Navegador - Preview do Artigo Técnico · pvduk.dev">
@@ -74,7 +74,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "A Anatomia do Cache, Parte 1: O Navegador",
-    "description": "Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser — e como elas decidem a latência que o usuário sente.",
+    "description": "Memory cache, HTTP cache, ETag e Service Worker: as três camadas de cache que você controla no browser e como elas decidem a latência que o usuário sente.",
     "author": {
       "@type": "Person",
       "name": "Paulo Dukven"
@@ -195,14 +195,14 @@
 
     <article class="post-article">
       <header class="article-header">
-        <div class="article-eyebrow">// Artigo Técnico · Série: A Anatomia do Cache (Parte 1 de 4)</div>
+        <div class="article-eyebrow">// Artigo Técnico: Série A Anatomia do Cache (Parte 1 de 4)</div>
         <h1 class="article-title">A Anatomia do Cache, Parte 1: O Navegador</h1>
         <p class="article-lead">
-          Memory cache, HTTP cache e Service Worker — as três camadas que decidem a latência que o seu usuário sente.
+          Memory cache, HTTP cache e Service Worker: as três camadas que decidem a latência que o seu usuário sente.
         </p>
 
         <div class="article-meta">
-          <span class="post-series-badge">Série: A Anatomia do Cache · Parte 1 de 4</span>
+          <span class="post-series-badge">Série: A Anatomia do Cache (Parte 1 de 4)</span>
           <time datetime="2026-08-30">30 de Agosto de 2026</time>
           <span class="post-reading-time">12 min de leitura</span>
           <ul class="article-tags-list" aria-label="Tags do artigo">
@@ -235,7 +235,7 @@
 
         <p>
           Toda requisição que o seu usuário faz é, na verdade, uma pergunta em cadeia: <em>"você tem esse dado?"</em>.
-          Cada camada responde <em>"sim"</em> o mais rápido que pode — mesmo que a resposta esteja levemente
+          Cada camada responde <em>"sim"</em> o mais rápido que pode, mesmo que a resposta esteja levemente
           desatualizada. A essa mentira autorizada damos o nome de <strong>cache hit</strong>.
         </p>
 
@@ -267,7 +267,7 @@
 ┌───────────────────┐
 │      REDE ────────┼──►  Parte 2 desta série: DNS · TLS · EDGE
 └───────────────────┘</code></pre>
-          <figcaption>Fig. 1 — Lookup pipeline no navegador: a requisição avança até o primeiro hit; só então a rede é
+          <figcaption>Fig. 1: Lookup pipeline no navegador: a requisição avança até o primeiro hit; só então a rede é
             acionada.</figcaption>
         </figure>
 
@@ -275,7 +275,7 @@
 
         <h3>1. Memory Cache (RAM)</h3>
         <p>
-          Extremamente rápido, volátil. Armazena recursos já parseados — CSS, JS, imagens decodificadas — durante a
+          Extremamente rápido e volátil. Armazena recursos já parseados (CSS, JS e imagens decodificadas) durante a
           sessão da aba. Morre quando a aba fecha. É o cache que faz a navegação entre páginas do mesmo site parecer
           instantânea.
         </p>
@@ -290,7 +290,7 @@
             significa: <em>"por uma hora, nem pergunte ao servidor"</em>.</li>
           <li><strong>ETag decide COMO VALIDAR.</strong> Quando o recurso envelhece, o browser não baixa de novo: ele
             pergunta <em>"ainda é o mesmo?"</em> via <code>If-None-Match</code>. Se for, o servidor responde
-            <code>304 Not Modified</code> — zero bytes de corpo.</li>
+            <code>304 Not Modified</code>: zero bytes de corpo.</li>
         </ul>
 
         <div class="infobox ib-blue">
@@ -311,14 +311,14 @@
         <div class="infobox ib-blue">
           <div class="infobox-title">Controle Absoluto de Camadas</div>
           <p>
-            Com Service Worker, o Cache-Control deixa de ser o único rei. Você pode servir a página inteira offline — ou
+            Com Service Worker, o Cache-Control deixa de ser o único rei. Você pode servir a página inteira offline ou
             mentir com elegância enquanto revalida em background.
           </p>
         </div>
 
         <h2>A camada que ninguém lembra: navegação</h2>
         <p>
-          <strong>bfcache (back/forward cache):</strong> o browser guarda a página INTEIRA — DOM, JS, estado — ao
+          <strong>bfcache (back/forward cache):</strong> o browser guarda a página inteira (DOM, JS e estado) ao
           navegar para outra. Voltar não é um request; é um restore. Milissegundos.
         </p>
 
@@ -332,7 +332,7 @@
           <div class="infobox-title">Otimização Contínua</div>
           <p>
             Early Hints (HTTP 103) e HTTP/3/QUIC estão reduzindo ainda mais o custo do "primeiro contato". Mas isso é
-            conversa da Parte 2 — a borda.
+            conversa da Parte 2: a borda.
           </p>
         </div>
 
@@ -348,7 +348,7 @@
         <p>
           Repara que não tem framework aqui. Não tem biblioteca de cache de 2MB, não tem Redis, não tem <em>enterprise
             solution</em>. É um <code>Map</code>, uma subtração de timestamp e uma função fetch injetável. É assim que a
-          maioria dos caches de produção começa — antes de alguém decidir que "precisava" de mais uma dependência.
+          maioria dos caches de produção começa, antes de alguém decidir que "precisava" de mais uma dependência.
         </p>
 
         <pre><code>
@@ -432,7 +432,7 @@ runCacheTest();
         <p>
           Quando você apertar <strong>Run</strong>, o console vai literalmente travar por 2 segundos na primeira
           chamada.
-          Você vai sentir a latência na pele — é exatamente assim que o seu usuário se sente quando o cache falha e o
+          Você vai sentir a latência na pele: é exatamente assim que o seu usuário se sente quando o cache falha e o
           front é obrigado a esperar o backend processar a mesma query de novo.
         </p>
         <p>
@@ -454,7 +454,7 @@ runCacheTest();
             onde o usuário nem percebe que teve round-trip.</li>
           <li><strong>Disk cache:</strong> aqui mora o perigo. <code>Cache-Control</code> define validade,
             <code>ETag</code> define como validar. Um <code>304 Not Modified</code> bem feito é a otimização mais barata
-            que existe — zero bytes trafegados.
+            que existe: zero bytes trafegados.
           </li>
           <li><strong>Service Worker:</strong> é quando você para de confiar só no header e começa a mandar no cache
             por código. Dá pra servir offline, dá pra mentir elegante enquanto revalida em background.</li>
@@ -490,7 +490,7 @@ runCacheTest();
           arquitetura sem dependências pesadas.
         </p>
         <div class="author-box-links">
-          <a href="https://github.com/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm"
+          <a href="https://github.com/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"
             aria-label="GitHub @pvduk">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
@@ -498,7 +498,7 @@ runCacheTest();
             </svg>
             <span>GitHub</span>
           </a>
-          <a href="https://linkedin.com/in/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm"
+          <a href="https://linkedin.com/in/pvduk" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"
             aria-label="LinkedIn in/pvduk">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
@@ -506,7 +506,7 @@ runCacheTest();
             </svg>
             <span>LinkedIn</span>
           </a>
-          <a href="../../roadmap-requisitos.html" class="btn btn-secondary btn-sm">
+          <a href="../../roadmap-requisitos.html" class="btn btn-primary btn-sm">
             <span data-i18n="blog.post.view_roadmap">Ver Roadmap SaaS</span>
             <span aria-hidden="true">→</span>
           </a>

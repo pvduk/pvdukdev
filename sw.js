@@ -16,6 +16,7 @@ const PRECACHE_ASSETS = [
   './blog/index.html',
   './blog/posts/TEMPLATE.html',
   './blog/posts/2026-08-anatomia-do-cache-o-navegador.html',
+  './blog/posts/2026-09-a-borda-dns-tls-e-a-revolucao-edge.html',
   './data/posts.json',
   './sitemap.xml',
   './robots.txt',
