@@ -1590,11 +1590,11 @@ console.log('\n📦 Scenario 34: Abas de Projetos Flagship (FirstStrike Analytic
   it('index.html deve conter estrutura WAI-ARIA completa de abas de projetos', () => {
     assert.ok(indexHtml.includes('class="project-tabs-nav"') && indexHtml.includes('role="tablist"'), 'tablist presente');
     assert.ok(indexHtml.includes('id="tab-btn-analytics"') && indexHtml.includes('aria-controls="tab-panel-analytics"'), 'Tab FirstStrike Analytics presente');
-    assert.ok(indexHtml.includes('id="tab-btn-roadmap"') && indexHtml.includes('aria-controls="tab-panel-roadmap"'), 'Tab Roadmap presente');
+    assert.ok(indexHtml.includes('id="tab-btn-tetojusto"') && indexHtml.includes('aria-controls="tab-panel-tetojusto"'), 'Tab Teto Justo presente');
     assert.ok(indexHtml.includes('id="tab-btn-planexa"') && indexHtml.includes('aria-controls="tab-panel-planexa"'), 'Tab Planexa OS presente');
     assert.ok(indexHtml.includes('id="tab-btn-ops"') && indexHtml.includes('aria-controls="tab-panel-ops"'), 'Tab FirstStrike Ops presente');
     assert.ok(indexHtml.includes('id="tab-panel-analytics"') && indexHtml.includes('role="tabpanel"'), 'Painel Analytics presente');
-    assert.ok(indexHtml.includes('id="tab-panel-roadmap"') && indexHtml.includes('role="tabpanel"'), 'Painel Roadmap presente');
+    assert.ok(indexHtml.includes('id="tab-panel-tetojusto"') && indexHtml.includes('role="tabpanel"'), 'Painel Teto Justo presente');
     assert.ok(indexHtml.includes('id="tab-panel-planexa"') && indexHtml.includes('role="tabpanel"'), 'Painel Planexa presente');
     assert.ok(indexHtml.includes('id="tab-panel-ops"') && indexHtml.includes('role="tabpanel"'), 'Painel Ops presente');
   });
@@ -1625,7 +1625,7 @@ console.log('\n📦 Scenario 34: Abas de Projetos Flagship (FirstStrike Analytic
   it('Dicionários i18n devem ter 100% de paridade para as novas chaves de projetos', () => {
     const projectKeys = [
       'projects.tab_analytics',
-      'projects.tab_roadmap',
+      'projects.tab_tetojusto',
       'projects.tab_planexa',
       'projects.tab_ops',
       'analytics.tag',
@@ -1652,7 +1652,16 @@ console.log('\n📦 Scenario 34: Abas de Projetos Flagship (FirstStrike Analytic
       'ops.feat2',
       'ops.feat3',
       'ops.feat4',
-      'ops.badge'
+      'ops.badge',
+      'tetojusto.tag',
+      'tetojusto.title',
+      'tetojusto.desc',
+      'tetojusto.feat1',
+      'tetojusto.feat2',
+      'tetojusto.feat3',
+      'tetojusto.feat4',
+      'tetojusto.btn',
+      'tetojusto.badge',
     ];
 
     projectKeys.forEach((key) => {

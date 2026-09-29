@@ -45,7 +45,7 @@ export const pt = {
   'projects.tab_analytics': 'FirstStrike Analytics',
   'projects.tab_ops': 'FirstStrike Ops',
   'projects.tab_planexa': 'Planexa OS',
-  'projects.tab_roadmap': 'Roadmap de Requisitos',
+  'projects.tab_tetojusto': 'Teto Justo',
 
   // FirstStrike Analytics SaaS
   'analytics.tag': 'SaaS em Produção: CQRS e Simulação Estocástica (.NET 10 / React 19)',
@@ -57,15 +57,6 @@ export const pt = {
   'analytics.feat4': 'Engenharia Sob Restrições: Otimização de pool de conexões, 772 testes automatizados e containerização com Docker Compose',
   'analytics.btn': 'Acessar FirstStrike Analytics ↗',
   'analytics.badge': 'Live em Produção: firststrikeanalytics.com.br',
-
-  // Volumes COSTAR
-  'vol1.tag': 'Projeto Principal: Processo e Estudo de Caso',
-  'vol1.title': 'Roadmap de Engenharia e Requisitos',
-  'vol1.desc': 'Guia estruturado em 8 fases com o estudo de caso real do projeto FirstStrike Analytics: do discovery de negócio ao Gate de Entrada no Sprint 0.',
-  'vol1.feat1': 'Exemplo prático, simples e intuitivo para qualquer usuário',
-  'vol1.feat2': 'Diagramas C4 Nível 1, DDD e tabelas NoSQL',
-  'vol1.feat3': 'Contrato OpenAPI 3.0 e ambiente Docker Compose real',
-  'vol1.btn': 'Acessar Roadmap Interativo ⟶',
 
   // Planexa OS
   'planexa.tag': 'Desktop Nativo: Clean Architecture e DIP (100% Offline-First)',
@@ -86,6 +77,17 @@ export const pt = {
   'ops.feat3': 'Liquidação em Lote Sub-5ms: Processamento atômico em lote com SQLite WAL e MongoDB, reduzindo tempos de 15s para menos de 5ms',
   'ops.feat4': 'Observabilidade e Segurança: Sentinela de saúde da API em nuvem, cascata de credenciais com permissão restrita e 346 testes',
   'ops.badge': 'Torre de Controle: Governança e Auditoria',
+
+  // TetoJusto - Português
+  'tetojusto.tag': 'Fiscalização Cidadã: CMED/ANVISA + Arquitetura Privacy-First',
+  'tetojusto.title': 'TetoJusto 🛡️💊: Fiscal de Preços de Medicamentos no Varejo',
+  'tetojusto.desc': 'Aplicativo de fiscalização cidadã que compara o preço cobrado na farmácia com o Preço Máximo ao Consumidor (PMC) oficial da CMED/ANVISA, emitindo vereditos instantâneos com cálculo preciso do excedente. Arquitetura serverless em Next.js 16 e FastAPI, pipeline ETL mensal para ~20.000 apresentações e alertas (Faro) via Web Push API com zero PII.',
+  'tetojusto.feat1': 'Pipeline CMED Robusto: ETL em Python e pandas para ingestão mensal de 20k+ apresentações, tratando asteriscos, isenções ICMS 0% (CONFAZ 87) e restrições hospitalares',
+  'tetojusto.feat2': 'Veredito Regulatório Preciso: Motor de cálculo de PMC por estado/alíquota, tratamento de isenções e Componente de Status Consolidado (descontinuação, análise recursal)',
+  'tetojusto.feat3': 'Scanner Cross-Platform: ZXing library com fallback automático para iOS Safari (sem BarcodeDetector nativo) e geolocalização otimizada com timeout e playsInline',
+  'tetojusto.feat4': 'Privacy-First Faro: Alertas de preço via Web Push com tokens UUID anônimos, zero PII armazenado e conformidade total com LGPD/GDPR sem necessidade de login',
+  'tetojusto.btn': 'Acessar TetoJusto ↗',
+  'tetojusto.badge': 'Live em Produção: tetojusto-web.vercel.app',
 
   'vol2.tag': 'Volume 02 · Arquitetura e Decisões',
   'vol2.title': 'System Design COSTAR Decisório',

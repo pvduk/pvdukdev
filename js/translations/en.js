@@ -45,7 +45,7 @@ export const en = {
   'projects.tab_analytics': 'FirstStrike Analytics',
   'projects.tab_ops': 'FirstStrike Ops',
   'projects.tab_planexa': 'Planexa OS',
-  'projects.tab_roadmap': 'Requirements Roadmap',
+  'projects.tab_tetojusto': 'Teto Justo',
 
   // FirstStrike Analytics SaaS
   'analytics.tag': 'Production SaaS: CQRS Architecture and Stochastic Simulation (.NET 10 / React 19)',
@@ -57,15 +57,6 @@ export const en = {
   'analytics.feat4': 'Constrained-Resource Engineering: Connection pool optimization, 772 automated tests, and Docker Compose containerization',
   'analytics.btn': 'Visit FirstStrike Analytics ↗',
   'analytics.badge': 'Live in Production: firststrikeanalytics.com.br',
-
-  // COSTAR Volumes
-  'vol1.tag': 'Flagship Project: Process and Case Study',
-  'vol1.title': 'Software Engineering and Requirements Roadmap',
-  'vol1.desc': 'Structured 8-phase guide with the real FirstStrike Analytics SaaS case study: from business discovery to the Production Gate.',
-  'vol1.feat1': 'Intuitive, simple, and rich case study for any user',
-  'vol1.feat2': 'C4 Level 1 diagrams, DDD and NoSQL tables',
-  'vol1.feat3': 'Real OpenAPI 3.0 specs and Docker Compose environment',
-  'vol1.btn': 'Open Interactive Roadmap ⟶',
 
   // Planexa OS
   'planexa.tag': 'Native Desktop: Clean Architecture and DIP (100% Offline-First)',
@@ -86,6 +77,17 @@ export const en = {
   'ops.feat3': 'Sub-5ms Batch Settlement: Atomic batch processing with SQLite WAL and MongoDB, reducing operations from 15s to under 5ms',
   'ops.feat4': 'Observability and Security: Cloud API health sentinel, credential cascade with restricted OS permissions, and 346 tests',
   'ops.badge': 'Control Tower: Governance and Auditing',
+
+  // TetoJusto - English
+  'tetojusto.tag': 'Citizen Oversight: CMED/ANVISA + Privacy-First Architecture',
+  'tetojusto.title': 'TetoJusto 🛡️💊: Retail Drug Price Auditor',
+  'tetojusto.desc': 'Citizen oversight app comparing pharmacy retail prices against the official Maximum Consumer Price (PMC) from CMED/ANVISA, issuing instant verdicts with precise overcharge calculations. Serverless architecture using Next.js 16 and FastAPI, monthly ETL pipeline for ~20,000 drug presentations, and Web Push alerts (Faro) with zero PII collection.',
+  'tetojusto.feat1': 'Robust CMED Pipeline: Python and pandas ETL for monthly ingestion of 20k+ drug presentations, handling asterisks, ICMS 0% tax exemptions (CONFAZ 87), and hospital restrictions',
+  'tetojusto.feat2': 'Precise Regulatory Verdict: PMC calculation engine by state/tax rate, exemption handling, and Consolidated Status Component (discontinuation, recursive analysis, hospital use)',
+  'tetojusto.feat3': 'Cross-Platform Scanner: ZXing library with automatic fallback for iOS Safari (bypassing native BarcodeDetector issues) and optimized geolocation with timeout and playsInline enforcement',
+  'tetojusto.feat4': 'Privacy-First Faro (Alerts): Price drop alerts via Web Push using anonymous UUID tokens, zero PII stored, and full LGPD/GDPR compliance without requiring user login',
+  'tetojusto.btn': 'Visit TetoJusto ↗',
+  'tetojusto.badge': 'Live in Production: tetojusto-web.vercel.app',
 
   'vol2.tag': 'Volume 02 · Architecture and Decisions',
   'vol2.title': 'Decisional System Design COSTAR',
