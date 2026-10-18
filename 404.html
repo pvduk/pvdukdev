@@ -75,7 +75,7 @@
   <!-- Progressive Enhancement Fallback Banner (No-JS) -->
   <noscript>
     <div class="noscript-banner" role="status">
-      ⚡ <strong>Navegação Estática:</strong> JavaScript desativado. Use os links de navegação da barra superior para retornar à estação principal.
+      <svg class="inline-svg-icon inline-svg-icon--bolt" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg> <strong>Navegação Estática:</strong> JavaScript desativado. Use os links de navegação da barra superior para retornar à estação principal.
     </div>
   </noscript>
 
@@ -140,10 +140,10 @@
 
         <!-- Botões de Ação -->
         <div class="error-actions-group">
-          <a href="index.html" class="btn btn-primary" data-i18n="404.btn_home">cd /home ➔</a>
-          <a href="roadmap-requisitos.html" class="btn btn-outline" data-i18n="404.btn_roadmap">git checkout roadmap ➔</a>
-          <button type="button" class="btn btn-outline" onclick="window.makeCoffee ? window.makeCoffee() : alert('HTTP 418: I\'m a teapot · Coffee provisioned! ☕')" data-i18n="404.btn_coffee">
-            ☕ sudo make-coffee
+          <a href="index.html" class="btn btn-primary" data-i18n="404.btn_home">cd /home <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg></a>
+          <a href="roadmap-requisitos.html" class="btn btn-outline" data-i18n="404.btn_roadmap">git checkout roadmap <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg></a>
+          <button type="button" class="btn btn-outline" onclick="window.makeCoffee ? window.makeCoffee() : alert('HTTP 418: I\'m a teapot · Coffee provisioned!')" data-i18n="404.btn_coffee">
+            <svg class="inline-svg-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-coffee"></use></svg> sudo make-coffee
           </button>
         </div>
       </section>
@@ -158,7 +158,7 @@
       </div>
       <div class="footer-line footer-line--tagline">
         <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
-        <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+        <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-coffee"></use></svg>
       </div>
     </div>
   </footer>

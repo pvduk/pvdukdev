@@ -92,7 +92,7 @@
       .chevron-icon { display: none !important; }
     </style>
     <div class="noscript-banner" role="status">
-      ⚡ <strong>Modo Estático (Sem JavaScript):</strong> Todas as 8 fases do estudo de caso estão expandidas para leitura direta.
+      <svg class="inline-svg-icon inline-svg-icon--bolt" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg> <strong>Modo Estático (Sem JavaScript):</strong> Todas as 8 fases do estudo de caso estão expandidas para leitura direta.
     </div>
   </noscript>
 
@@ -139,11 +139,14 @@
         Do Discovery ao Deploy em Produção: Como atacamos o problema de latência analítica aplicando fundamentos sólidos e o ecossistema C# .NET mais moderno
       </p>
 
-      <!-- Cartão Informativo do Projeto -->
+      <!-- Cartão Informativo do Projeto e Diretriz Normativa RFC 2119 -->
       <div class="infobox ib-blue">
         <div class="infobox-title" data-i18n="roadmap.case_overview_title">Visão Geral do Caso: Plataforma Analítica SaaS</div>
         <p data-i18n="roadmap.case_overview_text">
           Este estudo de caso documenta as decisões arquiteturais e os fundamentos de engenharia aplicados na construção do FirstStrike Analytics, um SaaS de alta performance. Demonstra como um problema de alto custo computacional e concorrência foi resolvido através de <strong>Clean Architecture</strong>, processamento assíncrono em segundo plano (<em>Zero-Compute</em> no client), <strong>C# .NET 10</strong>, cacheamento inteligente na borda e testes automatizados em múltiplas camadas.
+        </p>
+        <p class="roadmap-rfc2119-note" data-i18n="roadmap.rfc2119_note">
+          <small><svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-clipboard"></use></svg> <strong>Nota Normativa (IETF RFC 2119):</strong> Os requisitos de engenharia neste documento seguem a taxonomia oficial: <code>MUST</code> (requisito absoluto inegociável), <code>MUST NOT</code> (proibição absoluta), <code>SHOULD</code> (recomendação com justificativa), <code>SHOULD NOT</code> (desaconselhado) e <code>MAY</code> (opcional).</small>
         </p>
       </div>
     </header>
@@ -324,12 +327,12 @@
                 </div>
               </div>
               <div class="content-block">
-                <div class="block-title" data-i18n="roadmap.p2_moscow_title">Priorização de Escopo (MoSCoW)</div>
+                <div class="block-title" data-i18n="roadmap.p2_moscow_title">Priorização de Escopo e Requisitos Normativos (MoSCoW e RFC 2119)</div>
                 <ul class="checklist">
-                  <li data-i18n="roadmap.p2_moscow_must"><strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.</li>
-                  <li data-i18n="roadmap.p2_moscow_should"><strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.</li>
-                  <li data-i18n="roadmap.p2_moscow_could"><strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.</li>
-                  <li data-i18n="roadmap.p2_moscow_wont"><strong>Won't Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.</li>
+                  <li data-i18n="roadmap.p2_moscow_must"><strong>MUST (Mandatório):</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.</li>
+                  <li data-i18n="roadmap.p2_moscow_should"><strong>SHOULD (Recomendado):</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.</li>
+                  <li data-i18n="roadmap.p2_moscow_could"><strong>MAY (Opcional):</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.</li>
+                  <li data-i18n="roadmap.p2_moscow_wont"><strong>MUST NOT / SHOULD NOT:</strong> O sistema MUST NOT executar cálculos pesados na thread HTTP e SHOULD NOT acoplar dependências desnecessárias.</li>
                 </ul>
               </div>
               <div class="content-block">
@@ -552,7 +555,7 @@
                 <div class="block-title" data-i18n="roadmap.p8_gate_title">Status do Gate de Entrada em Produção</div>
                 <div class="gate-status-grid">
                   <div>
-                    <div class="gate-column-title text-green" data-i18n="roadmap.p8_col1_title">✓ FUNDAMENTOS E BACKEND (100%)</div>
+                    <div class="gate-column-title text-green" data-i18n="roadmap.p8_col1_title"><svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FUNDAMENTOS E BACKEND (100%)</div>
                     <ul class="checklist">
                       <li data-i18n="roadmap.p8_col1_item1">Clean Architecture em C# .NET 10 implementada</li>
                       <li data-i18n="roadmap.p8_col1_item2">Desacoplamento Zero-Compute em Background Workers</li>
@@ -561,7 +564,7 @@
                     </ul>
                   </div>
                   <div>
-                    <div class="gate-column-title text-accent2" data-i18n="roadmap.p8_col2_title">✓ FRONTEND E PERFORMANCE (100%)</div>
+                    <div class="gate-column-title text-accent2" data-i18n="roadmap.p8_col2_title"><svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FRONTEND E PERFORMANCE (100%)</div>
                     <ul class="checklist">
                       <li data-i18n="roadmap.p8_col2_item1">Edge Caching com TTFB sub-35ms</li>
                       <li data-i18n="roadmap.p8_col2_item2">Stale-while-revalidate RFC-7234</li>
@@ -570,7 +573,7 @@
                     </ul>
                   </div>
                   <div>
-                    <div class="gate-column-title text-purple" data-i18n="roadmap.p8_col3_title">✓ QUALIDADE E RESILIÊNCIA (100%)</div>
+                    <div class="gate-column-title text-purple" data-i18n="roadmap.p8_col3_title"><svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> QUALIDADE E RESILIÊNCIA (100%)</div>
                     <ul class="checklist">
                       <li data-i18n="roadmap.p8_col3_item1">Contratos OpenAPI 3.0 documentados</li>
                       <li data-i18n="roadmap.p8_col3_item2">Fallback em cascata entre LLMs</li>
@@ -638,7 +641,7 @@
       </div>
       <div class="footer-line footer-line--tagline">
         <span data-i18n="footer.author">Feito com Vanilla Web Standards. Nenhum framework de 50MB foi maltratado neste site</span>
-        <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+        <svg class="footer-coffee-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-coffee"></use></svg>
       </div>
     </div>
   </footer>

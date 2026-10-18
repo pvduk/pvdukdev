@@ -59,7 +59,7 @@
 
   // FirstStrike Analytics SaaS
   'analytics.tag': 'SaaS em Produção: CQRS e Simulação Estocástica (.NET 10 / React 19)',
-  'analytics.title': 'FirstStrike Analytics ⚡: Plataforma Preditiva e Quantitativa da NBA',
+  'analytics.title': 'FirstStrike Analytics <svg class="inline-svg-icon inline-svg-icon--bolt" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>: Plataforma Preditiva e Quantitativa da NBA',
   'analytics.desc': 'Plataforma quantitativa em produção que modela probabilidades estatísticas de atletas na NBA e WNBA. Projetada para operar com máxima eficiência sob restrições reais de infraestrutura (free tier do Render): resolve limitações de pool de conexões no MongoDB, elimina cold start via sentinela e executa 10.000 simulações de Monte Carlo em workers assíncronos em .NET 10, entregando projeções com latência de sub-milissegundos na borda em React 19.',
   'analytics.feat1': 'Modelagem de Escopo Duplo: Pipelines analíticos independentes para 1º Quarto (baixa variância) e Jogo Completo (impacto de rotação)',
   'analytics.feat2': 'Motor de Simulação de Monte Carlo: 10.000 iterações por cenário calculando probabilidades conjuntas e canibalização de volume',
@@ -70,7 +70,7 @@
 
   // Planexa OS
   'planexa.tag': 'Desktop Nativo: Clean Architecture e DIP (100% Offline-First)',
-  'planexa.title': 'Planexa OS 💎⚡: Estação de Trabalho Executiva e Gestão Operacional',
+  'planexa.title': 'Planexa OS <svg class="inline-svg-icon inline-svg-icon--gem" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-gem"></use></svg><svg class="inline-svg-icon inline-svg-icon--bolt" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>: Estação de Trabalho Executiva e Gestão Operacional',
   'planexa.desc': 'Estação de trabalho desktop nativa para gestão de contratos PJ, consultoria e rotina acadêmica. Construída com Clean Architecture pura em C# 14 e React 19 sobre Photino.NET, opera com consumo abaixo de 40MB de memória RAM (sem Electron), persistência local relacional em SQLite e privacidade absoluta com zero dependência de nuvem.',
   'planexa.feat1': 'Arquitetura Desktop Nativa: .NET 10 + C# 14 + Photino.NET (<40MB RAM, binário único autocontido para macOS, Windows e Linux)',
   'planexa.feat2': 'Domínio Puro e Despacho O(1): StepHierarchyEngine para árvores N-árias e CommandRegistry desacoplado para comunicação IPC',
@@ -80,7 +80,7 @@
 
   // FirstStrike Ops
   'ops.tag': 'Torre de Controle: Governança de Dados e Observabilidade (Desktop Nativo)',
-  'ops.title': 'FirstStrike Ops 🛡️: Torre de Controle e Auditoria Pré-Publicação',
+  'ops.title': 'FirstStrike Ops <svg class="inline-svg-icon inline-svg-icon--shield" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg>: Torre de Controle e Auditoria Pré-Publicação',
   'ops.desc': 'Torre de controle desktop para governança, auditoria matemática e monitoramento de infraestrutura do ecossistema FirstStrike Analytics. Executa validação determinística de projeções antes da publicação, ambiente de staging isolado com visualizador de diff para correções sem risco e sentinela de nuvem com proteção anti-cold start.',
   'ops.feat1': 'Auditoria Determinística de Dados: DatabaseValidator escaneando anomalias e aplicando quarentena automática antes da publicação',
   'ops.feat2': 'Staging Sandbox com Diff Viewer: Inspeção e reconciliação visual de cargas de dados com sincronização otimista imediata',
@@ -90,14 +90,14 @@
 
   // TetoJusto - Português
   'tetojusto.tag': 'Fiscalização Cidadã: CMED/ANVISA + Arquitetura Privacy-First',
-  'tetojusto.title': 'TetoJusto 🛡️💊: Fiscal de Preços de Medicamentos no Varejo',
+  'tetojusto.title': 'TetoJusto <svg class="inline-svg-icon inline-svg-icon--shield" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg><svg class="inline-svg-icon inline-svg-icon--pill inline-svg-icon--stroke" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-pill"></use></svg>: Fiscal de Preços de Medicamentos no Varejo',
   'tetojusto.desc': 'Aplicativo de fiscalização cidadã que compara o preço cobrado na farmácia com o Preço Máximo ao Consumidor (PMC) oficial da CMED/ANVISA, emitindo vereditos instantâneos com cálculo preciso do excedente. Arquitetura serverless em Next.js 16 e FastAPI, pipeline ETL mensal para ~20.000 apresentações e alertas (Faro) via Web Push API com zero PII.',
   'tetojusto.feat1': 'Pipeline CMED Robusto: ETL em Python e pandas para ingestão mensal de 20k+ apresentações, tratando asteriscos, isenções ICMS 0% (CONFAZ 87) e restrições hospitalares',
   'tetojusto.feat2': 'Veredito Regulatório Preciso: Motor de cálculo de PMC por estado/alíquota, tratamento de isenções e Componente de Status Consolidado (descontinuação, análise recursal)',
   'tetojusto.feat3': 'Scanner Cross-Platform: ZXing library com fallback automático para iOS Safari (sem BarcodeDetector nativo) e geolocalização otimizada com timeout e playsInline',
   'tetojusto.feat4': 'Privacy-First Faro: Alertas de preço via Web Push com tokens UUID anônimos, zero PII armazenado e conformidade total com LGPD/GDPR sem necessidade de login',
   'tetojusto.btn': 'Acessar TetoJusto ↗',
-  'tetojusto.badge': 'Live em Produção: tetojusto-web.vercel.app',
+  'tetojusto.badge': 'Live em Produção: tetojusto.com.br',
 
   'vol2.tag': 'Volume 02 · Arquitetura e Decisões',
   'vol2.title': 'System Design COSTAR Decisório',
@@ -200,15 +200,15 @@
   'terminal.th_stack': 'STACK',
   'terminal.th_type': 'TIPO',
   'terminal.th_link': 'ACESSO',
-  'terminal.proj_fs_name': 'FirstStrike Analytics 🏀⚡',
+  'terminal.proj_fs_name': 'FirstStrike Analytics <svg class="inline-svg-icon inline-svg-icon--bolt" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>',
   'terminal.proj_fs_stack': '.NET 10 / React 19 / Tailwind v4 / MongoDB / Gemini IA',
   'terminal.proj_fs_type': 'SaaS Quantitativo e IA (NBA)',
   'terminal.proj_fs_link': '[firststrikeanalytics.com.br] ↗',
-  'terminal.proj_planexa_name': 'Planexa OS 💎⚡',
+  'terminal.proj_planexa_name': 'Planexa OS <svg class="inline-svg-icon inline-svg-icon--gem" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-gem"></use></svg>',
   'terminal.proj_planexa_stack': '.NET 10 / Photino.NET / React 19 / SQLite WAL',
   'terminal.proj_planexa_type': 'Desktop Nativo (Offline-First)',
   'terminal.proj_planexa_status': 'Desktop Nativo',
-  'terminal.proj_ops_name': 'FirstStrike Ops 🛡️',
+  'terminal.proj_ops_name': 'FirstStrike Ops <svg class="inline-svg-icon inline-svg-icon--shield" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg>',
   'terminal.proj_ops_stack': '.NET 10 / Photino.NET / SQLite / MongoDB Atlas',
   'terminal.proj_ops_type': 'Torre de Controle e Observabilidade',
   'terminal.proj_ops_status': 'Auditoria e Operações',
@@ -259,6 +259,7 @@
   'roadmap.header_sub': 'Do Discovery ao Deploy em Produção: Como atacamos o problema de latência analítica no FirstStrike Analytics com C# .NET e Clean Architecture',
   'roadmap.case_overview_title': 'Visão Geral do Caso: Plataforma Analítica SaaS',
   'roadmap.case_overview_text': 'Este estudo de caso documenta as decisões arquiteturais e os fundamentos de engenharia aplicados na construção do FirstStrike Analytics, um SaaS de alta performance. Demonstra como um problema de alto custo computacional e concorrência foi resolvido através de Clean Architecture, processamento assíncrono em segundo plano (Zero-Compute no client), C# .NET 10, cacheamento inteligente na borda e testes automatizados em múltiplas camadas.',
+  'roadmap.rfc2119_note': '<small><svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-clipboard"></use></svg> <strong>Nota Normativa (IETF RFC 2119):</strong> Os requisitos de engenharia neste documento seguem a taxonomia oficial: <code>MUST</code> (requisito absoluto inegociável), <code>MUST NOT</code> (proibição absoluta), <code>SHOULD</code> (recomendação com justificativa), <code>SHOULD NOT</code> (desaconselhado) e <code>MAY</code> (opcional).</small>',
   'roadmap.costar_title': 'Framework COSTAR · Estratégia de Engenharia',
   'roadmap.phases_title': 'Roadmap de Engenharia · 8 Fases do Projeto',
   'roadmap.timeline_title': 'Linha do Tempo de Engenharia e Entregáveis',
@@ -331,11 +332,11 @@
   'roadmap.p2_tag2': '3–5 dias',
   'roadmap.p2_spec_title': 'Especificação Comportamental em Gherkin',
   'roadmap.p2_spec_content': '<strong class="text-accent3">História: Consulta Analítica com Resposta de Baixa Latência</strong><br><em>Como um</em> analista ou usuário da plataforma<br><em>Quero</em> acessar os relatórios e métricas consolidadas da rodada<br><em>Para</em> obter insumos decisórios instantâneos sem aguardar reprocessamento de cálculos pesados.<br><br><strong class="text-green">Cenário BDD: Resposta Otimizada a Partir da Camada Consolidada</strong><br><strong>Given (Dado)</strong> que o pipeline assíncrono de background concluiu a geração das análises diárias<br><strong>When (Quando)</strong> eu solicito os dados consolidados pelo dashboard ou API<br><strong>Then (Então)</strong> o sistema deve retornar as projeções e resumos em menos de 35ms<br><strong>And (E)</strong> nenhuma computação estatística pesada deve ser executada de forma síncrona na thread da requisição.',
-  'roadmap.p2_moscow_title': 'Priorização de Escopo (MoSCoW)',
-  'roadmap.p2_moscow_must': '<strong>Must Have:</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.',
-  'roadmap.p2_moscow_should': '<strong>Should Have:</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.',
-  'roadmap.p2_moscow_could': '<strong>Could Have:</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.',
-  'roadmap.p2_moscow_wont': '<strong>Won\'t Have:</strong> Operações de liquidação financeira ou chat síncrono no MVP.',
+  'roadmap.p2_moscow_title': 'Priorização de Escopo e Requisitos Normativos (MoSCoW e RFC 2119)',
+  'roadmap.p2_moscow_must': '<strong>MUST (Mandatório):</strong> Processamento em lote em background, persistência atômica, cache na borda e suporte PWA.',
+  'roadmap.p2_moscow_should': '<strong>SHOULD (Recomendado):</strong> Filtros temporais otimizados, internacionalização fluida e fallback resiliente de serviços externos.',
+  'roadmap.p2_moscow_could': '<strong>MAY (Opcional):</strong> Alertas push/webhooks e integrações avançadas com provedores terceiros.',
+  'roadmap.p2_moscow_wont': '<strong>MUST NOT / SHOULD NOT:</strong> O sistema MUST NOT executar cálculos pesados na thread HTTP e SHOULD NOT acoplar dependências desnecessárias.',
   'roadmap.p2_nfr_title': 'Requisitos Não-Funcionais',
   'roadmap.p2_nfr_item1': '<strong>Performance:</strong> Time to First Byte (TTFB) < 35ms para rotas de leitura em cache.',
   'roadmap.p2_nfr_item2': '<strong>Eficiência de Recursos:</strong> Backend enxuto com baixo footprint de memória e CPU.',
@@ -403,17 +404,17 @@
   'roadmap.p8_tag1': 'Live in Production',
   'roadmap.p8_tag2': '1–2 dias',
   'roadmap.p8_gate_title': 'Status do Gate de Entrada em Produção',
-  'roadmap.p8_col1_title': '✓ FUNDAMENTOS E BACKEND (100%)',
+  'roadmap.p8_col1_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FUNDAMENTOS E BACKEND (100%)',
   'roadmap.p8_col1_item1': 'Clean Architecture em C# .NET 10 implementada',
   'roadmap.p8_col1_item2': 'Desacoplamento Zero-Compute em Background Workers',
   'roadmap.p8_col1_item3': 'Persistência NoSQL atômica em tempo O(1)',
   'roadmap.p8_col1_item4': '100% da suíte de testes xUnit aprovada',
-  'roadmap.p8_col2_title': '✓ FRONTEND E PERFORMANCE (100%)',
+  'roadmap.p8_col2_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FRONTEND E PERFORMANCE (100%)',
   'roadmap.p8_col2_item1': 'Edge Caching com TTFB sub-35ms',
   'roadmap.p8_col2_item2': 'Stale-while-revalidate RFC-7234',
   'roadmap.p8_col2_item3': 'PWA com modo Offline First nativo',
   'roadmap.p8_col2_item4': 'Core Web Vitals em faixa verde (100/100)',
-  'roadmap.p8_col3_title': '✓ QUALIDADE E RESILIÊNCIA (100%)',
+  'roadmap.p8_col3_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> QUALIDADE E RESILIÊNCIA (100%)',
   'roadmap.p8_col3_item1': 'Contratos OpenAPI 3.0 documentados',
   'roadmap.p8_col3_item2': 'Fallback em cascata entre LLMs',
   'roadmap.p8_col3_item3': 'Testes E2E cobrindo 100% dos fluxos BDD',
@@ -455,9 +456,9 @@
   '404.hypo_1': 'Hipótese 01: O estagiário deu git push --force na sexta-feira às 18h.',
   '404.hypo_2': 'Hipótese 02: O Garbage Collector coletou esta página por considerá-la unreachable.',
   '404.hypo_3': 'Hipótese 03: Você tentou acessar uma rota sem colocar ponto-e-vírgula no final.',
-  '404.btn_home': 'cd /home ➔',
-  '404.btn_roadmap': 'git checkout roadmap ➔',
-  '404.btn_coffee': '☕ sudo make-coffee',
+  '404.btn_home': 'cd /home <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg>',
+  '404.btn_roadmap': 'git checkout roadmap <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg>',
+  '404.btn_coffee': '<svg class="inline-svg-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-coffee"></use></svg> sudo make-coffee',
   '404.coffee_msg': 'HTTP 418: I\'m a teapot · Café expresso provisionado com sucesso na memória cache!',
 
   // ─── Blog de Engenharia e Artigos ───
@@ -544,7 +545,7 @@
 
   // FirstStrike Analytics SaaS
   'analytics.tag': 'Production SaaS: CQRS Architecture and Stochastic Simulation (.NET 10 / React 19)',
-  'analytics.title': 'FirstStrike Analytics ⚡: NBA Predictive and Quantitative Platform',
+  'analytics.title': 'FirstStrike Analytics <svg class="inline-svg-icon inline-svg-icon--bolt" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>: NBA Predictive and Quantitative Platform',
   'analytics.desc': 'Production quantitative platform modeling statistical probabilities for NBA and WNBA athletes. Engineered for optimal efficiency under real cloud constraints (Render free tier): overcomes MongoDB connection pool limitations, prevents cold starts via sentinel keepalive, and runs 10,000 Monte Carlo simulations in asynchronous .NET 10 workers, serving sub-millisecond projections at the edge in React 19.',
   'analytics.feat1': 'Dual-Scope Modeling: Independent analytical pipelines for First Quarter (low variance) and Full Game (rotation impact)',
   'analytics.feat2': 'Monte Carlo Simulation Engine: 10,000 iterations per scenario computing joint probabilities and volume cannibalization',
@@ -555,7 +556,7 @@
 
   // Planexa OS
   'planexa.tag': 'Native Desktop: Clean Architecture and DIP (100% Offline-First)',
-  'planexa.title': 'Planexa OS 💎⚡: Executive Workstation and Operations Management',
+  'planexa.title': 'Planexa OS <svg class="inline-svg-icon inline-svg-icon--gem" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-gem"></use></svg><svg class="inline-svg-icon inline-svg-icon--bolt" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>: Executive Workstation and Operations Management',
   'planexa.desc': 'Native desktop workstation for engineering contract management, consulting operations, and academic routine. Engineered with pure C# 14 Clean Architecture and React 19 over Photino.NET, running under 40MB RAM (zero Electron), local relational SQLite persistence, and absolute privacy with zero cloud dependency.',
   'planexa.feat1': 'Native Desktop Architecture: .NET 10 + C# 14 + Photino.NET (<40MB RAM, self-contained single-file binary for macOS, Windows, and Linux)',
   'planexa.feat2': 'Pure Domain and O(1) Dispatch: StepHierarchyEngine for N-ary trees and decoupled CommandRegistry for native IPC communication',
@@ -565,7 +566,7 @@
 
   // FirstStrike Ops
   'ops.tag': 'Control Tower: Data Governance and Observability (Native Desktop)',
-  'ops.title': 'FirstStrike Ops 🛡️: Control Tower and Pre-Publication Auditing',
+  'ops.title': 'FirstStrike Ops <svg class="inline-svg-icon inline-svg-icon--shield" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg>: Control Tower and Pre-Publication Auditing',
   'ops.desc': 'Desktop control tower for data governance, mathematical auditing, and infrastructure monitoring across the FirstStrike Analytics ecosystem. Features deterministic pre-publication projection validation, an isolated staging sandbox with side-by-side diff viewer for zero-risk corrections, and cloud keepalive with anti-cold start protection.',
   'ops.feat1': 'Deterministic Data Audit: DatabaseValidator scanning anomalies and enforcing automatic quarantine before public release',
   'ops.feat2': 'Staging Sandbox with Diff Viewer: Visual inspection and reconciliation of data payloads with instant optimistic synchronization',
@@ -575,14 +576,14 @@
 
   // TetoJusto - English
   'tetojusto.tag': 'Citizen Oversight: CMED/ANVISA + Privacy-First Architecture',
-  'tetojusto.title': 'TetoJusto 🛡️💊: Retail Drug Price Auditor',
+  'tetojusto.title': 'TetoJusto <svg class="inline-svg-icon inline-svg-icon--shield" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg><svg class="inline-svg-icon inline-svg-icon--pill inline-svg-icon--stroke" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-pill"></use></svg>: Retail Drug Price Auditor',
   'tetojusto.desc': 'Citizen oversight app comparing pharmacy retail prices against the official Maximum Consumer Price (PMC) from CMED/ANVISA, issuing instant verdicts with precise overcharge calculations. Serverless architecture using Next.js 16 and FastAPI, monthly ETL pipeline for ~20,000 drug presentations, and Web Push alerts (Faro) with zero PII collection.',
   'tetojusto.feat1': 'Robust CMED Pipeline: Python and pandas ETL for monthly ingestion of 20k+ drug presentations, handling asterisks, ICMS 0% tax exemptions (CONFAZ 87), and hospital restrictions',
   'tetojusto.feat2': 'Precise Regulatory Verdict: PMC calculation engine by state/tax rate, exemption handling, and Consolidated Status Component (discontinuation, recursive analysis, hospital use)',
   'tetojusto.feat3': 'Cross-Platform Scanner: ZXing library with automatic fallback for iOS Safari (bypassing native BarcodeDetector issues) and optimized geolocation with timeout and playsInline enforcement',
   'tetojusto.feat4': 'Privacy-First Faro (Alerts): Price drop alerts via Web Push using anonymous UUID tokens, zero PII stored, and full LGPD/GDPR compliance without requiring user login',
   'tetojusto.btn': 'Visit TetoJusto ↗',
-  'tetojusto.badge': 'Live in Production: tetojusto-web.vercel.app',
+  'tetojusto.badge': 'Live in Production: tetojusto.com.br',
 
   'vol2.tag': 'Volume 02 · Architecture and Decisions',
   'vol2.title': 'Decisional System Design COSTAR',
@@ -685,15 +686,15 @@
   'terminal.th_stack': 'STACK',
   'terminal.th_type': 'TYPE',
   'terminal.th_link': 'ACCESS',
-  'terminal.proj_fs_name': 'FirstStrike Analytics 🏀⚡',
+  'terminal.proj_fs_name': 'FirstStrike Analytics <svg class="inline-svg-icon inline-svg-icon--bolt" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-bolt"></use></svg>',
   'terminal.proj_fs_stack': '.NET 10 / React 19 / Tailwind v4 / MongoDB / Gemini AI',
   'terminal.proj_fs_type': 'Quantitative SaaS and AI (NBA)',
   'terminal.proj_fs_link': '[firststrikeanalytics.com.br] ↗',
-  'terminal.proj_planexa_name': 'Planexa OS 💎⚡',
+  'terminal.proj_planexa_name': 'Planexa OS <svg class="inline-svg-icon inline-svg-icon--gem" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-gem"></use></svg>',
   'terminal.proj_planexa_stack': '.NET 10 / Photino.NET / React 19 / SQLite WAL',
   'terminal.proj_planexa_type': 'Native Desktop (Offline-First)',
   'terminal.proj_planexa_status': 'Native Desktop',
-  'terminal.proj_ops_name': 'FirstStrike Ops 🛡️',
+  'terminal.proj_ops_name': 'FirstStrike Ops <svg class="inline-svg-icon inline-svg-icon--shield" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-shield"></use></svg>',
   'terminal.proj_ops_stack': '.NET 10 / Photino.NET / SQLite / MongoDB Atlas',
   'terminal.proj_ops_type': 'Control Tower and Observability',
   'terminal.proj_ops_status': 'Audit and Operations',
@@ -744,6 +745,7 @@
   'roadmap.header_sub': 'From Discovery to Production Deploy: How we solved the analytical latency bottleneck in FirstStrike Analytics using C# .NET and Clean Architecture',
   'roadmap.case_overview_title': 'Case Overview: SaaS Analytics Platform',
   'roadmap.case_overview_text': 'This case study documents the architectural decisions and engineering fundamentals applied in building FirstStrike Analytics, a high-performance SaaS. It demonstrates how a high compute cost and concurrency bottleneck was solved through Clean Architecture, asynchronous background workers (Zero-Compute on client), C# .NET 10, intelligent edge caching, and multi-layer automated testing.',
+  'roadmap.rfc2119_note': '<small><svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-clipboard"></use></svg> <strong>Normative Note (IETF RFC 2119):</strong> Engineering requirements in this document follow the official taxonomy: <code>MUST</code> (absolute requirement), <code>MUST NOT</code> (absolute prohibition), <code>SHOULD</code> (recommendation with rationale), <code>SHOULD NOT</code> (discouraged) and <code>MAY</code> (optional).</small>',
   'roadmap.costar_title': 'COSTAR Framework · Engineering Strategy',
   'roadmap.phases_title': 'Engineering Roadmap · 8 Project Phases',
   'roadmap.timeline_title': 'Engineering Timeline and Deliverables',
@@ -816,11 +818,11 @@
   'roadmap.p2_tag2': '3–5 days',
   'roadmap.p2_spec_title': 'Behavioral Specification in Gherkin',
   'roadmap.p2_spec_content': '<strong class="text-accent3">Story: Low-Latency Analytical Query</strong><br><em>As an</em> analyst or platform user<br><em>I want to</em> access consolidated round reports and metrics<br><em>So that</em> I obtain instant decision inputs without waiting for heavy recomputations.<br><br><strong class="text-green">BDD Scenario: Optimized Response from Consolidated Layer</strong><br><strong>Given</strong> that the background asynchronous pipeline completed daily analysis generation<br><strong>When</strong> I request consolidated data via dashboard or API<br><strong>Then</strong> the system must return projections and summaries in under 35ms<br><strong>And</strong> no heavy statistical computation should run synchronously on the request thread.',
-  'roadmap.p2_moscow_title': 'Scope Prioritization (MoSCoW)',
-  'roadmap.p2_moscow_must': '<strong>Must Have:</strong> Background batch processing, atomic persistence, edge caching, and PWA support.',
-  'roadmap.p2_moscow_should': '<strong>Should Have:</strong> Optimized temporal filters, seamless internationalization, and resilient fallback for external services.',
-  'roadmap.p2_moscow_could': '<strong>Could Have:</strong> Push alerts/webhooks and advanced third-party provider integrations.',
-  'roadmap.p2_moscow_wont': '<strong>Won\'t Have:</strong> Financial settlement operations or synchronous chat in the MVP.',
+  'roadmap.p2_moscow_title': 'Scope Prioritization and Normative Requirements (MoSCoW and RFC 2119)',
+  'roadmap.p2_moscow_must': '<strong>MUST (Mandatory):</strong> Background batch processing, atomic persistence, edge caching, and PWA support.',
+  'roadmap.p2_moscow_should': '<strong>SHOULD (Recommended):</strong> Optimized temporal filters, seamless internationalization, and resilient fallback for external services.',
+  'roadmap.p2_moscow_could': '<strong>MAY (Optional):</strong> Push alerts/webhooks and advanced third-party provider integrations.',
+  'roadmap.p2_moscow_wont': '<strong>MUST NOT / SHOULD NOT:</strong> The system MUST NOT execute heavy calculations on the HTTP thread and SHOULD NOT couple unnecessary dependencies.',
   'roadmap.p2_nfr_title': 'Non-Functional Requirements',
   'roadmap.p2_nfr_item1': '<strong>Performance:</strong> Time to First Byte (TTFB) < 35ms for cached read routes.',
   'roadmap.p2_nfr_item2': '<strong>Resource Efficiency:</strong> Lean backend with low memory and CPU footprint.',
@@ -888,17 +890,17 @@
   'roadmap.p8_tag1': 'Live in Production',
   'roadmap.p8_tag2': '1–2 days',
   'roadmap.p8_gate_title': 'Production Readiness Gate Status',
-  'roadmap.p8_col1_title': '✓ FUNDAMENTALS AND BACKEND (100%)',
+  'roadmap.p8_col1_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FUNDAMENTALS AND BACKEND (100%)',
   'roadmap.p8_col1_item1': 'Clean Architecture in C# .NET 10 implemented',
   'roadmap.p8_col1_item2': 'Zero-Compute Decoupling in Background Workers',
   'roadmap.p8_col1_item3': 'Atomic NoSQL persistence in O(1) time',
   'roadmap.p8_col1_item4': '100% of xUnit test suite passing',
-  'roadmap.p8_col2_title': '✓ FRONTEND AND PERFORMANCE (100%)',
+  'roadmap.p8_col2_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> FRONTEND AND PERFORMANCE (100%)',
   'roadmap.p8_col2_item1': 'Edge Caching with sub-35ms TTFB',
   'roadmap.p8_col2_item2': 'Stale-while-revalidate RFC-7234',
   'roadmap.p8_col2_item3': 'PWA with native Offline First mode',
   'roadmap.p8_col2_item4': 'Core Web Vitals in the green zone (100/100)',
-  'roadmap.p8_col3_title': '✓ QUALITY AND RESILIENCE (100%)',
+  'roadmap.p8_col3_title': '<svg class="inline-svg-icon inline-svg-icon--check" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-check"></use></svg> QUALITY AND RESILIENCE (100%)',
   'roadmap.p8_col3_item1': 'OpenAPI 3.0 contracts documented',
   'roadmap.p8_col3_item2': 'Cascading fallback across LLMs',
   'roadmap.p8_col3_item3': 'E2E tests covering 100% of BDD flows',
@@ -940,9 +942,9 @@
   '404.hypo_1': 'Hypothesis 01: The intern ran git push --force on Friday at 6 PM.',
   '404.hypo_2': 'Hypothesis 02: The Garbage Collector reclaimed this page as unreachable.',
   '404.hypo_3': 'Hypothesis 03: You tried to access a route without putting a semicolon at the end.',
-  '404.btn_home': 'cd /home ➔',
-  '404.btn_roadmap': 'git checkout roadmap ➔',
-  '404.btn_coffee': '☕ sudo make-coffee',
+  '404.btn_home': 'cd /home <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg>',
+  '404.btn_roadmap': 'git checkout roadmap <svg class="inline-svg-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-arrow-right"></use></svg>',
+  '404.btn_coffee': '<svg class="inline-svg-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-coffee"></use></svg> sudo make-coffee',
   '404.coffee_msg': 'HTTP 418: I\'m a teapot · Espresso coffee provisioned with zero latency in cache memory!',
 
   // ─── Engineering Blog and Articles ───
@@ -1006,10 +1008,29 @@
     return callback();
   }
 
+  // ─── SANITIZAÇÃO ANTI-XSS (COMPARTILHADA ENTRE COMPONENTES) ───
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ─── CONFIGURAÇÃO CENTRALIZADA (SOBERANIA E CONFIGURAÇÃO) ───
+  const CONFIG = {
+    WEB3FORMS_KEY: 'd4d219ae-6575-4b32-b4a1-bf14f65fb12c',
+    STORAGE_KEY_LANG: 'costar_preferred_lang',
+    STORAGE_KEY_THEME: 'costar_preferred_theme',
+    STORAGE_KEY_VIEW: 'costar_view_mode'
+  };
+  Object.freeze(CONFIG);
+
   // ═════════════════════════════════════════════════════════════════════
   // 2. MOTOR DE INTERNACIONALIZAÇÃO (i18n)
   // ═════════════════════════════════════════════════════════════════════
-  const STORAGE_KEY_LANG = 'costar_preferred_lang';
+  const STORAGE_KEY_LANG = CONFIG.STORAGE_KEY_LANG;
 
   function getSavedLanguage() {
     try {
@@ -1099,7 +1120,7 @@
   // ═════════════════════════════════════════════════════════════════════
   // 3. GERENCIADOR DE TEMA (Dark / Light)
   // ═════════════════════════════════════════════════════════════════════
-  const STORAGE_KEY_THEME = 'costar_preferred_theme';
+  const STORAGE_KEY_THEME = CONFIG.STORAGE_KEY_THEME;
 
   function getSavedTheme() {
     try {
@@ -1135,7 +1156,7 @@
   // ═════════════════════════════════════════════════════════════════════
   // 4. GERENCIADOR DE MODO DE EXIBIÇÃO (Standard vs Dev Mode)
   // ═════════════════════════════════════════════════════════════════════
-  const STORAGE_KEY_VIEW = 'costar_view_mode';
+  const STORAGE_KEY_VIEW = CONFIG.STORAGE_KEY_VIEW;
 
   function getSavedViewMode() {
     try {
@@ -1209,10 +1230,6 @@
       line.innerHTML = html;
       terminalOutput.appendChild(line);
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     const commandAliases = {
@@ -1499,7 +1516,7 @@
     });
 
     // ─── SMART EMAIL COMPOSER and WEB3FORMS (ASYNC FETCH) ───
-    const contactForm = document.getElementById('contactForm');
+    const contactForm = /** @type {HTMLFormElement | null} */ (document.getElementById('contactForm'));
     const subjectInput = document.getElementById('contactSubject');
     const emailInput = document.getElementById('contactEmail');
     const messageInput = document.getElementById('contactMessage');
@@ -1541,11 +1558,11 @@
         }
 
         try {
-          const formData = new FormData(contactForm);
+          const formData = new FormData(/** @type {HTMLFormElement} */ (contactForm));
           if (subjectInput) {
             formData.set('subject', subjectInput.value.trim());
           }
-          formData.set('access_key', 'd4d219ae-6575-4b32-b4a1-bf14f65fb12c');
+          formData.set('access_key', CONFIG.WEB3FORMS_KEY);
 
           const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
@@ -1662,6 +1679,11 @@
     toast.className = 'pwa-update-toast';
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', 'polite');
+    if (typeof toast.showPopover === 'function') {
+      try {
+        toast.setAttribute('popover', 'manual');
+      } catch (_) {}
+    }
 
     toast.innerHTML = `
       <div class="pwa-update-content">
@@ -1674,6 +1696,13 @@
     `;
 
     document.body.appendChild(toast);
+    if (typeof toast.showPopover === 'function') {
+      try {
+        toast.showPopover();
+      } catch (_) {
+        toast.removeAttribute('popover');
+      }
+    }
 
     const btn = toast.querySelector('#btnPwaUpdate');
     if (btn) {

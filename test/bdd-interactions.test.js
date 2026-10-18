@@ -1855,6 +1855,147 @@ console.log('\n📦 Scenario 37: Auditoria de Resiliência de Cache PWA e Ciclo 
 
     assert.ok(!pt.includes(' & ') && !en.includes(' & '), 'Traduções PWA livres de "&"');
   });
+
+  // ─────────────────────────────────────────────────────────────
+  // SCENARIO 38: PADRÕES RFC, VIEW TRANSITIONS, POPOVER API E PRIORIZAÇÃO HTTP (RFC 8878, RFC 9218, RFC 2119)
+  // ─────────────────────────────────────────────────────────────
+  console.log('\n📦 Scenario 38: Padrões RFC, View Transitions, Popover API e Priorização HTTP (RFC 8878, RFC 9218, RFC 2119)');
+
+  it('css/base.css deve implementar W3C View Transitions Level 2 com respeito a prefers-reduced-motion', () => {
+    const baseCss = fs.readFileSync(path.join(__dirname, '../css/base.css'), 'utf8');
+    assert.ok(baseCss.includes('@view-transition'), 'base.css contém a regra @view-transition');
+    assert.ok(baseCss.includes('navigation: auto;'), 'base.css ativa navegação automática entre páginas');
+    assert.ok(baseCss.includes('::view-transition-group(*)'), 'base.css suprime transições em prefers-reduced-motion');
+    assert.ok(baseCss.includes('::view-transition-old(*)'), 'base.css suprime view-transition-old em acessibilidade');
+    assert.ok(baseCss.includes('::view-transition-new(*)'), 'base.css suprime view-transition-new em acessibilidade');
+    assert.ok(baseCss.includes('::view-transition-image-pair(*)'), 'base.css suprime view-transition-image-pair em acessibilidade');
+    assert.ok(baseCss.includes('::view-transition-group(root)'), 'base.css suporta supressão de raiz para motores legados');
+  });
+
+  it('server.js deve implementar IETF RFC 9218 com cabeçalho Priority para recursos críticos e negociar RFC 8878 (Zstandard)', () => {
+    const serverJs = fs.readFileSync(path.join(__dirname, '../server.js'), 'utf8');
+    assert.ok(serverJs.includes('Priority'), 'server.js declara suporte a cabeçalho Priority');
+    assert.ok(serverJs.includes("'Priority'] = 'u=0, i'"), 'server.js envia Priority: u=0, i para fontes e CSS');
+    assert.ok(serverJs.includes("ext === '.woff2' || ext === '.css'"), 'Prioridade configurada para woff2 e css');
+    assert.ok(serverJs.includes("acceptEncoding.includes('zstd')"), 'server.js negocia Accept-Encoding: zstd');
+    assert.ok(serverJs.includes("headers['Content-Encoding'] = 'zstd'"), 'server.js envia Content-Encoding: zstd');
+    assert.ok(serverJs.includes("headers['Vary'] = 'Accept-Encoding'"), 'server.js envia Vary: Accept-Encoding');
+    assert.ok(serverJs.includes('module.exports = server'), 'server.js exporta a instância HTTP para testes');
+
+    // Execução funcional de integração via streams em processo filho
+    const { execFileSync } = require('child_process');
+    const verifyScript = `
+      const server = require('./server.js');
+      const { PassThrough } = require('stream');
+      const zlib = require('zlib');
+      const assert = require('assert');
+      const fs = require('fs');
+
+      function test(url, hdrs, method = 'GET') {
+        return new Promise(resolve => {
+          const req = new PassThrough(); req.url = url; req.headers = hdrs; req.method = method;
+          let st = 200, resHdrs = {}; const ch = []; const res = new PassThrough();
+          res.writeHead = (s, h) => { st = s; resHdrs = h; };
+          res.on('data', c => ch.push(c));
+          res.on('finish', () => resolve({ st, resHdrs, body: Buffer.concat(ch) }));
+          server.emit('request', req, res);
+        });
+      }
+
+      (async () => {
+        const [cssRes, woff2Res, htmlRes, upperRes, malformedRes, headRes, notAllowedRes, traversalRes] = await Promise.all([
+          test('/css/base.css', { 'accept-encoding': 'zstd' }),
+          test('/assets/fonts/inter-latin.woff2', { 'accept-encoding': 'zstd' }),
+          test('/index.html', { 'accept-encoding': 'gzip' }),
+          test('/css/base.css', { 'accept-encoding': 'ZSTD' }),
+          test('/%invalid-uri', {}),
+          test('/css/base.css', { 'accept-encoding': 'zstd' }, 'HEAD'),
+          test('/css/base.css', {}, 'PUT'),
+          test('/../pvdukdev-evil', {})
+        ]);
+
+        assert.strictEqual(cssRes.resHdrs['Priority'], 'u=0, i');
+        assert.strictEqual(cssRes.resHdrs['Content-Encoding'], 'zstd');
+        assert.strictEqual(cssRes.resHdrs['Vary'], 'Accept-Encoding');
+        const decomp = zlib.zstdDecompressSync(cssRes.body).toString('utf8');
+        const orig = fs.readFileSync('./css/base.css', 'utf8');
+        assert.strictEqual(decomp, orig);
+
+        assert.strictEqual(woff2Res.resHdrs['Priority'], 'u=0, i');
+        assert.strictEqual(woff2Res.resHdrs['Content-Encoding'], undefined);
+
+        assert.strictEqual(htmlRes.resHdrs['Vary'], 'Accept-Encoding');
+        assert.strictEqual(htmlRes.resHdrs['Content-Encoding'], undefined);
+
+        assert.strictEqual(upperRes.resHdrs['Content-Encoding'], 'zstd', 'Accept-Encoding é case-insensitive per RFC 9110');
+        assert.strictEqual(malformedRes.st, 400, 'URI malformada tratada com status 400');
+
+        assert.strictEqual(headRes.st, 200, 'HEAD request retorna status 200');
+        assert.strictEqual(headRes.body.length, 0, 'HEAD request per RFC 9110 MUST NOT retornar body');
+        assert.strictEqual(headRes.resHdrs['Priority'], 'u=0, i');
+        assert.strictEqual(headRes.resHdrs['Content-Encoding'], 'zstd');
+
+        assert.strictEqual(notAllowedRes.st, 405, 'Método PUT tratado com 405 Method Not Allowed');
+        assert.strictEqual(notAllowedRes.resHdrs['Allow'], 'GET, HEAD', 'Header Allow retornado per RFC 9110');
+
+        assert.strictEqual(traversalRes.st, 403, 'Traversal com prefixo compartilhado bloqueado com 403 Forbidden');
+
+        process.stdout.write('SERVER_DEEP_VERIFICATION_PASS');
+      })();
+    `;
+
+    const out = execFileSync('node', ['-e', verifyScript], {
+      cwd: path.join(__dirname, '..'),
+      encoding: 'utf8'
+    });
+    assert.strictEqual(out.trim(), 'SERVER_DEEP_VERIFICATION_PASS', 'Integração de streaming, Priority e zstd aprovada');
+  });
+
+  it('build.js deve incorporar compressão Zstandard (IETF RFC 8878) na emissão de métricas', () => {
+    const buildJs = fs.readFileSync(path.join(__dirname, '../build.js'), 'utf8');
+    assert.ok(buildJs.includes('zlib.zstdCompressSync'), 'build.js utiliza zlib.zstdCompressSync nativo');
+    assert.ok(buildJs.includes('totalZstdBefore'), 'build.js calcula total de bytes antes de zstd');
+    assert.ok(buildJs.includes('totalZstdAfter'), 'build.js calcula total de bytes após zstd');
+    assert.ok(buildJs.includes('Zstd (RFC 8878)'), 'build.js reporta métrica oficial da RFC 8878');
+  });
+
+  it('css/components.css e js/app.js devem suportar a WHATWG Popover API para o Toast PWA com fallback defensivo', () => {
+    const componentsCss = fs.readFileSync(path.join(__dirname, '../css/components.css'), 'utf8');
+    const appJs = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+    const swJs = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+    assert.ok(componentsCss.includes('.pwa-update-toast[popover]'), 'components.css estiliza o atributo [popover]');
+    assert.ok(componentsCss.includes('.pwa-update-toast[popover]:popover-open'), 'components.css estiliza :popover-open na Top Layer');
+    assert.ok(componentsCss.includes('.pwa-update-toast::backdrop'), 'components.css define backdrop transparente para popover na Top Layer');
+    assert.ok(componentsCss.includes('position-anchor') && componentsCss.includes('anchor-name'), 'components.css prepara estilos para CSS Anchor Positioning');
+    assert.ok(componentsCss.includes('position-try-options: flip-block;'), 'components.css suporta sintaxe legada Chromium position-try-options');
+    assert.ok(componentsCss.includes('position-try-fallbacks: flip-block;'), 'components.css suporta sintaxe padrão W3C position-try-fallbacks');
+    assert.ok(appJs.includes("toast.setAttribute('popover', 'manual')"), 'app.js configura popover manual');
+    assert.ok(appJs.includes('toast.showPopover()'), 'app.js invoca showPopover() quando suportado');
+    assert.ok(appJs.includes("toast.removeAttribute('popover')"), 'app.js remove atributo popover se showPopover falhar para fallback CSS');
+    assert.ok(swJs.includes('./assets/tetoJusto-icon.png'), 'sw.js precacheia tetoJusto-icon.png para paridade total de projetos');
+  });
+
+  it('roadmap-requisitos.html deve incorporar a taxonomia normativa oficial da IETF RFC 2119 com paridade i18n', () => {
+    const roadmapHtml = fs.readFileSync(path.join(__dirname, '../roadmap-requisitos.html'), 'utf8');
+    const ptJs = fs.readFileSync(path.join(__dirname, '../js/translations/pt.js'), 'utf8');
+    const enJs = fs.readFileSync(path.join(__dirname, '../js/translations/en.js'), 'utf8');
+
+    assert.ok(roadmapHtml.includes('IETF RFC 2119'), 'roadmap-requisitos.html cita formalmente a RFC 2119');
+    assert.ok(roadmapHtml.includes('data-i18n="roadmap.rfc2119_note"'), 'Nota RFC 2119 possui chave i18n para internacionalização');
+    assert.ok(ptJs.includes('roadmap.rfc2119_note'), 'pt.js possui chave de tradução para nota RFC 2119');
+    assert.ok(enJs.includes('roadmap.rfc2119_note'), 'en.js possui chave de tradução para nota RFC 2119');
+    assert.ok(ptJs.includes('assets/icons.svg#icon-clipboard'), 'pt.js usa ícone vetorial SVG em vez de emoji');
+    assert.ok(enJs.includes('assets/icons.svg#icon-clipboard'), 'en.js usa ícone vetorial SVG em vez de emoji');
+    assert.ok(!ptJs.includes('📋') && !enJs.includes('📋'), 'Dicionários de tradução livres de emojis na nota RFC 2119');
+    assert.ok(roadmapHtml.includes('MUST'), 'roadmap-requisitos.html define MUST');
+    assert.ok(roadmapHtml.includes('MUST NOT'), 'roadmap-requisitos.html define MUST NOT');
+    assert.ok(roadmapHtml.includes('SHOULD'), 'roadmap-requisitos.html define SHOULD');
+    assert.ok(roadmapHtml.includes('SHOULD NOT'), 'roadmap-requisitos.html define SHOULD NOT');
+    assert.ok(roadmapHtml.includes('MAY'), 'roadmap-requisitos.html define MAY');
+    assert.ok(!roadmapHtml.includes(' & '), 'roadmap-requisitos.html livre do caractere "&" isolado');
+    assert.ok(!ptJs.includes(' & ') && !enJs.includes(' & '), 'Traduções RFC 2119 livres do caractere "&"');
+  });
 }
 
 console.log('\n═══════════════════════════════════════════════════════════');

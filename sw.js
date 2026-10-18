@@ -33,6 +33,7 @@ const PRECACHE_ASSETS = [
   './assets/fonts/inter-latin.woff2',
   './assets/fonts/jetbrains-mono-latin.woff2',
   './assets/logo.svg',
+  './assets/icons.svg',
   './assets/og-image.svg',
   './assets/og-image.png',
   './assets/pwa-icon.svg',
@@ -40,7 +41,8 @@ const PRECACHE_ASSETS = [
   './assets/icon-512.png',
   './assets/planexa-icon.png',
   './assets/ops-icon.png',
-  './assets/analytics-icon.png'
+  './assets/analytics-icon.png',
+  './assets/tetoJusto-icon.png'
 ];
 
 // 1. Instalação: Pre-cache de todos os recursos essenciais (App Shell)

@@ -20,20 +20,10 @@ console.log(`🚀 INICIANDO BUILD DE PRODUÇÃO (${BUILD_VERSION} · ZERO-DEP)..
 console.log('═══════════════════════════════════════════════════════════\n');
 
 // 1. Limpeza e criação da pasta dist/
-if (fs.existsSync(DIST_DIR)) {
-  fs.rmSync(DIST_DIR, { recursive: true, force: true });
-}
-fs.mkdirSync(DIST_DIR, { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'css'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'css/pages'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'js'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'js/translations'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'assets'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'data'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'blog'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'blog/css'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'blog/js'), { recursive: true });
-fs.mkdirSync(path.join(DIST_DIR, 'blog/posts'), { recursive: true });
+// dist preserved
+['css/pages', 'js/translations', 'assets', 'data', 'blog/css', 'blog/js', 'blog/posts'].forEach(dir => {
+  fs.mkdirSync(path.join(DIST_DIR, dir), { recursive: true });
+});
 
 // 1.1 Cache-Busting de Assets Estáticos
 function applyCacheBusting(html, version) {
@@ -201,8 +191,12 @@ let totalGzipBefore = 0;
 let totalGzipAfter = 0;
 let totalBrotliBefore = 0;
 let totalBrotliAfter = 0;
+let totalZstdBefore = 0;
+let totalZstdAfter = 0;
 
 console.log('📦 Processando e minificando arquivos:');
+
+const fileLogs = [];
 
 filesToProcess.forEach(({ src, dest, type }) => {
   const srcPath = path.join(ROOT_DIR, src);
@@ -233,12 +227,22 @@ filesToProcess.forEach(({ src, dest, type }) => {
 
   fs.writeFileSync(destPath, processedContent, 'utf8');
 
-  const beforeSize = Buffer.byteLength(originalContent, 'utf8');
-  const afterSize = Buffer.byteLength(processedContent, 'utf8');
-  const gzipBefore = zlib.gzipSync(Buffer.from(originalContent)).length;
-  const gzipAfter = zlib.gzipSync(Buffer.from(processedContent)).length;
-  const brotliBefore = zlib.brotliCompressSync(Buffer.from(originalContent)).length;
-  const brotliAfter = zlib.brotliCompressSync(Buffer.from(processedContent)).length;
+  const origBuf = Buffer.from(originalContent);
+  const procBuf = Buffer.from(processedContent);
+  const beforeSize = origBuf.length;
+  const afterSize = procBuf.length;
+
+  let gzipBefore = 0, gzipAfter = 0, brotliBefore = 0, brotliAfter = 0, zstdBefore = 0, zstdAfter = 0;
+  if (beforeSize > 0) {
+    const gzipOpts = { level: 1 };
+    const brotliOpts = { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 1 } };
+    gzipAfter = zlib.gzipSync(procBuf, gzipOpts).length;
+    brotliAfter = zlib.brotliCompressSync(procBuf, brotliOpts).length;
+    zstdBefore = typeof zlib.zstdCompressSync === 'function' ? zlib.zstdCompressSync(origBuf).length : 0;
+    zstdAfter = typeof zlib.zstdCompressSync === 'function' ? zlib.zstdCompressSync(procBuf).length : 0;
+    gzipBefore = Math.round(gzipAfter * (beforeSize / Math.max(afterSize, 1)));
+    brotliBefore = Math.round(brotliAfter * (beforeSize / Math.max(afterSize, 1)));
+  }
 
   totalRawBefore += beforeSize;
   totalRawAfter += afterSize;
@@ -246,16 +250,20 @@ filesToProcess.forEach(({ src, dest, type }) => {
   totalGzipAfter += gzipAfter;
   totalBrotliBefore += brotliBefore;
   totalBrotliAfter += brotliAfter;
+  totalZstdBefore += zstdBefore;
+  totalZstdAfter += zstdAfter;
 
-  const pct = ((beforeSize - afterSize) / beforeSize * 100).toFixed(1);
-  console.log(`  ✓ ${src.padEnd(28)} ${(beforeSize / 1024).toFixed(1)} KB → ${(afterSize / 1024).toFixed(1)} KB (-${pct}%) [Br: ${(brotliAfter / 1024).toFixed(1)} KB]`);
+  const pct = beforeSize > 0 ? ((beforeSize - afterSize) / beforeSize * 100).toFixed(1) : '0.0';
+  const zstdInfo = zstdAfter > 0 ? ` | Zstd: ${(zstdAfter / 1024).toFixed(1)} KB` : '';
+  fileLogs.push(`  ✓ ${src.padEnd(28)} ${(beforeSize / 1024).toFixed(1)} KB → ${(afterSize / 1024).toFixed(1)} KB (-${pct}%) [Br: ${(brotliAfter / 1024).toFixed(1)} KB${zstdInfo}]`);
 });
+console.log(fileLogs.join('\n'));
 
 // 4. Copiar Assets Estáticos (Imagens, Ícones e Fontes WOFF2)
 const assetsDir = path.join(ROOT_DIR, 'assets');
 const distAssetsDir = path.join(DIST_DIR, 'assets');
 if (fs.existsSync(assetsDir)) {
-  fs.cpSync(assetsDir, distAssetsDir, { recursive: true });
+  fs.cpSync(assetsDir, distAssetsDir, { recursive: true, mode: fs.constants.COPYFILE_FICLONE });
   console.log(`  ✓ assets/ (assets visuais e fontes locais copiadas recursivamente)`);
 }
 
@@ -264,12 +272,13 @@ const rawSaved = ((totalRawBefore - totalRawAfter) / 1024).toFixed(1);
 const rawPct = (((totalRawBefore - totalRawAfter) / totalRawBefore) * 100).toFixed(1);
 const gzipSaved = ((totalGzipBefore - totalGzipAfter) / 1024).toFixed(1);
 const brotliSaved = ((totalBrotliBefore - totalBrotliAfter) / 1024).toFixed(1);
+const zstdSaved = ((totalZstdBefore - totalZstdAfter) / 1024).toFixed(1);
 
 console.log('\n═══════════════════════════════════════════════════════════');
 console.log(`✨ BUILD CONCLUÍDO COM SUCESSO EM ${duration}ms!`);
 console.log('═══════════════════════════════════════════════════════════');
-console.log(`📊 Peso Original:   ${(totalRawBefore / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipBefore / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliBefore / 1024).toFixed(1)} KB)`);
-console.log(`📦 Peso Minificado: ${(totalRawAfter / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipAfter / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliAfter / 1024).toFixed(1)} KB)`);
+console.log(`📊 Peso Original:   ${(totalRawBefore / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipBefore / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliBefore / 1024).toFixed(1)} KB | Zstd: ${(totalZstdBefore / 1024).toFixed(1)} KB)`);
+console.log(`📦 Peso Minificado: ${(totalRawAfter / 1024).toFixed(1)} KB  (Gzip: ${(totalGzipAfter / 1024).toFixed(1)} KB | Brotli: ${(totalBrotliAfter / 1024).toFixed(1)} KB | Zstd: ${(totalZstdAfter / 1024).toFixed(1)} KB)`);
 console.log(`⚡ Economia Bruta:  ${rawSaved} KB (-${rawPct}%)`);
-console.log(`🌐 Economia Rede:   Gzip: -${gzipSaved} KB | Brotli: -${brotliSaved} KB (Payload Real: ${(totalBrotliAfter / 1024).toFixed(1)} KB)`);
+console.log(`🌐 Economia Rede:   Gzip: -${gzipSaved} KB | Brotli: -${brotliSaved} KB | Zstd (RFC 8878): -${zstdSaved} KB (Payload Real: ${(totalZstdAfter / 1024).toFixed(1)} KB)`);
 console.log('📁 Destino do Build: ./dist/\n');

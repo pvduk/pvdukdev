@@ -730,6 +730,45 @@
     }
   }
 
+  /* WHATWG Popover API (Navegação Top Layer Nativa sem conflito de z-index) */
+  .pwa-update-toast[popover] {
+    margin: 0;
+    inset: auto auto 24px 50%;
+    transform: translateX(-50%);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+  }
+
+  .pwa-update-toast[popover]:popover-open {
+    display: flex;
+    animation: pwaToastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .pwa-update-toast::backdrop {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pwa-update-toast,
+    .pwa-update-toast[popover]:popover-open {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* CSS Anchor Positioning (W3C Working Draft) · Preparação progressiva sem dependências */
+  @supports (anchor-name: --toast-anchor) {
+    .site-footer {
+      anchor-name: --toast-anchor;
+    }
+
+    .pwa-update-toast[popover] {
+      position-anchor: --toast-anchor;
+      position-try-options: flip-block;
+      position-try-fallbacks: flip-block;
+    }
+  }
+
   .pwa-update-content {
     display: flex;
     align-items: center;
@@ -785,3 +824,42 @@
     }
   }
 }
+
+/* ─── ÍCONES SVG INLINE PADRONIZADOS ─── */
+.inline-svg-icon {
+  display: inline-block;
+  vertical-align: -0.18em;
+  margin: 0 0.15em;
+  stroke: currentColor;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.inline-svg-icon--stroke {
+  fill: none;
+}
+
+.inline-svg-icon--shield {
+  color: #3b82f6;
+}
+
+.inline-svg-icon--pill {
+  color: #10b981;
+}
+
+.inline-svg-icon--bolt {
+  color: #f59e0b;
+}
+
+.inline-svg-icon--gem {
+  color: #a855f7;
+}
+
+.inline-svg-icon--check {
+  color: #10b981;
+}
+
+.inline-svg-icon--cross {
+  color: #ef4444;
+}
+
