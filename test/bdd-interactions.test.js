@@ -1915,11 +1915,23 @@ console.log('\n📦 Scenario 37: Auditoria de Resiliência de Cache PWA e Ciclo 
         ]);
 
         assert.strictEqual(cssRes.resHdrs['Priority'], 'u=0, i');
-        assert.strictEqual(cssRes.resHdrs['Content-Encoding'], 'zstd');
         assert.strictEqual(cssRes.resHdrs['Vary'], 'Accept-Encoding');
-        const decomp = zlib.zstdDecompressSync(cssRes.body).toString('utf8');
         const orig = fs.readFileSync('./css/base.css', 'utf8');
-        assert.strictEqual(decomp, orig);
+
+        const hasZstd = typeof zlib.createZstdCompress === 'function';
+        if (hasZstd) {
+          assert.strictEqual(cssRes.resHdrs['Content-Encoding'], 'zstd');
+          const decomp = zlib.zstdDecompressSync(cssRes.body).toString('utf8');
+          assert.strictEqual(decomp, orig);
+          assert.strictEqual(upperRes.resHdrs['Content-Encoding'], 'zstd', 'Accept-Encoding é case-insensitive per RFC 9110');
+          assert.strictEqual(headRes.resHdrs['Content-Encoding'], 'zstd');
+        } else {
+          // Em ambientes Node.js < v22.14 (ex: Node v20 em deploy), server.js faz fallback transparente
+          assert.strictEqual(cssRes.resHdrs['Content-Encoding'], undefined);
+          assert.strictEqual(cssRes.body.toString('utf8'), orig);
+          assert.strictEqual(upperRes.resHdrs['Content-Encoding'], undefined);
+          assert.strictEqual(headRes.resHdrs['Content-Encoding'], undefined);
+        }
 
         assert.strictEqual(woff2Res.resHdrs['Priority'], 'u=0, i');
         assert.strictEqual(woff2Res.resHdrs['Content-Encoding'], undefined);
@@ -1927,18 +1939,31 @@ console.log('\n📦 Scenario 37: Auditoria de Resiliência de Cache PWA e Ciclo 
         assert.strictEqual(htmlRes.resHdrs['Vary'], 'Accept-Encoding');
         assert.strictEqual(htmlRes.resHdrs['Content-Encoding'], undefined);
 
-        assert.strictEqual(upperRes.resHdrs['Content-Encoding'], 'zstd', 'Accept-Encoding é case-insensitive per RFC 9110');
         assert.strictEqual(malformedRes.st, 400, 'URI malformada tratada com status 400');
 
         assert.strictEqual(headRes.st, 200, 'HEAD request retorna status 200');
         assert.strictEqual(headRes.body.length, 0, 'HEAD request per RFC 9110 MUST NOT retornar body');
         assert.strictEqual(headRes.resHdrs['Priority'], 'u=0, i');
-        assert.strictEqual(headRes.resHdrs['Content-Encoding'], 'zstd');
 
         assert.strictEqual(notAllowedRes.st, 405, 'Método PUT tratado com 405 Method Not Allowed');
         assert.strictEqual(notAllowedRes.resHdrs['Allow'], 'GET, HEAD', 'Header Allow retornado per RFC 9110');
 
         assert.strictEqual(traversalRes.st, 403, 'Traversal com prefixo compartilhado bloqueado com 403 Forbidden');
+
+        // Teste de fallback defensivo em qualquer ambiente Node.js:
+        if (hasZstd) {
+          const originalCompress = zlib.createZstdCompress;
+          delete zlib.createZstdCompress;
+          try {
+            const fallbackRes = await test('/css/base.css', { 'accept-encoding': 'zstd' });
+            assert.strictEqual(fallbackRes.resHdrs['Priority'], 'u=0, i');
+            assert.strictEqual(fallbackRes.resHdrs['Content-Encoding'], undefined);
+            assert.strictEqual(fallbackRes.resHdrs['Vary'], 'Accept-Encoding');
+            assert.strictEqual(fallbackRes.body.toString('utf8'), orig);
+          } finally {
+            zlib.createZstdCompress = originalCompress;
+          }
+        }
 
         process.stdout.write('SERVER_DEEP_VERIFICATION_PASS');
       })();
